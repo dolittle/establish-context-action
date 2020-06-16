@@ -42,6 +42,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      */
     async establish(context: Context): Promise<BuildContext> {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish merged pull request context');
+        this._logger.debug('Establishing context for merged pull build');
         const {owner, repo} = context.repo;
         const mergedPr = await this._getMergedPr(owner, repo, context.sha);
         if (!mergedPr) {

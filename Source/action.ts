@@ -46,9 +46,12 @@ export async function run() {
             new MergedPullRequestContextEstablisher(releaseTypeExtractor, currentVersionFinder, octokit, logger),
             new PullRequestContextEstablisher(releaseTypeExtractor, currentVersionFinder, octokit, logger)
         );
-
+        logger.info('Establishing context');
         const buildContext = await contextEstablishers.establishFrom(context);
-        if (buildContext === undefined) outputDefault();
+        if (buildContext === undefined) {
+            logger.debug('No establisher found for context');
+            outputDefault();
+        }
         else outputContext(buildContext);
 
     } catch (error) {
@@ -57,14 +60,13 @@ export async function run() {
 }
 
 function output(shouldPublish: boolean, currentVersion: string | undefined, releaseType: string | undefined) {
+    logger.debug(`Outputting 'shouldPublish': ${shouldPublish} 'currentVersion': ${currentVersion} 'releaseType': ${releaseType}`);
     core.setOutput(outputs.shouldPublish, shouldPublish);
     core.setOutput(outputs.currentVersion, currentVersion);
     core.setOutput(outputs.releaseType, releaseType);
 }
 function outputContext(context: BuildContext) {
-    core.setOutput(outputs.shouldPublish, context.shouldPublish);
-    core.setOutput(outputs.currentVersion, context.currentVersion);
-    core.setOutput(outputs.releaseType, context.releaseType);
+    output(context.shouldPublish, context.currentVersion, context.releaseType);
 }
 
 function outputDefault() {

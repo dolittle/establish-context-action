@@ -42,6 +42,7 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
      */
     async establish(context: Context): Promise<BuildContext> {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish cascading build context');
+        this._logger.debug('Establishing context for cascading build');
         const releaseType = 'patch';
         const currentVersion = await this._currentVersionFinder.find();
         return { shouldPublish: true, releaseType, currentVersion};

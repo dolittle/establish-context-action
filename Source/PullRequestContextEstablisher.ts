@@ -41,6 +41,7 @@ export class PullRequestContextEstablisher implements ICanEstablishContext {
      */
     async establish(context: Context): Promise<BuildContext> {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish pull request context');
+        this._logger.debug('Establishing context for pull request');
         const pullRequestNumber = context.payload.pull_request?.number;
         if (pullRequestNumber === undefined) {
             this._logger.error('Could not get pull request number');
