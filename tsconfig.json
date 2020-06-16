@@ -3,8 +3,7 @@
     "compilerOptions": {
         "target": "es6",
         "declaration": false,
-        "outDir": "./",
-        "module": "ESNext"
+        "outDir": "./"
     },
     "include": ["**/*.ts"],
     "exclude": ["node_modules"]

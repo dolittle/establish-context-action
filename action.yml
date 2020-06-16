@@ -1,0 +1,18 @@
+name: 'Establish Context'
+description: 'Establishes the context for the pipeline'
+inputs:
+  token:
+    description: Token to use for Github API
+    required: true
+    default: ${{ github.token }}
+  
+outputs:
+  shouldPublish:
+    description: Whether or not the pipeline should publish
+  currentVersion:
+    description: The current version of the repository based on tags or 1.0.0 if there are no version tags
+  releaseType:
+    description: The type of the release (major, minor, patch, preview)
+runs:
+  using: 'node12'
+  main: 'release/index.js'

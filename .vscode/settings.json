@@ -1,3 +1,3 @@
 {
-    "tslint.configFile": "Source/tslint.json"
+    "tslint.configFile": "tslint.json"
 }
