@@ -31,7 +31,8 @@ run();
 export async function run() {
     try {
         const context = github.context;
-        console.log(context);
+        const contextString = JSON.stringify(context, undefined, 2);
+        console.log(contextString);
         const token = core.getInput(inputs.token, { required: true });
         const {owner, repo} = context.repo;
         const octokit = github.getOctokit(token);
