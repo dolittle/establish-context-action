@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { SemVer } from 'semver';
-import { PrereleaseBranchContext } from '../PrereleaseBranchContext';
 
 /**
  * Defines a system that can deduce the current version of a repository.
@@ -17,5 +16,5 @@ export interface IFindCurrentVersion {
      *
      * @returns {Promise<SemVer>}
      */
-    find(prereleaseContext?: PrereleaseBranchContext): Promise<SemVer>
+    find(prereleaseIdentifier?: string): Promise<SemVer>
 }

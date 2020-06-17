@@ -5,10 +5,13 @@ inputs:
     description: Token to use for Github API
     required: true
     default: ${{ github.token }}
-  releaseBranches:
-    description: A comma-separated list of branch names that when pushed a release PR or cascading commit to will trigger a release.
+  mainBranch:
+    description: The main branch which will trigger non-prerelease releases.
     required: true
     default: master
+  prereleaseBranches:
+    description: A comma-separated list of branch names that when pushed a release PR or cascading commit to will trigger a release.
+    required: false
 
   
 outputs:
