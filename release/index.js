@@ -379,7 +379,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = void 0;
 const core = __importStar(__webpack_require__(470));
 const github = __importStar(__webpack_require__(469));
-const github_actions_shared_logging_1 = __webpack_require__(493);
+const github_actions_shared_logging_1 = __webpack_require__(83);
 const CurrentVersionFinder_1 = __webpack_require__(306);
 const ReleaseTypeExtractor_1 = __webpack_require__(624);
 const SemVerVersionSorter_1 = __webpack_require__(981);
@@ -744,6 +744,35 @@ class SemVer {
 }
 
 module.exports = SemVer
+
+
+/***/ }),
+
+/***/ 83:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Dolittle. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(__webpack_require__(641), exports);
+__exportStar(__webpack_require__(138), exports);
+__exportStar(__webpack_require__(810), exports);
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQTs7O2dHQUdnRzs7Ozs7Ozs7Ozs7O0FBRWhHLDRDQUEwQjtBQUMxQiwyQ0FBeUI7QUFDekIsK0NBQTZCIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbiAqICBDb3B5cmlnaHQgKGMpIERvbGl0dGxlLiBBbGwgcmlnaHRzIHJlc2VydmVkLlxuICogIExpY2Vuc2VkIHVuZGVyIHRoZSBNSVQgTGljZW5zZS4gU2VlIExJQ0VOU0UgaW4gdGhlIHByb2plY3Qgcm9vdCBmb3IgbGljZW5zZSBpbmZvcm1hdGlvbi5cbiAqLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qL1xuXG5leHBvcnQgKiBmcm9tICcuL0lMb2dnZXInO1xuZXhwb3J0ICogZnJvbSAnLi9Mb2dnZXInO1xuZXhwb3J0ICogZnJvbSAnLi9OdWxsTG9nZ2VyJztcbiJdfQ==
 
 
 /***/ }),
@@ -1332,6 +1361,73 @@ module.exports = require("child_process");
 
 /***/ }),
 
+/***/ 138:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Logger = void 0;
+const core = __importStar(__webpack_require__(470));
+/**
+ * Represents an implementation of {ILogger} that logs messages to the Azure DevOps pipeline
+ *
+ * @export
+ * @class Logger
+ * @implements {ILogger}
+ */
+class Logger {
+    /**
+     * @inheritdoc
+     */
+    debug(message) {
+        core.debug(message);
+    }
+    /**
+     * @inheritdoc
+     */
+    warning(message) {
+        core.warning(message);
+    }
+    /**
+     * @inheritdoc
+     */
+    error(message) {
+        core.error(message);
+    }
+    /**
+     * @inheritdoc
+     */
+    info(message) {
+        core.info(message);
+    }
+}
+exports.Logger = Logger;
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkxvZ2dlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBS0Esb0RBQXNDO0FBRXRDOzs7Ozs7R0FNRztBQUNILE1BQWEsTUFBTTtJQUVmOztPQUVHO0lBQ0gsS0FBSyxDQUFDLE9BQWU7UUFDakIsSUFBSSxDQUFDLEtBQUssQ0FBQyxPQUFPLENBQUMsQ0FBQztJQUN4QixDQUFDO0lBRUQ7O09BRUc7SUFDSCxPQUFPLENBQUMsT0FBZTtRQUNuQixJQUFJLENBQUMsT0FBTyxDQUFDLE9BQU8sQ0FBQyxDQUFDO0lBQzFCLENBQUM7SUFFRDs7T0FFRztJQUNILEtBQUssQ0FBQyxPQUFlO1FBQ2pCLElBQUksQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLENBQUM7SUFDeEIsQ0FBQztJQUVEOztPQUVHO0lBQ0gsSUFBSSxDQUFDLE9BQWU7UUFDaEIsSUFBSSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQztJQUN2QixDQUFDO0NBQ0o7QUE3QkQsd0JBNkJDIiwiZmlsZSI6IkxvZ2dlci5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4gKiAgQ29weXJpZ2h0IChjKSBEb2xpdHRsZS4gQWxsIHJpZ2h0cyByZXNlcnZlZC5cbiAqICBMaWNlbnNlZCB1bmRlciB0aGUgTUlUIExpY2Vuc2UuIFNlZSBMSUNFTlNFIGluIHRoZSBwcm9qZWN0IHJvb3QgZm9yIGxpY2Vuc2UgaW5mb3JtYXRpb24uXG4gKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKi9cbmltcG9ydCB7IElMb2dnZXIgfSBmcm9tICcuL0lMb2dnZXInO1xuaW1wb3J0ICogYXMgY29yZSBmcm9tICdAYWN0aW9ucy9jb3JlJztcblxuLyoqXG4gKiBSZXByZXNlbnRzIGFuIGltcGxlbWVudGF0aW9uIG9mIHtJTG9nZ2VyfSB0aGF0IGxvZ3MgbWVzc2FnZXMgdG8gdGhlIEF6dXJlIERldk9wcyBwaXBlbGluZVxuICpcbiAqIEBleHBvcnRcbiAqIEBjbGFzcyBMb2dnZXJcbiAqIEBpbXBsZW1lbnRzIHtJTG9nZ2VyfVxuICovXG5leHBvcnQgY2xhc3MgTG9nZ2VyIGltcGxlbWVudHMgSUxvZ2dlciB7XG5cbiAgICAvKipcbiAgICAgKiBAaW5oZXJpdGRvY1xuICAgICAqL1xuICAgIGRlYnVnKG1lc3NhZ2U6IHN0cmluZykge1xuICAgICAgICBjb3JlLmRlYnVnKG1lc3NhZ2UpO1xuICAgIH1cblxuICAgIC8qKlxuICAgICAqIEBpbmhlcml0ZG9jXG4gICAgICovXG4gICAgd2FybmluZyhtZXNzYWdlOiBzdHJpbmcpIHtcbiAgICAgICAgY29yZS53YXJuaW5nKG1lc3NhZ2UpO1xuICAgIH1cblxuICAgIC8qKlxuICAgICAqIEBpbmhlcml0ZG9jXG4gICAgICovXG4gICAgZXJyb3IobWVzc2FnZTogc3RyaW5nKSB7XG4gICAgICAgIGNvcmUuZXJyb3IobWVzc2FnZSk7XG4gICAgfVxuXG4gICAgLyoqXG4gICAgICogQGluaGVyaXRkb2NcbiAgICAgKi9cbiAgICBpbmZvKG1lc3NhZ2U6IHN0cmluZykge1xuICAgICAgICBjb3JlLmluZm8obWVzc2FnZSk7XG4gICAgfVxufVxuIl19
+
+
+/***/ }),
+
 /***/ 141:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -1658,7 +1754,7 @@ module.exports = opts => {
 
 const SemVer = __webpack_require__(65)
 const Range = __webpack_require__(124)
-const gt = __webpack_require__(291)
+const gt = __webpack_require__(486)
 
 const minVersion = (range, loose) => {
   range = new Range(range, loose)
@@ -2313,58 +2409,7 @@ module.exports = compareLoose
 
 /***/ }),
 
-/***/ 291:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const compare = __webpack_require__(874)
-const gt = (a, b, loose) => compare(a, b, loose) > 0
-module.exports = gt
-
-
-/***/ }),
-
-/***/ 293:
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NullLogger = void 0;
-/**
- * Represents a null-implementation of {ILogger}
- *
- * @export
- * @class NullLogger
- * @implements {ILogger}
- */
-class NullLogger {
-    // tslint:disable-next-line: no-empty
-    /**
-     * @inheritdoc
-     */
-    debug(message) { }
-    // tslint:disable-next-line: no-empty
-    /**
-     * @inheritdoc
-     */
-    warning(message) { }
-    // tslint:disable-next-line: no-empty
-    /**
-     * @inheritdoc
-     */
-    error(message) { }
-    // tslint:disable-next-line: no-empty
-    /**
-     * @inheritdoc
-     */
-    info(message) { }
-}
-exports.NullLogger = NullLogger;
-
-
-/***/ }),
-
-/***/ 296:
+/***/ 286:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
@@ -2382,7 +2427,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(__webpack_require__(526), exports);
+__exportStar(__webpack_require__(542), exports);
 
 //# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSwrQ0FBK0M7QUFDL0MscUdBQXFHOzs7Ozs7Ozs7Ozs7QUFFckcsbURBQWlDIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQ29weXJpZ2h0IChjKSBEb2xpdHRsZS4gQWxsIHJpZ2h0cyByZXNlcnZlZC5cbi8vIExpY2Vuc2VkIHVuZGVyIHRoZSBNSVQgbGljZW5zZS4gU2VlIExJQ0VOU0UgZmlsZSBpbiB0aGUgcHJvamVjdCByb290IGZvciBmdWxsIGxpY2Vuc2UgaW5mb3JtYXRpb24uXG5cbmV4cG9ydCAqIGZyb20gJy4vQ2FzY2FkaW5nQnVpbGQnO1xuIl19
 
@@ -2407,7 +2452,7 @@ module.exports = eq
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const VERSION = "2.2.2";
+const VERSION = "2.2.3";
 
 /**
  * Some “list” response that can be paginated have a different response structure
@@ -2658,10 +2703,13 @@ class CurrentVersionFinder {
                     return defaultVersion;
                 }
             }
+            this._logger.debug(`Version tags: [
+${versions.join(',\n')}
+]`);
             const currentVersion = this._versionSorter.sort(versions, true)[0];
             if (!semver_1.default.valid(currentVersion))
                 throw new Error(`${currentVersion} is not a valid SemVer version`);
-            this._logger.info(`Found current version '${currentVersion}'`);
+            this._logger.info(`Current version '${currentVersion}'`);
             return currentVersion;
         });
     }
@@ -2670,9 +2718,6 @@ class CurrentVersionFinder {
             const versions = yield this._github.paginate(this._github.repos.listTags, { owner, repo }, response => response.data
                 .filter(tag => semver_1.default.valid(tag.name))
                 .map(_ => _.name));
-            this._logger.debug(`Got version tags: [
-${versions.join(',\n')}
-]`);
             return versions.map(_ => semver_1.default.parse(_));
         });
     }
@@ -2684,7 +2729,7 @@ ${versions.join(',\n')}
 }
 exports.CurrentVersionFinder = CurrentVersionFinder;
 
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIlNvdXJjZS9WZXJzaW9uL0N1cnJlbnRWZXJzaW9uRmluZGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSwrQ0FBK0M7QUFDL0MscUdBQXFHOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBRXJHLGlEQUF3QztBQU94Qzs7Ozs7O0dBTUc7QUFDSCxNQUFhLG9CQUFvQjtJQUU3Qjs7T0FFRztJQUNILFlBQTZCLGNBQThCLEVBQW1CLFFBQWlCLEVBQW1CLE9BQW9DLEVBQW9CLE9BQWdCO1FBQTdKLG1CQUFjLEdBQWQsY0FBYyxDQUFnQjtRQUFtQixhQUFRLEdBQVIsUUFBUSxDQUFTO1FBQW1CLFlBQU8sR0FBUCxPQUFPLENBQTZCO1FBQW9CLFlBQU8sR0FBUCxPQUFPLENBQVM7SUFBRyxDQUFDO0lBRTlMOztPQUVHO0lBQ0csSUFBSSxDQUFDLG9CQUE2Qjs7WUFDcEMsTUFBTSxFQUFDLEtBQUssRUFBRSxJQUFJLEVBQUMsR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQztZQUN6QyxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUssQ0FBQyx3Q0FBd0MsS0FBSyxJQUFJLElBQUksR0FBRyxvQkFBb0IsS0FBSyxTQUFTLENBQUMsQ0FBQyxDQUFDLGdDQUFnQyxvQkFBb0IsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO1lBQ2hMLElBQUksUUFBUSxHQUFHLE1BQU0sSUFBSSxDQUFDLHdCQUF3QixDQUFDLEtBQUssRUFBRSxJQUFJLENBQUMsQ0FBQztZQUNoRSxJQUFJLENBQUMsUUFBUSxJQUFJLFFBQVEsQ0FBQyxNQUFNLEtBQUssQ0FBQyxFQUFFO2dCQUNwQyxNQUFNLGNBQWMsR0FBRyxJQUFJLENBQUMsa0JBQWtCLENBQUMsb0JBQW9CLENBQUMsQ0FBQztnQkFDckUsSUFBSSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsMENBQTBDLGNBQWMsRUFBRSxDQUFDLENBQUM7Z0JBQzlFLE9BQU8sY0FBYyxDQUFDO2FBQ3pCO1lBRUQsSUFBSSxvQkFBb0IsS0FBSyxTQUFTLEVBQUU7Z0JBQ3BDLFFBQVEsR0FBRyxRQUFRLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLFVBQVUsQ0FBQyxNQUFNLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFDLEtBQUssb0JBQW9CLENBQUMsQ0FBQztnQkFDckcsSUFBSSxRQUFRLENBQUMsTUFBTSxLQUFLLENBQUMsRUFBRTtvQkFDdkIsTUFBTSxjQUFjLEdBQUcsSUFBSSxDQUFDLGtCQUFrQixDQUFDLG9CQUFvQixDQUFDLENBQUM7b0JBQ3JFLElBQUksQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLDhDQUE4QyxvQkFBb0Isc0NBQXNDLGNBQWMsRUFBRSxDQUFDLENBQUM7b0JBQzVJLE9BQU8sY0FBYyxDQUFDO2lCQUN6QjthQUNKO1lBRUQsTUFBTSxjQUFjLEdBQUcsSUFBSSxDQUFDLGNBQWMsQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO1lBQ25FLElBQUksQ0FBQyxnQkFBTSxDQUFDLEtBQUssQ0FBQyxjQUFjLENBQUM7Z0JBQUUsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFHLGNBQWMsZ0NBQWdDLENBQUMsQ0FBQztZQUN0RyxJQUFJLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQywwQkFBMEIsY0FBYyxHQUFHLENBQUMsQ0FBQztZQUMvRCxPQUFPLGNBQWMsQ0FBQztRQUMxQixDQUFDO0tBQUE7SUFFYSx3QkFBd0IsQ0FBQyxLQUFhLEVBQUUsSUFBWTs7WUFDOUQsTUFBTSxRQUFRLEdBQUcsTUFBTSxJQUFJLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FDeEMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUMsUUFBUSxFQUMzQixFQUFDLEtBQUssRUFBRSxJQUFJLEVBQUMsRUFDYixRQUFRLENBQUMsRUFBRSxDQUFDLFFBQVEsQ0FBQyxJQUFJO2lCQUNBLE1BQU0sQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLGdCQUFNLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQztpQkFDckMsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLElBQUssQ0FBQyxDQUFDLENBQUM7WUFDaEQsSUFBSSxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUM7RUFDekIsUUFBUSxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUM7RUFDcEIsQ0FBQyxDQUFDO1lBQ0ksT0FBTyxRQUFRLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsZ0JBQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFFLENBQUMsQ0FBQztRQUMvQyxDQUFDO0tBQUE7SUFFTyxrQkFBa0IsQ0FBQyxvQkFBNkI7UUFDcEQsSUFBSSxvQkFBb0IsS0FBSyxTQUFTO1lBQUUsT0FBTyxJQUFJLGVBQU0sQ0FBQyxPQUFPLENBQUMsQ0FBQztRQUNuRSxPQUFPLElBQUksZUFBTSxDQUFDLFNBQVMsb0JBQW9CLElBQUksQ0FBQyxDQUFDO0lBQ3pELENBQUM7Q0FDSjtBQXBERCxvREFvREMiLCJmaWxlIjoiVmVyc2lvbi9DdXJyZW50VmVyc2lvbkZpbmRlci5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIENvcHlyaWdodCAoYykgRG9saXR0bGUuIEFsbCByaWdodHMgcmVzZXJ2ZWQuXG4vLyBMaWNlbnNlZCB1bmRlciB0aGUgTUlUIGxpY2Vuc2UuIFNlZSBMSUNFTlNFIGZpbGUgaW4gdGhlIHByb2plY3Qgcm9vdCBmb3IgZnVsbCBsaWNlbnNlIGluZm9ybWF0aW9uLlxuXG5pbXBvcnQgc2VtdmVyLCB7IFNlbVZlciB9IGZyb20gJ3NlbXZlcic7XG5pbXBvcnQgeyBJTG9nZ2VyIH0gZnJvbSAnQGRvbGl0dGxlL2dpdGh1Yi1hY3Rpb25zLnNoYXJlZC5sb2dnaW5nJztcbmltcG9ydCB7IENvbnRleHQgfSBmcm9tICdAYWN0aW9ucy9naXRodWIvbGliL2NvbnRleHQnO1xuaW1wb3J0IHsgR2l0SHViIH0gZnJvbSAnQGFjdGlvbnMvZ2l0aHViL2xpYi91dGlscyc7XG5pbXBvcnQgeyBJRmluZEN1cnJlbnRWZXJzaW9uIH0gZnJvbSAnLi9JRmluZEN1cnJlbnRWZXJzaW9uJztcbmltcG9ydCB7IElWZXJzaW9uU29ydGVyIH0gZnJvbSAnLi9JVmVyc2lvblNvcnRlcic7XG5cbi8qKlxuICogUmVwcmVzZW50cyBhbiBpbXBsZW1lbnRhdGlvbiBvZiB7SUNhbkdldExhdGVzdFZlcnNpb259IHRoYXQgY2FuIGdldCB0aGUgbGF0ZXN0IHZlcnNpb24gZnJvbSBHaXRodWJcbiAqXG4gKiBAZXhwb3J0XG4gKiBAY2xhc3MgR2l0aHViTGF0ZXN0VmVyc2lvbkZpbmRlclxuICogQGltcGxlbWVudHMge0lDYW5HZXRMYXRlc3RWZXJzaW9ufVxuICovXG5leHBvcnQgY2xhc3MgQ3VycmVudFZlcnNpb25GaW5kZXIgaW1wbGVtZW50cyBJRmluZEN1cnJlbnRWZXJzaW9uIHtcblxuICAgIC8qKlxuICAgICAqIEluc3RhbnRpYXRlcyBhbiBpbnN0YW5jZSBvZiB7R2l0aHViVmVyc2lvblRhZ3N9LlxuICAgICAqL1xuICAgIGNvbnN0cnVjdG9yKHByaXZhdGUgcmVhZG9ubHkgX3ZlcnNpb25Tb3J0ZXI6IElWZXJzaW9uU29ydGVyLCBwcml2YXRlIHJlYWRvbmx5IF9jb250ZXh0OiBDb250ZXh0LCBwcml2YXRlIHJlYWRvbmx5IF9naXRodWI6IEluc3RhbmNlVHlwZTx0eXBlb2YgR2l0SHViPiAsIHByaXZhdGUgcmVhZG9ubHkgX2xvZ2dlcjogSUxvZ2dlcikge31cblxuICAgIC8qKlxuICAgICAqIEBpbmhlcml0ZG9jXG4gICAgICovXG4gICAgYXN5bmMgZmluZChwcmVyZWxlYXNlSWRlbnRpZmllcj86IHN0cmluZyk6IFByb21pc2U8U2VtVmVyPiB7XG4gICAgICAgIGNvbnN0IHtvd25lciwgcmVwb30gPSB0aGlzLl9jb250ZXh0LnJlcG87XG4gICAgICAgIHRoaXMuX2xvZ2dlci5kZWJ1ZyhgR2V0dGluZyB2ZXJzaW9uIHRhZ3MgZnJvbSBnaXRodWIuY29tLyR7b3duZXJ9LyR7cmVwb30ke3ByZXJlbGVhc2VJZGVudGlmaWVyICE9PSB1bmRlZmluZWQgPyBgIHdpdGggcHJlcmVsZWFzZSBpZGVudGlmaWVyICcke3ByZXJlbGVhc2VJZGVudGlmaWVyfSdgIDogJyd9YCk7XG4gICAgICAgIGxldCB2ZXJzaW9ucyA9IGF3YWl0IHRoaXMuX2dldFZlcnNpb25zRnJvbVJlcG9UYWdzKG93bmVyLCByZXBvKTtcbiAgICAgICAgaWYgKCF2ZXJzaW9ucyB8fCB2ZXJzaW9ucy5sZW5ndGggPT09IDApIHtcbiAgICAgICAgICAgIGNvbnN0IGRlZmF1bHRWZXJzaW9uID0gdGhpcy5fZ2V0RGVmYXVsdFZlcnNpb24ocHJlcmVsZWFzZUlkZW50aWZpZXIpO1xuICAgICAgICAgICAgdGhpcy5fbG9nZ2VyLmluZm8oYE5vIHZlcnNpb24gdGFncy4gRGVmYXVsdGluZyB0byB2ZXJzaW9uICR7ZGVmYXVsdFZlcnNpb259YCk7XG4gICAgICAgICAgICByZXR1cm4gZGVmYXVsdFZlcnNpb247XG4gICAgICAgIH1cblxuICAgICAgICBpZiAocHJlcmVsZWFzZUlkZW50aWZpZXIgIT09IHVuZGVmaW5lZCkge1xuICAgICAgICAgICAgdmVyc2lvbnMgPSB2ZXJzaW9ucy5maWx0ZXIoXyA9PiBfLnByZXJlbGVhc2UubGVuZ3RoID4gMCAmJiBfLnByZXJlbGVhc2VbMF0gPT09IHByZXJlbGVhc2VJZGVudGlmaWVyKTtcbiAgICAgICAgICAgIGlmICh2ZXJzaW9ucy5sZW5ndGggPT09IDApIHtcbiAgICAgICAgICAgICAgICBjb25zdCBkZWZhdWx0VmVyc2lvbiA9IHRoaXMuX2dldERlZmF1bHRWZXJzaW9uKHByZXJlbGVhc2VJZGVudGlmaWVyKTtcbiAgICAgICAgICAgICAgICB0aGlzLl9sb2dnZXIuaW5mbyhgTm8gdmVyc2lvbiB0YWcgd2l0aCBwcmVyZWxlYXNlIGlkZW50aWZpZXIgJyR7cHJlcmVsZWFzZUlkZW50aWZpZXJ9JyB3YXMgZm91bmQuIERlZmF1bHRpbmcgdG8gdmVyc2lvbiAke2RlZmF1bHRWZXJzaW9ufWApO1xuICAgICAgICAgICAgICAgIHJldHVybiBkZWZhdWx0VmVyc2lvbjtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuXG4gICAgICAgIGNvbnN0IGN1cnJlbnRWZXJzaW9uID0gdGhpcy5fdmVyc2lvblNvcnRlci5zb3J0KHZlcnNpb25zLCB0cnVlKVswXTtcbiAgICAgICAgaWYgKCFzZW12ZXIudmFsaWQoY3VycmVudFZlcnNpb24pKSB0aHJvdyBuZXcgRXJyb3IoYCR7Y3VycmVudFZlcnNpb259IGlzIG5vdCBhIHZhbGlkIFNlbVZlciB2ZXJzaW9uYCk7XG4gICAgICAgIHRoaXMuX2xvZ2dlci5pbmZvKGBGb3VuZCBjdXJyZW50IHZlcnNpb24gJyR7Y3VycmVudFZlcnNpb259J2ApO1xuICAgICAgICByZXR1cm4gY3VycmVudFZlcnNpb247XG4gICAgfVxuXG4gICAgcHJpdmF0ZSBhc3luYyBfZ2V0VmVyc2lvbnNGcm9tUmVwb1RhZ3Mob3duZXI6IHN0cmluZywgcmVwbzogc3RyaW5nKTogUHJvbWlzZTxTZW1WZXJbXT4ge1xuICAgICAgICBjb25zdCB2ZXJzaW9ucyA9IGF3YWl0IHRoaXMuX2dpdGh1Yi5wYWdpbmF0ZShcbiAgICAgICAgICAgIHRoaXMuX2dpdGh1Yi5yZXBvcy5saXN0VGFncyxcbiAgICAgICAgICAgIHtvd25lciwgcmVwb30sXG4gICAgICAgICAgICByZXNwb25zZSA9PiByZXNwb25zZS5kYXRhXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuZmlsdGVyKHRhZyA9PiBzZW12ZXIudmFsaWQodGFnLm5hbWUpKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLm1hcChfID0+IF8ubmFtZSEpKTtcbiAgICAgICAgdGhpcy5fbG9nZ2VyLmRlYnVnKGBHb3QgdmVyc2lvbiB0YWdzOiBbXG4ke3ZlcnNpb25zLmpvaW4oJyxcXG4nKX1cbl1gKTtcbiAgICAgICAgcmV0dXJuIHZlcnNpb25zLm1hcChfID0+IHNlbXZlci5wYXJzZShfKSEpO1xuICAgIH1cblxuICAgIHByaXZhdGUgX2dldERlZmF1bHRWZXJzaW9uKHByZXJlbGVhc2VJZGVudGlmaWVyPzogc3RyaW5nKTogU2VtVmVyIHtcbiAgICAgICAgaWYgKHByZXJlbGVhc2VJZGVudGlmaWVyID09PSB1bmRlZmluZWQpIHJldHVybiBuZXcgU2VtVmVyKCcxLjAuMCcpO1xuICAgICAgICByZXR1cm4gbmV3IFNlbVZlcihgMS4wLjAtJHtwcmVyZWxlYXNlSWRlbnRpZmllcn0uMGApO1xuICAgIH1cbn1cbiJdfQ==
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIlNvdXJjZS9WZXJzaW9uL0N1cnJlbnRWZXJzaW9uRmluZGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSwrQ0FBK0M7QUFDL0MscUdBQXFHOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBRXJHLGlEQUF3QztBQU94Qzs7Ozs7O0dBTUc7QUFDSCxNQUFhLG9CQUFvQjtJQUU3Qjs7T0FFRztJQUNILFlBQTZCLGNBQThCLEVBQW1CLFFBQWlCLEVBQW1CLE9BQW9DLEVBQW9CLE9BQWdCO1FBQTdKLG1CQUFjLEdBQWQsY0FBYyxDQUFnQjtRQUFtQixhQUFRLEdBQVIsUUFBUSxDQUFTO1FBQW1CLFlBQU8sR0FBUCxPQUFPLENBQTZCO1FBQW9CLFlBQU8sR0FBUCxPQUFPLENBQVM7SUFBRyxDQUFDO0lBRTlMOztPQUVHO0lBQ0csSUFBSSxDQUFDLG9CQUE2Qjs7WUFDcEMsTUFBTSxFQUFDLEtBQUssRUFBRSxJQUFJLEVBQUMsR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQztZQUN6QyxJQUFJLENBQUMsT0FBTyxDQUFDLEtBQUssQ0FBQyx3Q0FBd0MsS0FBSyxJQUFJLElBQUksR0FBRyxvQkFBb0IsS0FBSyxTQUFTLENBQUMsQ0FBQyxDQUFDLGdDQUFnQyxvQkFBb0IsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO1lBQ2hMLElBQUksUUFBUSxHQUFHLE1BQU0sSUFBSSxDQUFDLHdCQUF3QixDQUFDLEtBQUssRUFBRSxJQUFJLENBQUMsQ0FBQztZQUNoRSxJQUFJLENBQUMsUUFBUSxJQUFJLFFBQVEsQ0FBQyxNQUFNLEtBQUssQ0FBQyxFQUFFO2dCQUNwQyxNQUFNLGNBQWMsR0FBRyxJQUFJLENBQUMsa0JBQWtCLENBQUMsb0JBQW9CLENBQUMsQ0FBQztnQkFDckUsSUFBSSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsMENBQTBDLGNBQWMsRUFBRSxDQUFDLENBQUM7Z0JBQzlFLE9BQU8sY0FBYyxDQUFDO2FBQ3pCO1lBRUQsSUFBSSxvQkFBb0IsS0FBSyxTQUFTLEVBQUU7Z0JBQ3BDLFFBQVEsR0FBRyxRQUFRLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLFVBQVUsQ0FBQyxNQUFNLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFDLEtBQUssb0JBQW9CLENBQUMsQ0FBQztnQkFDckcsSUFBSSxRQUFRLENBQUMsTUFBTSxLQUFLLENBQUMsRUFBRTtvQkFDdkIsTUFBTSxjQUFjLEdBQUcsSUFBSSxDQUFDLGtCQUFrQixDQUFDLG9CQUFvQixDQUFDLENBQUM7b0JBQ3JFLElBQUksQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLDhDQUE4QyxvQkFBb0Isc0NBQXNDLGNBQWMsRUFBRSxDQUFDLENBQUM7b0JBQzVJLE9BQU8sY0FBYyxDQUFDO2lCQUN6QjthQUNKO1lBRUQsSUFBSSxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUM7RUFDekIsUUFBUSxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUM7RUFDcEIsQ0FBQyxDQUFDO1lBRUksTUFBTSxjQUFjLEdBQUcsSUFBSSxDQUFDLGNBQWMsQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO1lBQ25FLElBQUksQ0FBQyxnQkFBTSxDQUFDLEtBQUssQ0FBQyxjQUFjLENBQUM7Z0JBQUUsTUFBTSxJQUFJLEtBQUssQ0FBQyxHQUFHLGNBQWMsZ0NBQWdDLENBQUMsQ0FBQztZQUN0RyxJQUFJLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxvQkFBb0IsY0FBYyxHQUFHLENBQUMsQ0FBQztZQUN6RCxPQUFPLGNBQWMsQ0FBQztRQUMxQixDQUFDO0tBQUE7SUFFYSx3QkFBd0IsQ0FBQyxLQUFhLEVBQUUsSUFBWTs7WUFDOUQsTUFBTSxRQUFRLEdBQUcsTUFBTSxJQUFJLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FDeEMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUMsUUFBUSxFQUMzQixFQUFDLEtBQUssRUFBRSxJQUFJLEVBQUMsRUFDYixRQUFRLENBQUMsRUFBRSxDQUFDLFFBQVEsQ0FBQyxJQUFJO2lCQUNBLE1BQU0sQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLGdCQUFNLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQztpQkFDckMsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLElBQUssQ0FBQyxDQUFDLENBQUM7WUFFaEQsT0FBTyxRQUFRLENBQUMsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsZ0JBQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFFLENBQUMsQ0FBQztRQUMvQyxDQUFDO0tBQUE7SUFFTyxrQkFBa0IsQ0FBQyxvQkFBNkI7UUFDcEQsSUFBSSxvQkFBb0IsS0FBSyxTQUFTO1lBQUUsT0FBTyxJQUFJLGVBQU0sQ0FBQyxPQUFPLENBQUMsQ0FBQztRQUNuRSxPQUFPLElBQUksZUFBTSxDQUFDLFNBQVMsb0JBQW9CLElBQUksQ0FBQyxDQUFDO0lBQ3pELENBQUM7Q0FDSjtBQXRERCxvREFzREMiLCJmaWxlIjoiVmVyc2lvbi9DdXJyZW50VmVyc2lvbkZpbmRlci5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIENvcHlyaWdodCAoYykgRG9saXR0bGUuIEFsbCByaWdodHMgcmVzZXJ2ZWQuXG4vLyBMaWNlbnNlZCB1bmRlciB0aGUgTUlUIGxpY2Vuc2UuIFNlZSBMSUNFTlNFIGZpbGUgaW4gdGhlIHByb2plY3Qgcm9vdCBmb3IgZnVsbCBsaWNlbnNlIGluZm9ybWF0aW9uLlxuXG5pbXBvcnQgc2VtdmVyLCB7IFNlbVZlciB9IGZyb20gJ3NlbXZlcic7XG5pbXBvcnQgeyBJTG9nZ2VyIH0gZnJvbSAnQGRvbGl0dGxlL2dpdGh1Yi1hY3Rpb25zLnNoYXJlZC5sb2dnaW5nJztcbmltcG9ydCB7IENvbnRleHQgfSBmcm9tICdAYWN0aW9ucy9naXRodWIvbGliL2NvbnRleHQnO1xuaW1wb3J0IHsgR2l0SHViIH0gZnJvbSAnQGFjdGlvbnMvZ2l0aHViL2xpYi91dGlscyc7XG5pbXBvcnQgeyBJRmluZEN1cnJlbnRWZXJzaW9uIH0gZnJvbSAnLi9JRmluZEN1cnJlbnRWZXJzaW9uJztcbmltcG9ydCB7IElWZXJzaW9uU29ydGVyIH0gZnJvbSAnLi9JVmVyc2lvblNvcnRlcic7XG5cbi8qKlxuICogUmVwcmVzZW50cyBhbiBpbXBsZW1lbnRhdGlvbiBvZiB7SUNhbkdldExhdGVzdFZlcnNpb259IHRoYXQgY2FuIGdldCB0aGUgbGF0ZXN0IHZlcnNpb24gZnJvbSBHaXRodWJcbiAqXG4gKiBAZXhwb3J0XG4gKiBAY2xhc3MgR2l0aHViTGF0ZXN0VmVyc2lvbkZpbmRlclxuICogQGltcGxlbWVudHMge0lDYW5HZXRMYXRlc3RWZXJzaW9ufVxuICovXG5leHBvcnQgY2xhc3MgQ3VycmVudFZlcnNpb25GaW5kZXIgaW1wbGVtZW50cyBJRmluZEN1cnJlbnRWZXJzaW9uIHtcblxuICAgIC8qKlxuICAgICAqIEluc3RhbnRpYXRlcyBhbiBpbnN0YW5jZSBvZiB7R2l0aHViVmVyc2lvblRhZ3N9LlxuICAgICAqL1xuICAgIGNvbnN0cnVjdG9yKHByaXZhdGUgcmVhZG9ubHkgX3ZlcnNpb25Tb3J0ZXI6IElWZXJzaW9uU29ydGVyLCBwcml2YXRlIHJlYWRvbmx5IF9jb250ZXh0OiBDb250ZXh0LCBwcml2YXRlIHJlYWRvbmx5IF9naXRodWI6IEluc3RhbmNlVHlwZTx0eXBlb2YgR2l0SHViPiAsIHByaXZhdGUgcmVhZG9ubHkgX2xvZ2dlcjogSUxvZ2dlcikge31cblxuICAgIC8qKlxuICAgICAqIEBpbmhlcml0ZG9jXG4gICAgICovXG4gICAgYXN5bmMgZmluZChwcmVyZWxlYXNlSWRlbnRpZmllcj86IHN0cmluZyk6IFByb21pc2U8U2VtVmVyPiB7XG4gICAgICAgIGNvbnN0IHtvd25lciwgcmVwb30gPSB0aGlzLl9jb250ZXh0LnJlcG87XG4gICAgICAgIHRoaXMuX2xvZ2dlci5kZWJ1ZyhgR2V0dGluZyB2ZXJzaW9uIHRhZ3MgZnJvbSBnaXRodWIuY29tLyR7b3duZXJ9LyR7cmVwb30ke3ByZXJlbGVhc2VJZGVudGlmaWVyICE9PSB1bmRlZmluZWQgPyBgIHdpdGggcHJlcmVsZWFzZSBpZGVudGlmaWVyICcke3ByZXJlbGVhc2VJZGVudGlmaWVyfSdgIDogJyd9YCk7XG4gICAgICAgIGxldCB2ZXJzaW9ucyA9IGF3YWl0IHRoaXMuX2dldFZlcnNpb25zRnJvbVJlcG9UYWdzKG93bmVyLCByZXBvKTtcbiAgICAgICAgaWYgKCF2ZXJzaW9ucyB8fCB2ZXJzaW9ucy5sZW5ndGggPT09IDApIHtcbiAgICAgICAgICAgIGNvbnN0IGRlZmF1bHRWZXJzaW9uID0gdGhpcy5fZ2V0RGVmYXVsdFZlcnNpb24ocHJlcmVsZWFzZUlkZW50aWZpZXIpO1xuICAgICAgICAgICAgdGhpcy5fbG9nZ2VyLmluZm8oYE5vIHZlcnNpb24gdGFncy4gRGVmYXVsdGluZyB0byB2ZXJzaW9uICR7ZGVmYXVsdFZlcnNpb259YCk7XG4gICAgICAgICAgICByZXR1cm4gZGVmYXVsdFZlcnNpb247XG4gICAgICAgIH1cblxuICAgICAgICBpZiAocHJlcmVsZWFzZUlkZW50aWZpZXIgIT09IHVuZGVmaW5lZCkge1xuICAgICAgICAgICAgdmVyc2lvbnMgPSB2ZXJzaW9ucy5maWx0ZXIoXyA9PiBfLnByZXJlbGVhc2UubGVuZ3RoID4gMCAmJiBfLnByZXJlbGVhc2VbMF0gPT09IHByZXJlbGVhc2VJZGVudGlmaWVyKTtcbiAgICAgICAgICAgIGlmICh2ZXJzaW9ucy5sZW5ndGggPT09IDApIHtcbiAgICAgICAgICAgICAgICBjb25zdCBkZWZhdWx0VmVyc2lvbiA9IHRoaXMuX2dldERlZmF1bHRWZXJzaW9uKHByZXJlbGVhc2VJZGVudGlmaWVyKTtcbiAgICAgICAgICAgICAgICB0aGlzLl9sb2dnZXIuaW5mbyhgTm8gdmVyc2lvbiB0YWcgd2l0aCBwcmVyZWxlYXNlIGlkZW50aWZpZXIgJyR7cHJlcmVsZWFzZUlkZW50aWZpZXJ9JyB3YXMgZm91bmQuIERlZmF1bHRpbmcgdG8gdmVyc2lvbiAke2RlZmF1bHRWZXJzaW9ufWApO1xuICAgICAgICAgICAgICAgIHJldHVybiBkZWZhdWx0VmVyc2lvbjtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuXG4gICAgICAgIHRoaXMuX2xvZ2dlci5kZWJ1ZyhgVmVyc2lvbiB0YWdzOiBbXG4ke3ZlcnNpb25zLmpvaW4oJyxcXG4nKX1cbl1gKTtcblxuICAgICAgICBjb25zdCBjdXJyZW50VmVyc2lvbiA9IHRoaXMuX3ZlcnNpb25Tb3J0ZXIuc29ydCh2ZXJzaW9ucywgdHJ1ZSlbMF07XG4gICAgICAgIGlmICghc2VtdmVyLnZhbGlkKGN1cnJlbnRWZXJzaW9uKSkgdGhyb3cgbmV3IEVycm9yKGAke2N1cnJlbnRWZXJzaW9ufSBpcyBub3QgYSB2YWxpZCBTZW1WZXIgdmVyc2lvbmApO1xuICAgICAgICB0aGlzLl9sb2dnZXIuaW5mbyhgQ3VycmVudCB2ZXJzaW9uICcke2N1cnJlbnRWZXJzaW9ufSdgKTtcbiAgICAgICAgcmV0dXJuIGN1cnJlbnRWZXJzaW9uO1xuICAgIH1cblxuICAgIHByaXZhdGUgYXN5bmMgX2dldFZlcnNpb25zRnJvbVJlcG9UYWdzKG93bmVyOiBzdHJpbmcsIHJlcG86IHN0cmluZyk6IFByb21pc2U8U2VtVmVyW10+IHtcbiAgICAgICAgY29uc3QgdmVyc2lvbnMgPSBhd2FpdCB0aGlzLl9naXRodWIucGFnaW5hdGUoXG4gICAgICAgICAgICB0aGlzLl9naXRodWIucmVwb3MubGlzdFRhZ3MsXG4gICAgICAgICAgICB7b3duZXIsIHJlcG99LFxuICAgICAgICAgICAgcmVzcG9uc2UgPT4gcmVzcG9uc2UuZGF0YVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLmZpbHRlcih0YWcgPT4gc2VtdmVyLnZhbGlkKHRhZy5uYW1lKSlcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5tYXAoXyA9PiBfLm5hbWUhKSk7XG5cbiAgICAgICAgcmV0dXJuIHZlcnNpb25zLm1hcChfID0+IHNlbXZlci5wYXJzZShfKSEpO1xuICAgIH1cblxuICAgIHByaXZhdGUgX2dldERlZmF1bHRWZXJzaW9uKHByZXJlbGVhc2VJZGVudGlmaWVyPzogc3RyaW5nKTogU2VtVmVyIHtcbiAgICAgICAgaWYgKHByZXJlbGVhc2VJZGVudGlmaWVyID09PSB1bmRlZmluZWQpIHJldHVybiBuZXcgU2VtVmVyKCcxLjAuMCcpO1xuICAgICAgICByZXR1cm4gbmV3IFNlbVZlcihgMS4wLjAtJHtwcmVyZWxlYXNlSWRlbnRpZmllcn0uMGApO1xuICAgIH1cbn1cbiJdfQ==
 
 
 /***/ }),
@@ -3510,19 +3555,6 @@ function errname(uv, code) {
 	return `Unknown system error ${code}`;
 }
 
-
-
-/***/ }),
-
-/***/ 424:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const parse = __webpack_require__(830)
-const clean = (version, options) => {
-  const s = parse(version.trim().replace(/^[=v]+/, ''), options)
-  return s ? s.version : null
-}
-module.exports = clean
 
 
 /***/ }),
@@ -5566,7 +5598,7 @@ const Comparator = __webpack_require__(174)
 const {ANY} = Comparator
 const Range = __webpack_require__(124)
 const satisfies = __webpack_require__(310)
-const gt = __webpack_require__(291)
+const gt = __webpack_require__(486)
 const lt = __webpack_require__(586)
 const lte = __webpack_require__(444)
 const gte = __webpack_require__(167)
@@ -6013,66 +6045,11 @@ module.exports = validRange
 /***/ }),
 
 /***/ 486:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Logger = void 0;
-const core = __importStar(__webpack_require__(557));
-/**
- * Represents an implementation of {ILogger} that logs messages to the Azure DevOps pipeline
- *
- * @export
- * @class Logger
- * @implements {ILogger}
- */
-class Logger {
-    /**
-     * @inheritdoc
-     */
-    debug(message) {
-        core.debug(message);
-    }
-    /**
-     * @inheritdoc
-     */
-    warning(message) {
-        core.warning(message);
-    }
-    /**
-     * @inheritdoc
-     */
-    error(message) {
-        core.error(message);
-    }
-    /**
-     * @inheritdoc
-     */
-    info(message) {
-        core.info(message);
-    }
-}
-exports.Logger = Logger;
+const compare = __webpack_require__(874)
+const gt = (a, b, loose) => compare(a, b, loose) > 0
+module.exports = gt
 
 
 /***/ }),
@@ -6083,33 +6060,6 @@ exports.Logger = Logger;
 const SemVer = __webpack_require__(65)
 const patch = (a, loose) => new SemVer(a, loose).patch
 module.exports = patch
-
-
-/***/ }),
-
-/***/ 493:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Dolittle. All rights reserved.
- *  Licensed under the MIT License. See LICENSE in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(__webpack_require__(755), exports);
-__exportStar(__webpack_require__(486), exports);
-__exportStar(__webpack_require__(293), exports);
 
 
 /***/ }),
@@ -6173,101 +6123,15 @@ module.exports = coerce
 /***/ }),
 
 /***/ 503:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
-"use strict";
+const parse = __webpack_require__(830)
+const clean = (version, options) => {
+  const s = parse(version.trim().replace(/^[=v]+/, ''), options)
+  return s ? s.version : null
+}
+module.exports = clean
 
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const os = __importStar(__webpack_require__(87));
-/**
- * Commands
- *
- * Command Format:
- *   ::name key=value,key=value::message
- *
- * Examples:
- *   ::warning::This is the message
- *   ::set-env name=MY_VAR::some value
- */
-function issueCommand(command, properties, message) {
-    const cmd = new Command(command, properties, message);
-    process.stdout.write(cmd.toString() + os.EOL);
-}
-exports.issueCommand = issueCommand;
-function issue(name, message = '') {
-    issueCommand(name, {}, message);
-}
-exports.issue = issue;
-const CMD_STRING = '::';
-class Command {
-    constructor(command, properties, message) {
-        if (!command) {
-            command = 'missing.command';
-        }
-        this.command = command;
-        this.properties = properties;
-        this.message = message;
-    }
-    toString() {
-        let cmdStr = CMD_STRING + this.command;
-        if (this.properties && Object.keys(this.properties).length > 0) {
-            cmdStr += ' ';
-            let first = true;
-            for (const key in this.properties) {
-                if (this.properties.hasOwnProperty(key)) {
-                    const val = this.properties[key];
-                    if (val) {
-                        if (first) {
-                            first = false;
-                        }
-                        else {
-                            cmdStr += ',';
-                        }
-                        cmdStr += `${key}=${escapeProperty(val)}`;
-                    }
-                }
-            }
-        }
-        cmdStr += `${CMD_STRING}${escapeData(this.message)}`;
-        return cmdStr;
-    }
-}
-/**
- * Sanitizes an input into a string so it can be passed into issueCommand safely
- * @param input input to sanitize into a string
- */
-function toCommandValue(input) {
-    if (input === null || input === undefined) {
-        return '';
-    }
-    else if (typeof input === 'string' || input instanceof String) {
-        return input;
-    }
-    return JSON.stringify(input);
-}
-exports.toCommandValue = toCommandValue;
-function escapeData(s) {
-    return toCommandValue(s)
-        .replace(/%/g, '%25')
-        .replace(/\r/g, '%0D')
-        .replace(/\n/g, '%0A');
-}
-function escapeProperty(s) {
-    return toCommandValue(s)
-        .replace(/%/g, '%25')
-        .replace(/\r/g, '%0D')
-        .replace(/\n/g, '%0A')
-        .replace(/:/g, '%3A')
-        .replace(/,/g, '%2C');
-}
-//# sourceMappingURL=command.js.map
 
 /***/ }),
 
@@ -6525,26 +6389,6 @@ module.exports = Hook
 module.exports.Hook = Hook
 module.exports.Singular = Hook.Singular
 module.exports.Collection = Hook.Collection
-
-
-/***/ }),
-
-/***/ 526:
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-// Copyright (c) Dolittle. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CascadingBuild = void 0;
-class CascadingBuild {
-}
-exports.CascadingBuild = CascadingBuild;
-CascadingBuild.pusher = 'dolittle-build';
-CascadingBuild.message = '[Cascading release]';
-
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkNhc2NhZGluZ0J1aWxkLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSwrQ0FBK0M7QUFDL0MscUdBQXFHOzs7QUFFckcsTUFBYSxjQUFjOztBQUEzQix3Q0FHQztBQUZVLHFCQUFNLEdBQUcsZ0JBQWdCLENBQUM7QUFDMUIsc0JBQU8sR0FBRyxxQkFBcUIsQ0FBQyIsImZpbGUiOiJDYXNjYWRpbmdCdWlsZC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIENvcHlyaWdodCAoYykgRG9saXR0bGUuIEFsbCByaWdodHMgcmVzZXJ2ZWQuXG4vLyBMaWNlbnNlZCB1bmRlciB0aGUgTUlUIGxpY2Vuc2UuIFNlZSBMSUNFTlNFIGZpbGUgaW4gdGhlIHByb2plY3Qgcm9vdCBmb3IgZnVsbCBsaWNlbnNlIGluZm9ybWF0aW9uLlxuXG5leHBvcnQgY2xhc3MgQ2FzY2FkaW5nQnVpbGQge1xuICAgIHN0YXRpYyBwdXNoZXIgPSAnZG9saXR0bGUtYnVpbGQnO1xuICAgIHN0YXRpYyBtZXNzYWdlID0gJ1tDYXNjYWRpbmcgcmVsZWFzZV0nO1xufVxuIl19
 
 
 /***/ }),
@@ -7099,6 +6943,26 @@ exports.HttpClient = HttpClient;
 
 /***/ }),
 
+/***/ 542:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+// Copyright (c) Dolittle. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CascadingBuild = void 0;
+class CascadingBuild {
+}
+exports.CascadingBuild = CascadingBuild;
+CascadingBuild.pusher = 'dolittle-build';
+CascadingBuild.message = '[Cascading release]';
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkNhc2NhZGluZ0J1aWxkLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSwrQ0FBK0M7QUFDL0MscUdBQXFHOzs7QUFFckcsTUFBYSxjQUFjOztBQUEzQix3Q0FHQztBQUZVLHFCQUFNLEdBQUcsZ0JBQWdCLENBQUM7QUFDMUIsc0JBQU8sR0FBRyxxQkFBcUIsQ0FBQyIsImZpbGUiOiJDYXNjYWRpbmdCdWlsZC5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIENvcHlyaWdodCAoYykgRG9saXR0bGUuIEFsbCByaWdodHMgcmVzZXJ2ZWQuXG4vLyBMaWNlbnNlZCB1bmRlciB0aGUgTUlUIGxpY2Vuc2UuIFNlZSBMSUNFTlNFIGZpbGUgaW4gdGhlIHByb2plY3Qgcm9vdCBmb3IgZnVsbCBsaWNlbnNlIGluZm9ybWF0aW9uLlxuXG5leHBvcnQgY2xhc3MgQ2FzY2FkaW5nQnVpbGQge1xuICAgIHN0YXRpYyBwdXNoZXIgPSAnZG9saXR0bGUtYnVpbGQnO1xuICAgIHN0YXRpYyBtZXNzYWdlID0gJ1tDYXNjYWRpbmcgcmVsZWFzZV0nO1xufVxuIl19
+
+
+/***/ }),
+
 /***/ 548:
 /***/ (function(module) {
 
@@ -7152,235 +7016,6 @@ function isPlainObject(o) {
 
 module.exports = isPlainObject;
 
-
-/***/ }),
-
-/***/ 557:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const command_1 = __webpack_require__(503);
-const os = __importStar(__webpack_require__(87));
-const path = __importStar(__webpack_require__(622));
-/**
- * The code to exit an action
- */
-var ExitCode;
-(function (ExitCode) {
-    /**
-     * A code indicating that the action was successful
-     */
-    ExitCode[ExitCode["Success"] = 0] = "Success";
-    /**
-     * A code indicating that the action was a failure
-     */
-    ExitCode[ExitCode["Failure"] = 1] = "Failure";
-})(ExitCode = exports.ExitCode || (exports.ExitCode = {}));
-//-----------------------------------------------------------------------
-// Variables
-//-----------------------------------------------------------------------
-/**
- * Sets env variable for this action and future actions in the job
- * @param name the name of the variable to set
- * @param val the value of the variable. Non-string values will be converted to a string via JSON.stringify
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function exportVariable(name, val) {
-    const convertedVal = command_1.toCommandValue(val);
-    process.env[name] = convertedVal;
-    command_1.issueCommand('set-env', { name }, convertedVal);
-}
-exports.exportVariable = exportVariable;
-/**
- * Registers a secret which will get masked from logs
- * @param secret value of the secret
- */
-function setSecret(secret) {
-    command_1.issueCommand('add-mask', {}, secret);
-}
-exports.setSecret = setSecret;
-/**
- * Prepends inputPath to the PATH (for this action and future actions)
- * @param inputPath
- */
-function addPath(inputPath) {
-    command_1.issueCommand('add-path', {}, inputPath);
-    process.env['PATH'] = `${inputPath}${path.delimiter}${process.env['PATH']}`;
-}
-exports.addPath = addPath;
-/**
- * Gets the value of an input.  The value is also trimmed.
- *
- * @param     name     name of the input to get
- * @param     options  optional. See InputOptions.
- * @returns   string
- */
-function getInput(name, options) {
-    const val = process.env[`INPUT_${name.replace(/ /g, '_').toUpperCase()}`] || '';
-    if (options && options.required && !val) {
-        throw new Error(`Input required and not supplied: ${name}`);
-    }
-    return val.trim();
-}
-exports.getInput = getInput;
-/**
- * Sets the value of an output.
- *
- * @param     name     name of the output to set
- * @param     value    value to store. Non-string values will be converted to a string via JSON.stringify
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function setOutput(name, value) {
-    command_1.issueCommand('set-output', { name }, value);
-}
-exports.setOutput = setOutput;
-/**
- * Enables or disables the echoing of commands into stdout for the rest of the step.
- * Echoing is disabled by default if ACTIONS_STEP_DEBUG is not set.
- *
- */
-function setCommandEcho(enabled) {
-    command_1.issue('echo', enabled ? 'on' : 'off');
-}
-exports.setCommandEcho = setCommandEcho;
-//-----------------------------------------------------------------------
-// Results
-//-----------------------------------------------------------------------
-/**
- * Sets the action status to failed.
- * When the action exits it will be with an exit code of 1
- * @param message add error issue message
- */
-function setFailed(message) {
-    process.exitCode = ExitCode.Failure;
-    error(message);
-}
-exports.setFailed = setFailed;
-//-----------------------------------------------------------------------
-// Logging Commands
-//-----------------------------------------------------------------------
-/**
- * Gets whether Actions Step Debug is on or not
- */
-function isDebug() {
-    return process.env['RUNNER_DEBUG'] === '1';
-}
-exports.isDebug = isDebug;
-/**
- * Writes debug message to user log
- * @param message debug message
- */
-function debug(message) {
-    command_1.issueCommand('debug', {}, message);
-}
-exports.debug = debug;
-/**
- * Adds an error issue
- * @param message error issue message. Errors will be converted to string via toString()
- */
-function error(message) {
-    command_1.issue('error', message instanceof Error ? message.toString() : message);
-}
-exports.error = error;
-/**
- * Adds an warning issue
- * @param message warning issue message. Errors will be converted to string via toString()
- */
-function warning(message) {
-    command_1.issue('warning', message instanceof Error ? message.toString() : message);
-}
-exports.warning = warning;
-/**
- * Writes info to log with console.log.
- * @param message info message
- */
-function info(message) {
-    process.stdout.write(message + os.EOL);
-}
-exports.info = info;
-/**
- * Begin an output group.
- *
- * Output until the next `groupEnd` will be foldable in this group
- *
- * @param name The name of the output group
- */
-function startGroup(name) {
-    command_1.issue('group', name);
-}
-exports.startGroup = startGroup;
-/**
- * End an output group.
- */
-function endGroup() {
-    command_1.issue('endgroup');
-}
-exports.endGroup = endGroup;
-/**
- * Wrap an asynchronous function call in a group.
- *
- * Returns the same type as the function itself.
- *
- * @param name The name of the group
- * @param fn The function to wrap in the group
- */
-function group(name, fn) {
-    return __awaiter(this, void 0, void 0, function* () {
-        startGroup(name);
-        let result;
-        try {
-            result = yield fn();
-        }
-        finally {
-            endGroup();
-        }
-        return result;
-    });
-}
-exports.group = group;
-//-----------------------------------------------------------------------
-// Wrapper action state
-//-----------------------------------------------------------------------
-/**
- * Saves state for current action, the state can only be retrieved by this action's post job execution.
- *
- * @param     name     name of the state to store
- * @param     value    value to store. Non-string values will be converted to a string via JSON.stringify
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function saveState(name, value) {
-    command_1.issueCommand('save-state', { name }, value);
-}
-exports.saveState = saveState;
-/**
- * Gets the value of an state set by this action's main execution.
- *
- * @param     name     name of the state to get
- * @returns   string
- */
-function getState(name) {
-    return process.env[`STATE_${name}`] || '';
-}
-exports.getState = getState;
-//# sourceMappingURL=core.js.map
 
 /***/ }),
 
@@ -7626,6 +7261,18 @@ module.exports = rcompare
 /***/ (function(module) {
 
 module.exports = require("net");
+
+/***/ }),
+
+/***/ 641:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIklMb2dnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJJTG9nZ2VyLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbiAqICBDb3B5cmlnaHQgKGMpIERvbGl0dGxlLiBBbGwgcmlnaHRzIHJlc2VydmVkLlxuICogIExpY2Vuc2VkIHVuZGVyIHRoZSBNSVQgTGljZW5zZS4gU2VlIExJQ0VOU0UgaW4gdGhlIHByb2plY3Qgcm9vdCBmb3IgbGljZW5zZSBpbmZvcm1hdGlvbi5cbiAqLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qL1xuLyoqXG4gKiBEZWZpbmVzIGEgc3lzdGVtIHRoYXQgY2FuIGxvZyBtZXNzYWdlc1xuICpcbiAqIEBleHBvcnRcbiAqIEBpbnRlcmZhY2UgSUxvZ2dlclxuICovXG5leHBvcnQgaW50ZXJmYWNlIElMb2dnZXIge1xuXG4gICAgLyoqXG4gICAgICogTG9ncyBhIGRlYnVnZ2luZyBtZXNzYWdlXG4gICAgICpcbiAgICAgKiBAcGFyYW0ge3N0cmluZ30gbWVzc2FnZVxuICAgICAqL1xuICAgIGRlYnVnKG1lc3NhZ2U6IHN0cmluZyk6IHZvaWQ7XG5cbiAgICAvKipcbiAgICAgKiBMb2dzIGEgd2FybmluZyBtZXNzYWdlXG4gICAgICpcbiAgICAgKiBAcGFyYW0ge3N0cmluZ30gbWVzc2FnZVxuICAgICAqL1xuICAgIHdhcm5pbmcobWVzc2FnZTogc3RyaW5nKTogdm9pZDtcblxuICAgIC8qKlxuICAgICAqIExvZ3MgYW4gZXJyb3IgbWVzc2FnZVxuICAgICAqXG4gICAgICogQHBhcmFtIHtzdHJpbmd9IG1lc3NhZ2VcbiAgICAgKi9cbiAgICBlcnJvcihtZXNzYWdlOiBzdHJpbmcpOiB2b2lkO1xuXG4gICAgLyoqXG4gICAgICogTG9ncyB0aGUgaW5mbyBtZXNzYWdlXG4gICAgICpcbiAgICAgKiBAcGFyYW0ge3N0cmluZ30gbWVzc2FnZVxuICAgICAqL1xuICAgIGluZm8obWVzc2FnZTogc3RyaW5nKTogdm9pZFxuXG59XG4iXX0=
+
 
 /***/ }),
 
@@ -8223,7 +7870,7 @@ module.exports = require("fs");
 
 const eq = __webpack_require__(298)
 const neq = __webpack_require__(873)
-const gt = __webpack_require__(291)
+const gt = __webpack_require__(486)
 const gte = __webpack_require__(167)
 const lt = __webpack_require__(586)
 const lte = __webpack_require__(444)
@@ -8429,16 +8076,6 @@ exports.request = request;
 
 /***/ }),
 
-/***/ 755:
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-/***/ }),
-
 /***/ 760:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -8599,6 +8236,49 @@ exports.getUserAgent = getUserAgent;
 const SemVer = __webpack_require__(65)
 const minor = (a, loose) => new SemVer(a, loose).minor
 module.exports = minor
+
+
+/***/ }),
+
+/***/ 810:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NullLogger = void 0;
+/**
+ * Represents a null-implementation of {ILogger}
+ *
+ * @export
+ * @class NullLogger
+ * @implements {ILogger}
+ */
+class NullLogger {
+    // tslint:disable-next-line: no-empty
+    /**
+     * @inheritdoc
+     */
+    debug(message) { }
+    // tslint:disable-next-line: no-empty
+    /**
+     * @inheritdoc
+     */
+    warning(message) { }
+    // tslint:disable-next-line: no-empty
+    /**
+     * @inheritdoc
+     */
+    error(message) { }
+    // tslint:disable-next-line: no-empty
+    /**
+     * @inheritdoc
+     */
+    info(message) { }
+}
+exports.NullLogger = NullLogger;
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIk51bGxMb2dnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBTUE7Ozs7OztHQU1HO0FBQ0gsTUFBYSxVQUFVO0lBRW5CLHFDQUFxQztJQUNyQzs7T0FFRztJQUNILEtBQUssQ0FBQyxPQUFlLElBQUksQ0FBQztJQUUxQixxQ0FBcUM7SUFDckM7O09BRUc7SUFDSCxPQUFPLENBQUMsT0FBZSxJQUFJLENBQUM7SUFFNUIscUNBQXFDO0lBQ3JDOztPQUVHO0lBQ0gsS0FBSyxDQUFDLE9BQWUsSUFBSSxDQUFDO0lBRTFCLHFDQUFxQztJQUNyQzs7T0FFRztJQUNILElBQUksQ0FBQyxPQUFlLElBQUksQ0FBQztDQUU1QjtBQTFCRCxnQ0EwQkMiLCJmaWxlIjoiTnVsbExvZ2dlci5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4gKiAgQ29weXJpZ2h0IChjKSBEb2xpdHRsZS4gQWxsIHJpZ2h0cyByZXNlcnZlZC5cbiAqICBMaWNlbnNlZCB1bmRlciB0aGUgTUlUIExpY2Vuc2UuIFNlZSBMSUNFTlNFIGluIHRoZSBwcm9qZWN0IHJvb3QgZm9yIGxpY2Vuc2UgaW5mb3JtYXRpb24uXG4gKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKi9cbmltcG9ydCB7IElMb2dnZXIgfSBmcm9tICcuL0lMb2dnZXInO1xuXG4vKipcbiAqIFJlcHJlc2VudHMgYSBudWxsLWltcGxlbWVudGF0aW9uIG9mIHtJTG9nZ2VyfVxuICpcbiAqIEBleHBvcnRcbiAqIEBjbGFzcyBOdWxsTG9nZ2VyXG4gKiBAaW1wbGVtZW50cyB7SUxvZ2dlcn1cbiAqL1xuZXhwb3J0IGNsYXNzIE51bGxMb2dnZXIgaW1wbGVtZW50cyBJTG9nZ2VyIHtcblxuICAgIC8vIHRzbGludDpkaXNhYmxlLW5leHQtbGluZTogbm8tZW1wdHlcbiAgICAvKipcbiAgICAgKiBAaW5oZXJpdGRvY1xuICAgICAqL1xuICAgIGRlYnVnKG1lc3NhZ2U6IHN0cmluZykgeyB9XG5cbiAgICAvLyB0c2xpbnQ6ZGlzYWJsZS1uZXh0LWxpbmU6IG5vLWVtcHR5XG4gICAgLyoqXG4gICAgICogQGluaGVyaXRkb2NcbiAgICAgKi9cbiAgICB3YXJuaW5nKG1lc3NhZ2U6IHN0cmluZykgeyB9XG5cbiAgICAvLyB0c2xpbnQ6ZGlzYWJsZS1uZXh0LWxpbmU6IG5vLWVtcHR5XG4gICAgLyoqXG4gICAgICogQGluaGVyaXRkb2NcbiAgICAgKi9cbiAgICBlcnJvcihtZXNzYWdlOiBzdHJpbmcpIHsgfVxuXG4gICAgLy8gdHNsaW50OmRpc2FibGUtbmV4dC1saW5lOiBuby1lbXB0eVxuICAgIC8qKlxuICAgICAqIEBpbmhlcml0ZG9jXG4gICAgICovXG4gICAgaW5mbyhtZXNzYWdlOiBzdHJpbmcpIHsgfVxuXG59XG4iXX0=
 
 
 /***/ }),
@@ -10837,7 +10517,7 @@ module.exports = {
   rcompareIdentifiers: __webpack_require__(954).rcompareIdentifiers,
   parse: __webpack_require__(830),
   valid: __webpack_require__(714),
-  clean: __webpack_require__(424),
+  clean: __webpack_require__(503),
   inc: __webpack_require__(949),
   diff: __webpack_require__(822),
   major: __webpack_require__(744),
@@ -10850,7 +10530,7 @@ module.exports = {
   compareBuild: __webpack_require__(465),
   sort: __webpack_require__(120),
   rsort: __webpack_require__(593),
-  gt: __webpack_require__(291),
+  gt: __webpack_require__(486),
   lt: __webpack_require__(586),
   eq: __webpack_require__(298),
   neq: __webpack_require__(873),
@@ -11043,7 +10723,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CascadingContextEstablisher = void 0;
 const path_1 = __importDefault(__webpack_require__(622));
-const github_actions_shared_rudiments_1 = __webpack_require__(296);
+const github_actions_shared_rudiments_1 = __webpack_require__(286);
 /**
  * Represents an implementation of {ICanEstablishContext}.
  *
