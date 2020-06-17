@@ -12,11 +12,12 @@ import { SemVerVersionSorter } from './Version/SemVerVersionSorter';
 import { ContextEstablishers } from './ContextEstablishers';
 import { CascadingContextEstablisher } from './CascadingBuildContextEstablisher';
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
-import { PullRequestContextEstablisher } from './PullRequestContextEstablisher';
 import { BuildContext } from './BuildContext';
+import { ExtractPrereleaseBranchContext } from './ExtractPrereleaseBranchContext';
 
 const inputs = {
-    token: 'token'
+    token: 'token',
+    releaseBranches: 'releaseBranches'
 };
 
 const outputs = {
@@ -34,7 +35,8 @@ export async function run() {
         const contextString = JSON.stringify(context, undefined, 2);
         console.log(contextString);
         const token = core.getInput(inputs.token, { required: true });
-        const {owner, repo} = context.repo;
+        const releaseBranches = core.getInput(inputs.releaseBranches, { required: true }).split(',');
+        logger.info(`Pushes to branches: [${releaseBranches.join(', ')}] can trigger a release`);
         const octokit = github.getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
         const currentVersionFinder = new CurrentVersionFinder(
@@ -42,10 +44,10 @@ export async function run() {
             context,
             octokit,
             logger);
+        const prereleaseBranchContextExtractor = new ExtractPrereleaseBranchContext(releaseBranches, logger);
         const contextEstablishers = new ContextEstablishers(
-            new CascadingContextEstablisher(currentVersionFinder, logger),
-            new MergedPullRequestContextEstablisher(releaseTypeExtractor, currentVersionFinder, octokit, logger),
-            new PullRequestContextEstablisher(releaseTypeExtractor, currentVersionFinder, octokit, logger)
+            new CascadingContextEstablisher(releaseBranches, prereleaseBranchContextExtractor, currentVersionFinder, logger),
+            new MergedPullRequestContextEstablisher(releaseBranches, releaseTypeExtractor, prereleaseBranchContextExtractor, currentVersionFinder, octokit, logger)
         );
         logger.info('Establishing context');
         const buildContext = await contextEstablishers.establishFrom(context);
@@ -61,7 +63,10 @@ export async function run() {
 }
 
 function output(shouldPublish: boolean, currentVersion: string | undefined, releaseType: string | undefined) {
-    logger.debug(`Outputting 'shouldPublish': ${shouldPublish} 'currentVersion': ${currentVersion} 'releaseType': ${releaseType}`);
+    logger.info('Outputting: ');
+    logger.info(`'shouldPublish': ${shouldPublish}`);
+    logger.info(`'currentVersion: ${currentVersion}`);
+    logger.info(`'releaseType': ${releaseType}`);
     core.setOutput(outputs.shouldPublish, shouldPublish);
     core.setOutput(outputs.currentVersion, currentVersion);
     core.setOutput(outputs.releaseType, releaseType);

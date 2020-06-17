@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { ILogger } from '@dolittle/github-actions.shared.logging';
-import semver from 'semver';
+import semver, { SemVer } from 'semver';
 import { IVersionSorter } from './IVersionSorter';
 
 /**
@@ -23,7 +23,7 @@ export class SemVerVersionSorter implements IVersionSorter {
     /**
      * @inheritdoc
      */
-    sort(versions: string[], descending: boolean = true) {
+    sort(versions: SemVer[], descending: boolean = true) {
         this._logger.debug('Sorting versions...');
         if (versions === undefined) return [];
         versions.forEach(_ => {
