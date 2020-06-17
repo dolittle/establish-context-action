@@ -15,7 +15,7 @@ import { BuildContext } from './BuildContext';
 const inputs = {
     token: 'token',
     mainBranch: 'mainBranch',
-    releaseBranches: 'releaseBranches'
+    prereleaseBranches: 'prereleaseBranches'
 };
 
 const outputs = {
@@ -32,7 +32,7 @@ export async function run() {
         const context = github.context;
         const token = core.getInput(inputs.token, { required: true });
         const mainBranch = core.getInput(inputs.mainBranch, { required: true });
-        const releaseBranches = core.getInput(inputs.releaseBranches, { required: false })?.split(',') ?? [];
+        const releaseBranches = core.getInput(inputs.prereleaseBranches, { required: false })?.split(',') ?? [];
         logger.info(`Pushes to branches: [${releaseBranches.join(', ')}] can trigger a release`);
         const octokit = github.getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
