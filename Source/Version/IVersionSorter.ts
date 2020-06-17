@@ -1,6 +1,8 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+import { SemVer } from 'semver';
+
 /**
  * Defines a system that can sort versions.
  *
@@ -12,9 +14,9 @@ export interface IVersionSorter {
     /**
      * Sorts a list of versions.
      *
-     * @param {string[]} versions
+     * @param {SemVer[]} versions
      * @param {boolean} [descending]
-     * @returns {string[]}
+     * @returns {SemVer[]}
      */
-    sort(versions: string[], descending?: boolean): string[]
+    sort(versions: SemVer[], descending?: boolean): SemVer[]
 }

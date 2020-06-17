@@ -1,14 +1,16 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+import path from 'path';
 import { Context } from '@actions/github/lib/context';
+import { ILogger } from '@dolittle/github-actions.shared.logging';
+import { CascadingBuild } from '@dolittle/github-actions.shared.rudiments';
+import semver, { ReleaseType } from 'semver';
 import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
-import { ILogger } from '@dolittle/github-actions.shared.logging';
-
-export const cascadingBuildMessage = '[Cascading release]';
-export const pusher = 'dolittle-build';
+import { PrereleaseBranchContext } from './PrereleaseBranchContext';
+import { IExtractPrereleaseBranchContext } from './IExtractPrereleaseBranchContext';
 
 /**
  * Represents an implementation of {ICanEstablishContext}.
@@ -24,6 +26,8 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
      * @param {InstanceType<typeof GitHub>} _github The github REST api.
      */
     constructor(
+        private readonly _releaseBranches: string[],
+        private readonly _prereleaseBranchContextExtractor: IExtractPrereleaseBranchContext,
         private readonly _currentVersionFinder: IFindCurrentVersion,
         private readonly _logger: ILogger) {
         }
@@ -32,9 +36,9 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
      */
     canEstablishFrom(context: Context): boolean {
         return context.eventName === 'push'
-            && context.payload.commits.length === 1
-            && context.payload.commits[0].message.startsWith(cascadingBuildMessage)
-            && context.payload.pusher.name === pusher;
+            && context.payload.head_commit.message.startsWith(CascadingBuild.message)
+            && context.payload.pusher.name === CascadingBuild.pusher
+            && this._releaseBranches.includes(path.basename(context.ref));
     }
 
     /**
@@ -43,8 +47,11 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
     async establish(context: Context): Promise<BuildContext> {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish cascading build context');
         this._logger.debug('Establishing context for cascading build');
-        const releaseType = 'patch';
-        const currentVersion = await this._currentVersionFinder.find();
-        return { shouldPublish: true, releaseType, currentVersion};
+        const prereleaseBranchContext = this._prereleaseBranchContextExtractor.extract(context.ref);
+        const currentVersion = await this._currentVersionFinder.find(prereleaseBranchContext);
+        const currentVersionPrereleaseComponents = currentVersion.prerelease;
+        const releaseType: ReleaseType = currentVersionPrereleaseComponents.length > 0 ? 'prerelease' : 'patch';
+
+        return { shouldPublish: true, releaseType, currentVersion: currentVersion.version};
     }
 }
