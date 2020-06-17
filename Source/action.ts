@@ -64,15 +64,15 @@ function output(shouldPublish: boolean, currentVersion: string | undefined, rel
     logger.info(`'currentVersion: ${currentVersion}`);
     logger.info(`'releaseType': ${releaseType}`);
     core.setOutput(outputs.shouldPublish, shouldPublish);
-    core.setOutput(outputs.currentVersion, currentVersion);
-    core.setOutput(outputs.releaseType, releaseType);
+    core.setOutput(outputs.currentVersion, currentVersion ?? '');
+    core.setOutput(outputs.releaseType, releaseType ?? '');
 }
 function outputContext(context: BuildContext) {
     output(context.shouldPublish, context.currentVersion, context.releaseType);
 }
 
 function outputDefault() {
-    output(false, undefined, undefined);
+    output(false, '', '');
 }
 
 function fail(error: Error) {
