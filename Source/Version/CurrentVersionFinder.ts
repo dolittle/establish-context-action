@@ -27,7 +27,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
      */
     async find(prereleaseIdentifier?: string): Promise<SemVer> {
         const {owner, repo} = this._context.repo;
-        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}${prereleaseIdentifier !== undefined ? ` with prerelease identifier '${prereleaseIdentifier}'` : ''}`);
+        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
         let versions = await this._getVersionsFromRepoTags(owner, repo);
         if (!versions || versions.length === 0) {
             const defaultVersion = this._getDefaultVersion(prereleaseIdentifier);
