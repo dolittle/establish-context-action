@@ -27,7 +27,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
      */
     async find(prereleaseIdentifier?: string): Promise<SemVer> {
         const {owner, repo} = this._context.repo;
-        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
+        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}${prereleaseIdentifier !== undefined ? ` with prerelease identifier '${prereleaseIdentifier}'` : ''}`);
         let versions = await this._getVersionsFromRepoTags(owner, repo);
         if (!versions || versions.length === 0) {
             const defaultVersion = this._getDefaultVersion(prereleaseIdentifier);
@@ -44,9 +44,13 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
             }
         }
 
+        this._logger.debug(`Version tags: [
+${versions.join(',\n')}
+]`);
+
         const currentVersion = this._versionSorter.sort(versions, true)[0];
         if (!semver.valid(currentVersion)) throw new Error(`${currentVersion} is not a valid SemVer version`);
-        this._logger.info(`Found current version '${currentVersion}'`);
+        this._logger.info(`Current version '${currentVersion}'`);
         return currentVersion;
     }
 
@@ -57,9 +61,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
             response => response.data
                                     .filter(tag => semver.valid(tag.name))
                                     .map(_ => _.name!));
-        this._logger.debug(`Got version tags: [
-${versions.join(',\n')}
-]`);
+
         return versions.map(_ => semver.parse(_)!);
     }
 
