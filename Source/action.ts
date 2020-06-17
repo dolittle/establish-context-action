@@ -6,17 +6,15 @@ import * as github from '@actions/github';
 import { Logger } from '@dolittle/github-actions.shared.logging';
 import { CurrentVersionFinder } from './Version/CurrentVersionFinder';
 import { ReleaseTypeExtractor } from './ReleaseType/ReleaseTypeExtractor';
-import { Context } from '@actions/github/lib/context';
-import { GitHub } from '@actions/github/lib/utils';
 import { SemVerVersionSorter } from './Version/SemVerVersionSorter';
 import { ContextEstablishers } from './ContextEstablishers';
 import { CascadingContextEstablisher } from './CascadingBuildContextEstablisher';
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
 import { BuildContext } from './BuildContext';
-import { ExtractPrereleaseBranchContext } from './ExtractPrereleaseBranchContext';
 
 const inputs = {
     token: 'token',
+    mainBranch: 'mainBranch',
     releaseBranches: 'releaseBranches'
 };
 
@@ -33,7 +31,8 @@ export async function run() {
     try {
         const context = github.context;
         const token = core.getInput(inputs.token, { required: true });
-        const releaseBranches = core.getInput(inputs.releaseBranches, { required: true }).split(',');
+        const mainBranch = core.getInput(inputs.mainBranch, { required: true });
+        const releaseBranches = core.getInput(inputs.releaseBranches, { required: false })?.split(',') ?? [];
         logger.info(`Pushes to branches: [${releaseBranches.join(', ')}] can trigger a release`);
         const octokit = github.getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
@@ -42,10 +41,9 @@ export async function run() {
             context,
             octokit,
             logger);
-        const prereleaseBranchContextExtractor = new ExtractPrereleaseBranchContext(releaseBranches, logger);
         const contextEstablishers = new ContextEstablishers(
-            new CascadingContextEstablisher(releaseBranches, prereleaseBranchContextExtractor, currentVersionFinder, logger),
-            new MergedPullRequestContextEstablisher(releaseBranches, releaseTypeExtractor, prereleaseBranchContextExtractor, currentVersionFinder, octokit, logger)
+            new CascadingContextEstablisher(mainBranch, releaseBranches, currentVersionFinder, logger),
+            new MergedPullRequestContextEstablisher(mainBranch, releaseBranches, releaseTypeExtractor, currentVersionFinder, octokit, logger)
         );
         logger.info('Establishing context');
         const buildContext = await contextEstablishers.establishFrom(context);

@@ -16,4 +16,5 @@ jobs:
     - name: Test Action
       uses: ./
       with:
-          releaseBranches: master,alpha,beta,rc
+        mainBranch: master
+        prereleaseBranches: alpha,beta,rc

@@ -9,8 +9,6 @@ import semver, { ReleaseType } from 'semver';
 import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
-import { PrereleaseBranchContext } from './PrereleaseBranchContext';
-import { IExtractPrereleaseBranchContext } from './IExtractPrereleaseBranchContext';
 
 /**
  * Represents an implementation of {ICanEstablishContext}.
@@ -26,8 +24,8 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
      * @param {InstanceType<typeof GitHub>} _github The github REST api.
      */
     constructor(
-        private readonly _releaseBranches: string[],
-        private readonly _prereleaseBranchContextExtractor: IExtractPrereleaseBranchContext,
+        private readonly _mainBranch: string,
+        private readonly _prereleaseBranches: string[],
         private readonly _currentVersionFinder: IFindCurrentVersion,
         private readonly _logger: ILogger) {
         }
@@ -35,10 +33,11 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
      * @inheritdoc
      */
     canEstablishFrom(context: Context): boolean {
+        const branchName = path.basename(context.ref);
         return context.eventName === 'push'
             && context.payload.head_commit.message.startsWith(CascadingBuild.message)
             && context.payload.pusher.name === CascadingBuild.pusher
-            && this._releaseBranches.includes(path.basename(context.ref));
+            && (branchName === this._mainBranch || this._prereleaseBranches.includes(branchName));
     }
 
     /**
@@ -47,8 +46,9 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
     async establish(context: Context): Promise<BuildContext> {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish cascading build context');
         this._logger.debug('Establishing context for cascading build');
-        const prereleaseBranchContext = this._prereleaseBranchContextExtractor.extract(context.ref);
-        const currentVersion = await this._currentVersionFinder.find(prereleaseBranchContext);
+        const branchName = path.basename(context.ref);
+        const prereleaseIdentifier = branchName === this._mainBranch ? undefined : branchName;
+        const currentVersion = await this._currentVersionFinder.find(prereleaseIdentifier);
         const currentVersionPrereleaseComponents = currentVersion.prerelease;
         const releaseType: ReleaseType = currentVersionPrereleaseComponents.length > 0 ? 'prerelease' : 'patch';
 

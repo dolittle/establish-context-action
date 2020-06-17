@@ -7,7 +7,6 @@ import { Context } from '@actions/github/lib/context';
 import { GitHub } from '@actions/github/lib/utils';
 import { IFindCurrentVersion } from './IFindCurrentVersion';
 import { IVersionSorter } from './IVersionSorter';
-import { PrereleaseBranchContext } from '../PrereleaseBranchContext';
 
 /**
  * Represents an implementation of {ICanGetLatestVersion} that can get the latest version from Github
@@ -26,21 +25,21 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
     /**
      * @inheritdoc
      */
-    async find(prereleaseContext?: PrereleaseBranchContext): Promise<SemVer> {
+    async find(prereleaseIdentifier?: string): Promise<SemVer> {
         const {owner, repo} = this._context.repo;
-        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
+        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}${prereleaseIdentifier !== undefined ? ` with prerelease identifier '${prereleaseIdentifier}'` : ''}`);
         let versions = await this._getVersionsFromRepoTags(owner, repo);
         if (!versions || versions.length === 0) {
-            const defaultVersion = this._getDefaultVersion(prereleaseContext);
+            const defaultVersion = this._getDefaultVersion(prereleaseIdentifier);
             this._logger.info(`No version tags. Defaulting to version ${defaultVersion}`);
             return defaultVersion;
         }
 
-        if (prereleaseContext !== undefined) {
-            versions = versions.filter(_ => _.prerelease.length > 0 && _.prerelease[0] === prereleaseContext.prereleaseLabel);
+        if (prereleaseIdentifier !== undefined) {
+            versions = versions.filter(_ => _.prerelease.length > 0 && _.prerelease[0] === prereleaseIdentifier);
             if (versions.length === 0) {
-                const defaultVersion = this._getDefaultVersion(prereleaseContext);
-                this._logger.info(`No version tag with prerelease identifier '${prereleaseContext.prereleaseLabel}' was found. Defaulting to version ${defaultVersion}`);
+                const defaultVersion = this._getDefaultVersion(prereleaseIdentifier);
+                this._logger.info(`No version tag with prerelease identifier '${prereleaseIdentifier}' was found. Defaulting to version ${defaultVersion}`);
                 return defaultVersion;
             }
         }
@@ -64,8 +63,8 @@ ${versions.join(',\n')}
         return versions.map(_ => semver.parse(_)!);
     }
 
-    private _getDefaultVersion(prereleaseContext?: PrereleaseBranchContext): SemVer {
-        if (prereleaseContext === undefined) return new SemVer('1.0.0');
-        return new SemVer(`${prereleaseContext.version}.1`);
+    private _getDefaultVersion(prereleaseIdentifier?: string): SemVer {
+        if (prereleaseIdentifier === undefined) return new SemVer('1.0.0');
+        return new SemVer(`1.0.0-${prereleaseIdentifier}.0`);
     }
 }

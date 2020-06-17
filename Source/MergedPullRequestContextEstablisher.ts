@@ -9,7 +9,6 @@ import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IReleaseTypeExtractor } from './ReleaseType/IReleaseTypeExtractor';
 import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
-import { IExtractPrereleaseBranchContext } from './IExtractPrereleaseBranchContext';
 
 /**
  * Represents an implementation of {ICanEstablishContext}.
@@ -25,9 +24,9 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      * @param {InstanceType<typeof GitHub>} _github The github REST api.
      */
     constructor(
-        private readonly _releaseBranches: string[],
+        private readonly _mainBranch: string,
+        private readonly _prereleaseBranches: string[],
         private readonly _releaseTypeExtractor: IReleaseTypeExtractor,
-        private readonly _prereleaseBranchContextExtractor: IExtractPrereleaseBranchContext,
         private readonly _currentVersionFinder: IFindCurrentVersion,
         private readonly _github: InstanceType<typeof GitHub>,
         private readonly _logger: ILogger) {
@@ -36,10 +35,11 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      * @inheritdoc
      */
     canEstablishFrom(context: Context): boolean {
+        const branchName = path.basename(context.ref);
         return context.payload.pull_request !== undefined
             && context.payload.action === 'closed'
             && context.payload.pull_request?.merged
-            && this._releaseBranches.includes(path.basename(context.ref));
+            && (branchName === this._mainBranch || this._prereleaseBranches.includes(branchName));
     }
 
     /**
@@ -57,8 +57,9 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         }
         const releaseType = this._releaseTypeExtractor.extract(mergedPr?.labels.map(_ => _.name));
         if (!releaseType) return { shouldPublish: false };
-        const prereleaseContext = this._prereleaseBranchContextExtractor.extract(context.ref);
-        const currentVersion = await this._currentVersionFinder.find(prereleaseContext);
+        const branchName = path.basename(context.ref);
+        const prereleaseIdentifier = branchName === this._mainBranch ? undefined : branchName;
+        const currentVersion = await this._currentVersionFinder.find(prereleaseIdentifier);
         return { shouldPublish: true, releaseType, currentVersion: currentVersion.version};
     }
 
