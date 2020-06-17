@@ -5,6 +5,11 @@ inputs:
     description: Token to use for Github API
     required: true
     default: ${{ github.token }}
+  releaseBranches:
+    description: A comma-separated list of branch names that when pushed a release PR or cascading commit to will trigger a release.
+    required: true
+    default: master
+
   
 outputs:
   shouldPublish:
@@ -12,7 +17,8 @@ outputs:
   currentVersion:
     description: The current version of the repository based on tags or 1.0.0 if there are no version tags
   releaseType:
-    description: The type of the release (major, minor, patch, preview)
+    description: The type of the release. One of [major, minor, patch, prerelease]
+  
 runs:
   using: 'node12'
   main: 'release/index.js'
