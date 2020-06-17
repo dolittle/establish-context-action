@@ -32,8 +32,6 @@ run();
 export async function run() {
     try {
         const context = github.context;
-        const contextString = JSON.stringify(context, undefined, 2);
-        console.log(contextString);
         const token = core.getInput(inputs.token, { required: true });
         const releaseBranches = core.getInput(inputs.releaseBranches, { required: true }).split(',');
         logger.info(`Pushes to branches: [${releaseBranches.join(', ')}] can trigger a release`);
