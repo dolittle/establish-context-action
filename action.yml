@@ -1,0 +1,27 @@
+name: 'Establish Context'
+description: 'Establishes the context for the pipeline'
+inputs:
+  token:
+    description: Token to use for Github API
+    required: true
+    default: ${{ github.token }}
+  mainBranch:
+    description: The main branch which will trigger non-prerelease releases.
+    required: true
+    default: master
+  prereleaseBranches:
+    description: A comma-separated list of branch names that when pushed a release PR or cascading commit to will trigger a release.
+    required: false
+
+  
+outputs:
+  shouldPublish:
+    description: Whether or not the pipeline should publish
+  currentVersion:
+    description: The current version of the repository based on tags or 1.0.0 if there are no version tags
+  releaseType:
+    description: The type of the release. One of [major, minor, patch, prerelease]
+  
+runs:
+  using: 'node12'
+  main: 'release/index.js'
