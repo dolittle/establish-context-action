@@ -34,7 +34,7 @@ jobs:
       uses: technote-space/release-github-actions@v6
       with:
         BUILD_COMMAND: yarn release
-        CLEAN_TARGETS: Source,*.ts,*.js,*.json,*.lock,.[!.]*,Tests,Documentation
+        CLEAN_TARGETS: Source,*.ts,*.js,*.json,*.lock,.[!.]*,Tests,Documentation,node_modules,Distribution
         TEST_TAG_PREFIX: test/
         ORIGINAL_TAG_PREFIX: original/
         CLEAN_TEST_TAG: true
