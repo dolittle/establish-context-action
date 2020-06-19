@@ -56,11 +56,18 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             throw new Error(message);
         }
         const releaseType = this._releaseTypeExtractor.extract(mergedPr?.labels.map(_ => _.name));
-        if (!releaseType) return { shouldPublish: false };
+        if (!releaseType) return { shouldPublish: false, cascadingRelease: false };
         const branchName = path.basename(context.ref);
-        const prereleaseIdentifier = branchName === this._mainBranch ? undefined : branchName;
-        const currentVersion = await this._currentVersionFinder.find(prereleaseIdentifier);
-        return { shouldPublish: true, releaseType, currentVersion: currentVersion.version};
+        const prereleaseId = branchName === this._mainBranch ? undefined : branchName;
+        if (prereleaseId !== undefined && ['major', 'minor', 'patch'].includes(releaseType))
+            throw new Error(`Release type must be one of [premajor, preminor, prepatch, prerelease] when merging to prerelease branch${context.ref}`);
+        const currentVersion = await this._currentVersionFinder.find(prereleaseId);
+        return {
+            shouldPublish: true,
+            cascadingRelease: false,
+            releaseType,
+            currentVersion: currentVersion.version,
+            prereleaseId};
     }
 
     private async _getMergedPr(owner: string, repo: string, sha: string) {

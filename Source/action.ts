@@ -12,27 +12,15 @@ import { CascadingContextEstablisher } from './CascadingBuildContextEstablisher'
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
 import { BuildContext } from './BuildContext';
 
-const inputs = {
-    token: 'token',
-    mainBranch: 'mainBranch',
-    prereleaseBranches: 'prereleaseBranches'
-};
-
-const outputs = {
-    shouldPublish: 'shouldPublish',
-    currentVersion: 'currentVersion',
-    releaseType: 'releaseType'
-};
-
 const logger = new Logger();
 
 run();
 export async function run() {
     try {
         const context = github.context;
-        const token = core.getInput(inputs.token, { required: true });
-        const mainBranch = core.getInput(inputs.mainBranch, { required: true });
-        const releaseBranches = core.getInput(inputs.prereleaseBranches, { required: false })?.split(',') ?? [];
+        const token = core.getInput('token', { required: true });
+        const mainBranch = core.getInput('main-branch', { required: true });
+        const releaseBranches = core.getInput('prerelease-branches', { required: false })?.split(',') ?? [];
         logger.info(`Pushes to branches: [${releaseBranches.join(', ')}] can trigger a release`);
         const octokit = github.getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
@@ -49,6 +37,7 @@ export async function run() {
         const buildContext = await contextEstablishers.establishFrom(context);
         if (buildContext === undefined) {
             logger.debug('No establisher found for context');
+            logger.debug(JSON.stringify(context, undefined, 2));
             outputDefault();
         }
         else outputContext(buildContext);
@@ -58,21 +47,25 @@ export async function run() {
     }
 }
 
-function output(shouldPublish: boolean, currentVersion: string | undefined, releaseType: string | undefined) {
+function output(shouldPublish: boolean, cascadingRelease: boolean, currentVersion?: string, releaseType?: string, prereleaseId?: string) {
     logger.info('Outputting: ');
-    logger.info(`'shouldPublish': ${shouldPublish}`);
-    logger.info(`'currentVersion: ${currentVersion}`);
-    logger.info(`'releaseType': ${releaseType}`);
-    core.setOutput(outputs.shouldPublish, shouldPublish);
-    core.setOutput(outputs.currentVersion, currentVersion ?? '');
-    core.setOutput(outputs.releaseType, releaseType ?? '');
+    logger.info(`'should-publish': ${shouldPublish}`);
+    logger.info(`'cascading-release': ${cascadingRelease}`);
+    logger.info(`'current-version': ${currentVersion}`);
+    logger.info(`'release-type': ${releaseType}`);
+    logger.info(`'prerelease-id': ${prereleaseId}`);
+    core.setOutput('should-publish', shouldPublish);
+    core.setOutput('cascading-release', cascadingRelease);
+    core.setOutput('current-version', currentVersion ?? '');
+    core.setOutput('release-type', releaseType ?? '');
+    core.setOutput('prerelease-id', prereleaseId ?? '');
 }
 function outputContext(context: BuildContext) {
-    output(context.shouldPublish, context.currentVersion, context.releaseType);
+    output(context.shouldPublish, context.cascadingRelease, context.currentVersion, context.releaseType, context.prereleaseId);
 }
 
 function outputDefault() {
-    output(false, '', '');
+    output(false, false);
 }
 
 function fail(error: Error) {

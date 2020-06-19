@@ -20,36 +20,30 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
     /**
      * Instantiates an instance of {GithubVersionTags}.
      */
-    constructor(private readonly _versionSorter: IVersionSorter, private readonly _context: Context, private readonly _github: InstanceType<typeof GitHub> , private readonly _logger: ILogger) {}
+    constructor(
+        private readonly _versionSorter: IVersionSorter,
+        private readonly _context: Context,
+        private readonly _github: InstanceType<typeof GitHub>,
+        private readonly _logger: ILogger) {}
 
     /**
      * @inheritdoc
      */
-    async find(prereleaseIdentifier?: string): Promise<SemVer> {
+    async find(prereleaseId: string | undefined): Promise<SemVer> {
         const {owner, repo} = this._context.repo;
-        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}${prereleaseIdentifier !== undefined ? ` with prerelease identifier '${prereleaseIdentifier}'` : ''}`);
-        let versions = await this._getVersionsFromRepoTags(owner, repo);
+        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
+        const versions = await this._getVersionsFromRepoTags(owner, repo);
         if (!versions || versions.length === 0) {
-            const defaultVersion = this._getDefaultVersion(prereleaseIdentifier);
-            this._logger.info(`No version tags. Defaulting to version ${defaultVersion}`);
+            const defaultVersion = new SemVer('1.0.0');
+            this._logger.info(`No version tags. Defaulting to version ${defaultVersion.version}`);
             return defaultVersion;
-        }
-
-        if (prereleaseIdentifier !== undefined) {
-            versions = versions.filter(_ => _.prerelease.length > 0 && _.prerelease[0] === prereleaseIdentifier);
-            if (versions.length === 0) {
-                const defaultVersion = this._getDefaultVersion(prereleaseIdentifier);
-                this._logger.info(`No version tag with prerelease identifier '${prereleaseIdentifier}' was found. Defaulting to version ${defaultVersion}`);
-                return defaultVersion;
-            }
         }
 
         this._logger.debug(`Version tags: [
 ${versions.join(',\n')}
 ]`);
 
-        const currentVersion = this._versionSorter.sort(versions, true)[0];
-        if (!semver.valid(currentVersion)) throw new Error(`${currentVersion} is not a valid SemVer version`);
+        const currentVersion = this._findGreatestMatchingVersion(this._versionSorter.sort(versions, true), prereleaseId);
         this._logger.info(`Current version '${currentVersion}'`);
         return currentVersion;
     }
@@ -64,9 +58,21 @@ ${versions.join(',\n')}
 
         return versions.map(_ => semver.parse(_)!);
     }
+    private _findGreatestMatchingVersion(versionsDescending: SemVer[], prereleaseId: string | undefined) {
+        const greatestVersion = versionsDescending[0];
 
-    private _getDefaultVersion(prereleaseIdentifier?: string): SemVer {
-        if (prereleaseIdentifier === undefined) return new SemVer('1.0.0');
-        return new SemVer(`1.0.0-${prereleaseIdentifier}.0`);
+        if (prereleaseId === undefined) return greatestVersion;
+        if (versionsDescending[0].prerelease !== null) {
+            const greatestVersionWithoutPrerelease = greatestVersion.inc('patch')!;
+            for (const version of versionsDescending.slice(1)) {
+                const prerelease = version.prerelease;
+                if (prerelease === null) return greatestVersion;
+                const versionWithoutPrerelease = version.inc('patch');
+                if (semver.gt(greatestVersionWithoutPrerelease, versionWithoutPrerelease)) return greatestVersion;
+                if (prerelease[0] === prereleaseId) return version;
+            }
+
+        }
+        return greatestVersion;
     }
 }

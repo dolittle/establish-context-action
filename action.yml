@@ -5,22 +5,27 @@ inputs:
     description: Token to use for Github API
     required: true
     default: ${{ github.token }}
-  mainBranch:
+  main-branch:
     description: The main branch which will trigger non-prerelease releases.
     required: true
     default: master
-  prereleaseBranches:
+  prerelease-branches:
     description: A comma-separated list of branch names that when pushed a release PR or cascading commit to will trigger a release.
-    required: false
+    required: true
+    default: ''
 
   
 outputs:
-  shouldPublish:
+  should-publish:
     description: Whether or not the pipeline should publish
-  currentVersion:
+  current-version:
     description: The current version of the repository based on tags or 1.0.0 if there are no version tags
-  releaseType:
+  release-type:
     description: The type of the release. One of [major, minor, patch, prerelease]
+  prerelease-id:
+    description: The prerelease id, if any 
+  cascading-release:
+    description: Whether the publish was triggered by a cascading release.
   
 runs:
   using: 'node12'

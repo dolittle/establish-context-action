@@ -47,11 +47,15 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish cascading build context');
         this._logger.debug('Establishing context for cascading build');
         const branchName = path.basename(context.ref);
-        const prereleaseIdentifier = branchName === this._mainBranch ? undefined : branchName;
-        const currentVersion = await this._currentVersionFinder.find(prereleaseIdentifier);
-        const currentVersionPrereleaseComponents = currentVersion.prerelease;
-        const releaseType: ReleaseType = currentVersionPrereleaseComponents.length > 0 ? 'prerelease' : 'patch';
+        const prereleaseId = branchName === this._mainBranch ? undefined : branchName;
+        const releaseType: ReleaseType = prereleaseId !== undefined ? 'prerelease' : 'patch';
+        const currentVersion = await this._currentVersionFinder.find(prereleaseId);
 
-        return { shouldPublish: true, releaseType, currentVersion: currentVersion.version};
+        return {
+            shouldPublish: true,
+            cascadingRelease: true,
+            releaseType,
+            currentVersion: currentVersion.version,
+            prereleaseId };
     }
 }
