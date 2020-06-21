@@ -15,6 +15,24 @@ jobs:
         node-version: 12.x
     - run: yarn
     - run: yarn release
+    - name: Establish context
+      id: context
+      uses: ./
+
+    - name: Increment version
+      id: increment-version
+      if: ${{ context.should-publish == 'true' }}
+      uses: dolittle/increment-version-action@v2
+      with:
+        version: ${{ context.current-version }}
+        release-type: ${{ context.release-type }}
+
+    - name: Create GitHub Release
+      if: ${{ context.should-publish == 'true' }}
+      uses: ./
+      with:
+        cascading-release: ${{ context.cascading-release }}
+        version: ${{ increment-version.next-version }}
 
   release:
     name: Release JavaScript GitHub Action
