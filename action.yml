@@ -6,7 +6,7 @@ inputs:
     required: true
     default: ${{ github.token }}
   prerelease-branches:
-    description: A comma-separated list of branch names that when pushed a release PR or cascading commit to will trigger a release.
+    description: A comma-separated list of branch names that when merged a PR to will trigger a release.
     required: true
     default: ''
 
@@ -18,8 +18,6 @@ outputs:
     description: The current version of the repository based on tags or 1.0.0 if there are no version tags
   release-type:
     description: The type of the release. One of [major, minor, patch, prerelease]
-  prerelease-id:
-    description: The prerelease id, if any 
   cascading-release:
     description: Whether the publish was triggered by a cascading release.
   
