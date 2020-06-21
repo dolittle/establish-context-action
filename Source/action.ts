@@ -19,9 +19,8 @@ export async function run() {
     try {
         const context = github.context;
         const token = core.getInput('token', { required: true });
-        const mainBranch = core.getInput('main-branch', { required: true });
-        const releaseBranches = core.getInput('prerelease-branches', { required: false })?.split(',') ?? [];
-        logger.info(`Pushes to branches: [${releaseBranches.join(', ')}] can trigger a release`);
+        const prereleaseBranches = core.getInput('prerelease-branches', { required: false })?.split(',') ?? [];
+        logger.info(`Pushes to branches: [master, ${prereleaseBranches.join(', ')}] can trigger a release`);
         const octokit = github.getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
         const currentVersionFinder = new CurrentVersionFinder(
@@ -30,8 +29,8 @@ export async function run() {
             octokit,
             logger);
         const contextEstablishers = new ContextEstablishers(
-            new CascadingContextEstablisher(mainBranch, releaseBranches, currentVersionFinder, logger),
-            new MergedPullRequestContextEstablisher(mainBranch, releaseBranches, releaseTypeExtractor, currentVersionFinder, octokit, logger)
+            new CascadingContextEstablisher(currentVersionFinder, logger),
+            new MergedPullRequestContextEstablisher(prereleaseBranches, releaseTypeExtractor, currentVersionFinder, octokit, logger)
         );
         logger.info('Establishing context');
         const buildContext = await contextEstablishers.establishFrom(context);
@@ -53,15 +52,13 @@ function output(shouldPublish: boolean, cascadingRelease: boolean, currentVersio
     logger.info(`'cascading-release': ${cascadingRelease}`);
     logger.info(`'current-version': ${currentVersion}`);
     logger.info(`'release-type': ${releaseType}`);
-    logger.info(`'prerelease-id': ${prereleaseId}`);
     core.setOutput('should-publish', shouldPublish);
     core.setOutput('cascading-release', cascadingRelease);
     core.setOutput('current-version', currentVersion ?? '');
     core.setOutput('release-type', releaseType ?? '');
-    core.setOutput('prerelease-id', prereleaseId ?? '');
 }
 function outputContext(context: BuildContext) {
-    output(context.shouldPublish, context.cascadingRelease, context.currentVersion, context.releaseType, context.prereleaseId);
+    output(context.shouldPublish, context.cascadingRelease, context.currentVersion, context.releaseType);
 }
 
 function outputDefault() {

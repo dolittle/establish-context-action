@@ -29,7 +29,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
     /**
      * @inheritdoc
      */
-    async find(prereleaseId: string | undefined): Promise<SemVer> {
+    async find(prereleaseBranch: SemVer | undefined): Promise<SemVer> {
         const {owner, repo} = this._context.repo;
         this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
         const versions = await this._getVersionsFromRepoTags(owner, repo);
@@ -43,7 +43,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
 ${versions.join(',\n')}
 ]`);
 
-        const currentVersion = this._findGreatestMatchingVersion(this._versionSorter.sort(versions, true), prereleaseId);
+        const currentVersion = this._findGreatestMatchingVersion(this._versionSorter.sort(versions, true), prereleaseBranch);
         this._logger.info(`Current version '${currentVersion}'`);
         return currentVersion;
     }
@@ -58,21 +58,20 @@ ${versions.join(',\n')}
 
         return versions.map(_ => semver.parse(_)!);
     }
-    private _findGreatestMatchingVersion(versionsDescending: SemVer[], prereleaseId: string | undefined) {
+    private _findGreatestMatchingVersion(versionsDescending: SemVer[], prereleaseBranch: SemVer | undefined) {
         const greatestVersion = versionsDescending[0];
+        if (prereleaseBranch === undefined) return greatestVersion;
 
-        if (prereleaseId === undefined) return greatestVersion;
-        if (versionsDescending[0].prerelease !== null) {
-            const greatestVersionWithoutPrerelease = greatestVersion.inc('patch')!;
-            for (const version of versionsDescending.slice(1)) {
-                const prerelease = version.prerelease;
-                if (prerelease === null) return greatestVersion;
-                const versionWithoutPrerelease = version.inc('patch');
-                if (semver.gt(greatestVersionWithoutPrerelease, versionWithoutPrerelease)) return greatestVersion;
-                if (prerelease[0] === prereleaseId) return version;
-            }
-
+        const prereleaseId = prereleaseBranch.prerelease[0];
+        for (const version of versionsDescending.slice(1)) {
+            if (semver.gt(prereleaseBranch, version)) return prereleaseBranch;
+            const versionPrerelease = version.prerelease;
+            if (versionPrerelease === null) continue;
+            if (semver.eq(semver.inc(prereleaseBranch, 'patch')!, semver.inc(version, 'patch')!)
+                && versionPrerelease[0] === prereleaseId) {
+                    return version;
+                }
         }
-        return greatestVersion;
+        return prereleaseBranch;
     }
 }

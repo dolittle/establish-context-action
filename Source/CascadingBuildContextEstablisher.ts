@@ -24,8 +24,6 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
      * @param {InstanceType<typeof GitHub>} _github The github REST api.
      */
     constructor(
-        private readonly _mainBranch: string,
-        private readonly _prereleaseBranches: string[],
         private readonly _currentVersionFinder: IFindCurrentVersion,
         private readonly _logger: ILogger) {
         }
@@ -37,7 +35,7 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
         return context.eventName === 'push'
             && context.payload.head_commit.message.startsWith(CascadingBuild.message)
             && context.payload.pusher.name === CascadingBuild.pusher
-            && (branchName === this._mainBranch || this._prereleaseBranches.includes(branchName));
+            && branchName === 'master';
     }
 
     /**
@@ -46,16 +44,13 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
     async establish(context: Context): Promise<BuildContext> {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish cascading build context');
         this._logger.debug('Establishing context for cascading build');
-        const branchName = path.basename(context.ref);
-        const prereleaseId = branchName === this._mainBranch ? undefined : branchName;
-        const releaseType: ReleaseType = prereleaseId !== undefined ? 'prerelease' : 'patch';
-        const currentVersion = await this._currentVersionFinder.find(prereleaseId);
+        const currentVersion = await this._currentVersionFinder.find(undefined);
 
         return {
             shouldPublish: true,
             cascadingRelease: true,
-            releaseType,
-            currentVersion: currentVersion.version,
-            prereleaseId };
+            releaseType: 'patch',
+            currentVersion: currentVersion.version
+        };
     }
 }

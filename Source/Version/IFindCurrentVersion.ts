@@ -16,5 +16,5 @@ export interface IFindCurrentVersion {
      *
      * @returns {Promise<SemVer>}
      */
-    find(prereleaseId: string | undefined): Promise<SemVer>
+    find(prereleaseBranch: SemVer | undefined): Promise<SemVer>
 }
