@@ -1,8 +1,8 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import * as core from '@actions/core';
-import * as github from '@actions/github';
+import { getInput, setOutput, setFailed  } from '@actions/core';
+import { getOctokit, context } from '@actions/github';
 import { Logger } from '@dolittle/github-actions.shared.logging';
 import { CurrentVersionFinder } from './Version/CurrentVersionFinder';
 import { ReleaseTypeExtractor } from './ReleaseType/ReleaseTypeExtractor';
@@ -17,11 +17,10 @@ const logger = new Logger();
 run();
 export async function run() {
     try {
-        const context = github.context;
-        const token = core.getInput('token', { required: true });
-        const prereleaseBranches = core.getInput('prerelease-branches', { required: false })?.split(',') ?? [];
+        const token = getInput('token', { required: true });
+        const prereleaseBranches = getInput('prerelease-branches', { required: false })?.split(',') ?? [];
         logger.info(`Pushes to branches: [master, ${prereleaseBranches.join(', ')}] can trigger a release`);
-        const octokit = github.getOctokit(token);
+        const octokit = getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
         const currentVersionFinder = new CurrentVersionFinder(
             new SemVerVersionSorter(logger),
@@ -52,10 +51,10 @@ function output(shouldPublish: boolean, cascadingRelease: boolean, currentVersio
     logger.info(`'cascading-release': ${cascadingRelease}`);
     logger.info(`'current-version': ${currentVersion}`);
     logger.info(`'release-type': ${releaseType}`);
-    core.setOutput('should-publish', shouldPublish);
-    core.setOutput('cascading-release', cascadingRelease);
-    core.setOutput('current-version', currentVersion ?? '');
-    core.setOutput('release-type', releaseType ?? '');
+    setOutput('should-publish', shouldPublish);
+    setOutput('cascading-release', cascadingRelease);
+    setOutput('current-version', currentVersion ?? '');
+    setOutput('release-type', releaseType ?? '');
 }
 function outputContext(context: BuildContext) {
     output(context.shouldPublish, context.cascadingRelease, context.currentVersion, context.releaseType);
@@ -67,5 +66,5 @@ function outputDefault() {
 
 function fail(error: Error) {
     logger.error(error.message);
-    core.setFailed(error.message);
+    setFailed(error.message);
 }
