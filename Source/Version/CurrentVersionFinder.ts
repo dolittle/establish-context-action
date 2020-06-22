@@ -66,7 +66,7 @@ ${versions.join(',\n')}
         for (const version of versionsDescending.slice(1)) {
             if (semver.gt(prereleaseBranch, version)) return prereleaseBranch;
             const versionPrerelease = version.prerelease;
-            if (versionPrerelease === null) continue;
+            if (versionPrerelease === null || versionPrerelease.length === 0) continue;
             if (semver.eq(semver.inc(prereleaseBranch, 'patch')!, semver.inc(version, 'patch')!)
                 && versionPrerelease[0] === prereleaseId) {
                     return version;

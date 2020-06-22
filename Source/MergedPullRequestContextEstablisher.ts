@@ -94,7 +94,12 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             this._logger.debug(`Branch: '${branchName}' is not a prerelease branch`);
             return false;
         }
-        const prereleaseId = branchAsSemver.prerelease[0];
+        const prerelease = branchAsSemver.prerelease;
+        if (!prerelease || prerelease.length === 0) {
+            this._logger.debug(`Branch: '${branchName}' is not a prerelease branch`);
+            return false;
+        }
+        const prereleaseId = prerelease[0];
         for (const prereleaseBranch of this._prereleaseBranches) {
             if (prereleaseId === prereleaseBranch) return true;
         }
