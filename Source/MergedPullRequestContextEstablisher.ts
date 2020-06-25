@@ -72,8 +72,6 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             throw new Error(`When merging to master with a release type label it should be one of [${nonPrereleaseLabels.join(', ')}]`);
         }
         const currentVersion = await this._currentVersionFinder.find(prereleaseBranch);
-        this._logger.debug(`Version == ${currentVersion}`);
-        this._logger.debug(`Version.version == ${currentVersion.version}`);
         return {
             shouldPublish: true,
             cascadingRelease: false,

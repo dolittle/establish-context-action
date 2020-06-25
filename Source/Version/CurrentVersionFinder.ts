@@ -79,7 +79,6 @@ ${versions.join(',\n')}
                 this._logger.debug(`${version} is not a prerelease version. Skipping`);
                 continue;
             }
-            console.log(version);
             if (prereleaseBranch.compareMain(version) === 0) {
                 this._logger.debug(`${prereleaseBranch} and ${version} match`);
                 return version;
