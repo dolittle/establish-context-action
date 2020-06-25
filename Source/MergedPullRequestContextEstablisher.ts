@@ -41,6 +41,8 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      * @inheritdoc
      */
     canEstablishFrom(context: Context): boolean {
+        this._logger.debug('Checking if can establish from merged pull request');
+        this._logger.debug(JSON.stringify(context));
         const branchName = path.basename(context.ref);
         return context.payload.pull_request !== undefined
             && context.payload.action === 'closed'
@@ -100,6 +102,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             return false;
         }
         const prereleaseId = prerelease[0];
+        this._logger.debug(`Checking if configured prerelease branch for prerelease id ${prereleaseId}`);
         for (const prereleaseBranch of this._prereleaseBranches) {
             if (prereleaseId === prereleaseBranch) return true;
         }
