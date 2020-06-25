@@ -79,11 +79,11 @@ ${versions.join(',\n')}
                 this._logger.debug(`${version} is not a prerelease version. Skipping`);
                 continue;
             }
-            if (semver.eq(semver.inc(prereleaseBranch, 'patch')!, semver.inc(version, 'patch')!)
-                && versionPrerelease[0] === prereleaseId) {
-                    this._logger.debug(`${prereleaseBranch} and ${version} match because ${semver.inc(prereleaseBranch, 'patch')} match ${semver.inc(version, 'patch')} and they have the same prerelease id`);
-                    return version;
-                }
+
+            if (prereleaseBranch.compare(version) === 0) {
+                this._logger.debug(`${prereleaseBranch} and ${version} match`);
+                return version;
+            }
         }
         return prereleaseBranch;
     }
