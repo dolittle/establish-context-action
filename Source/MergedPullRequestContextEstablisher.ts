@@ -100,6 +100,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             return false;
         }
         const prereleaseId = prerelease[0];
+        this._logger.debug(`Checking if configured prerelease branch for prerelease id ${prereleaseId}`);
         for (const prereleaseBranch of this._prereleaseBranches) {
             if (prereleaseId === prereleaseBranch) return true;
         }

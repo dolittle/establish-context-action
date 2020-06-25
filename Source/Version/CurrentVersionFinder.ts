@@ -59,18 +59,30 @@ ${versions.join(',\n')}
         return versions.map(_ => semver.parse(_)!);
     }
     private _findGreatestMatchingVersion(versionsDescending: SemVer[], prereleaseBranch: SemVer | undefined) {
-        const greatestVersion = versionsDescending[0];
-        if (prereleaseBranch === undefined) return greatestVersion;
+        if (prereleaseBranch === undefined) {
+            const greatestVersion = versionsDescending[0];
+            this._logger.debug(`Not searching for prerelease. Returning greatest version ${greatestVersion}`);
+            return greatestVersion;
+        }
 
         const prereleaseId = prereleaseBranch.prerelease[0];
-        for (const version of versionsDescending.slice(1)) {
-            if (semver.gt(prereleaseBranch, version)) return prereleaseBranch;
+        this._logger.debug(`Searching for version with the greatest build number of prerelease ${prereleaseBranch}`);
+        for (const version of versionsDescending) {
+            this._logger.debug(`Checking version ${version}`);
+            if (semver.gt(prereleaseBranch, version)) {
+                this._logger.debug(`${prereleaseBranch} is greater than ${version}. Defaulting to ${prereleaseBranch}`);
+                return prereleaseBranch;
+            }
             const versionPrerelease = version.prerelease;
-            if (versionPrerelease === null || versionPrerelease.length === 0) continue;
-            if (semver.eq(semver.inc(prereleaseBranch, 'patch')!, semver.inc(version, 'patch')!)
-                && versionPrerelease[0] === prereleaseId) {
-                    return version;
-                }
+            if (versionPrerelease === null || versionPrerelease.length === 0)
+            {
+                this._logger.debug(`${version} is not a prerelease version. Skipping`);
+                continue;
+            }
+            if (prereleaseBranch.compareMain(version) === 0) {
+                this._logger.debug(`${prereleaseBranch} and ${version} match`);
+                return version;
+            }
         }
         return prereleaseBranch;
     }
