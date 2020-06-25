@@ -41,8 +41,6 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      * @inheritdoc
      */
     canEstablishFrom(context: Context): boolean {
-        this._logger.debug('Checking if can establish from merged pull request');
-        this._logger.debug(JSON.stringify(context));
         const branchName = path.basename(context.ref);
         return context.payload.pull_request !== undefined
             && context.payload.action === 'closed'
