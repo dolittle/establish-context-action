@@ -24,8 +24,6 @@ jobs:
     - name: Establish context
       id: context
       uses: ./ # Replace with ./ if used withing dolittle/establish-context-action
-      with:
-        prerelease-branches: experimental,alpha,beta,rc
 
     - name: Increment version
       id: increment-version
