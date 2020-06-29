@@ -34,7 +34,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
         this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
         const versions = await this._getVersionsFromRepoTags(owner, repo);
         if (!versions || versions.length === 0) {
-            const defaultVersion = new SemVer('1.0.0');
+            const defaultVersion = new SemVer('0.0.0');
             this._logger.info(`No version tags. Defaulting to version ${defaultVersion.version}`);
             return defaultVersion;
         }
