@@ -13,17 +13,17 @@ Note that the workflow has to be able to be triggered by a closed pull_request e
 For more information, reference the GitHub Help Documentation for [Creating a workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file)
 
 ### Inputs
-`token`: The token to use for the GitHub API. default: ${{ github.token }}
-`prerelease-branches`: A comma separated list of prerealease identifier suffixes to branch names that when merged a PR to will trigger a prerelease. deafult: ''
+- `token`: The token to use for the GitHub API. default: ${{ github.token }}
+- `prerelease-branches`: A comma separated list of prerealease identifier suffixes to branch names that when merged a PR to will trigger a prerelease. deafult: ''
 
 #### `prerelease-branches`
 A comma separated list of prerelease identifiers. If given `alpha,beta,rc` it will trigger a release whenever a pull request is merged to a branch with a name which is a version with one of the given prerelease-branches identifers. It will also make sure to use the version in the branch name as part of the outputtet `current-version` and use the latest vesrion that is tagged that is equal to that prerelease version. For instance if a pull request is merged to the branch `2.0.0-alpha` and the repository has a tag named `2.0.0-alpha.20` `should-publish` should be `true`, `current-version` should be `2.0.0-alpha.20` and `release-type` should be prerelease. If there are no tags starting with `2.0.0-alpha` then that will be the `current-version` output.
 
 ### Outputs
-`should-publish`: Whether or not the pipeline should publish
-`current-version`: The current version of the repository derived from the tags or 0.0.0 if there are no version tags
-`release-type`: The type of the release. Either major, minor, patch or prerelease
-`cascading-release`: Whether the publish was triggered by a cascading release
+- `should-publish`: Whether or not the pipeline should publish
+- `current-version`: The current version of the repository derived from the tags or 0.0.0 if there are no version tags
+- `release-type`: The type of the release. Either major, minor, patch or prerelease
+- `cascading-release`: Whether the publish was triggered by a cascading release
 
 ### Example Workflow
 ```yaml
