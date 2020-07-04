@@ -1,7 +1,7 @@
 # GitHub Action - Establish Context
 This GitHub action establishes the context for a release. It outputs whether a release should be triggered, the release type (major, minor, patch, prerelease), which version the repository is currently on and whether or not the release was triggered as part of a cascading release.
 
-When workflow is triggered by a [pull_request event](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request) with `type = closed` it will look for major, minor and patch labels on the pull request and the the 'greatest' release type and signify that it should trigger a release.
+When workflow is triggered by a [pull_request event](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request) with `type = closed` it will look for major, minor and patch labels on the pull request and use the 'greatest' release type. Only pull requests merged to the 'master' branch and given prerelease branches will trigger releases.
 
 ![Github JavaScript Actions CI/CD](https://github.com/dolittle/establish-context-action/workflows/Github%20JavaScript%20Actions%20CI/CD/badge.svg)
 
