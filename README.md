@@ -78,6 +78,6 @@ jobs:
 We're always open for contributions and bug fixes!
 
 ### Pre requisites
-node <= 12
-yarn
-git
+- node <= 12
+- yarn
+- git
