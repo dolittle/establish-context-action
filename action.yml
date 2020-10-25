@@ -9,7 +9,10 @@ inputs:
     description: A comma-separated list of branch names that when merged a PR to will trigger a release.
     required: true
     default: ''
-
+  current-version:
+    description: If the version is known, you can specify it with this
+    required: false
+    default: ''
   
 outputs:
   should-publish:

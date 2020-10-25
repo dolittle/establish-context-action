@@ -15,6 +15,7 @@ For more information, reference the GitHub Help Documentation for [Creating a wo
 ### Inputs
 - `token`: The token to use for the GitHub API. default: ${{ github.token }}
 - `prerelease-branches`: A comma separated list of prerelease identifier suffixes to branch names that when merged a PR to will trigger a prerelease. default: ''
+- `current-version`: If the version is known, you can specify it with this. default: ''
 
 #### `prerelease-branches`
 A comma separated list of prerelease identifiers. It will output `should-publish = true` whenever a pull request is merged to a branch with a name which is a version with one of the given prerelease-branches identifers. It will also make sure to use the version in the branch name as part of the outputted `current-version` and use the latest version that is tagged that is equal to that prerelease version. For instance if a pull request is merged to the branch `2.0.0-alpha` and the repository has a tag named `2.0.0-alpha.20` `should-publish` should be `true`, `current-version` should be `2.0.0-alpha.20` and `release-type` should be prerelease. If there are no tags starting with `2.0.0-alpha` then that will be the `current-version` output.
