@@ -1,12 +1,18 @@
 // Copyright (c) Dolittle. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { getInput, setOutput, setFailed  } from '@actions/core';
+import { getInput, setOutput, setFailed } from '@actions/core';
 import { getOctokit, context } from '@actions/github';
 import { Logger } from '@dolittle/github-actions.shared.logging';
-import { CurrentVersionFinder } from './Version/CurrentVersionFinder';
+
+import {
+    CurrentVersionFinder,
+    IFindCurrentVersion,
+    DefinedVersionFinder,
+    SemVerVersionSorter
+} from './Version';
+
 import { ReleaseTypeExtractor } from './ReleaseType/ReleaseTypeExtractor';
-import { SemVerVersionSorter } from './Version/SemVerVersionSorter';
 import { ContextEstablishers } from './ContextEstablishers';
 import { CascadingContextEstablisher } from './CascadingBuildContextEstablisher';
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
@@ -19,14 +25,23 @@ export async function run() {
     try {
         const token = getInput('token', { required: true });
         const prereleaseBranches = getInput('prerelease-branches', { required: false })?.split(',') ?? [];
+        const currentVersion = getInput('current-version', { required: false }) ?? '';
+
         logger.info(`Pushes to branches: [master, ${prereleaseBranches.join(', ')}] can trigger a release`);
         const octokit = getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
-        const currentVersionFinder = new CurrentVersionFinder(
-            new SemVerVersionSorter(logger),
-            context,
-            octokit,
-            logger);
+
+        let currentVersionFinder: IFindCurrentVersion;
+        if (currentVersion.length === 0) {
+            currentVersionFinder = new CurrentVersionFinder(
+                new SemVerVersionSorter(logger),
+                context,
+                octokit,
+                logger);
+        } else {
+            currentVersionFinder = new DefinedVersionFinder(currentVersion);
+        }
+
         const contextEstablishers = new ContextEstablishers(
             new CascadingContextEstablisher(currentVersionFinder, logger),
             new MergedPullRequestContextEstablisher(prereleaseBranches, releaseTypeExtractor, currentVersionFinder, octokit, logger)
