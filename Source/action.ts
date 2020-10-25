@@ -17,6 +17,7 @@ import { ContextEstablishers } from './ContextEstablishers';
 import { CascadingContextEstablisher } from './CascadingBuildContextEstablisher';
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
 import { BuildContext } from './BuildContext';
+import { VersionFromFileVersionFinder } from './Version/VersionFromFileVersionFinder';
 
 const logger = new Logger();
 
@@ -26,21 +27,29 @@ export async function run() {
         const token = getInput('token', { required: true });
         const prereleaseBranches = getInput('prerelease-branches', { required: false })?.split(',') ?? [];
         const currentVersion = getInput('current-version', { required: false }) ?? '';
+        const versionFile = getInput('version-file', { required: false }) ?? '';
 
         logger.info(`Pushes to branches: [master, ${prereleaseBranches.join(', ')}] can trigger a release`);
         const octokit = getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
 
         let currentVersionFinder: IFindCurrentVersion;
-        if (currentVersion.length === 0) {
+
+        if (versionFile.length >= 0) {
+            logger.info('Using defined version strategy for finding version');
+            currentVersionFinder = new VersionFromFileVersionFinder(versionFile);
+        } else if (currentVersion.length >= 0) {
+            logger.info('Using defined version strategy for finding version');
+            currentVersionFinder = new DefinedVersionFinder(currentVersion);
+        } else {
+            logger.info('Using tag strategy for finding version');
             currentVersionFinder = new CurrentVersionFinder(
                 new SemVerVersionSorter(logger),
                 context,
                 octokit,
                 logger);
-        } else {
-            currentVersionFinder = new DefinedVersionFinder(currentVersion);
         }
+
 
         const contextEstablishers = new ContextEstablishers(
             new CascadingContextEstablisher(currentVersionFinder, logger),
