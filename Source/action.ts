@@ -35,10 +35,10 @@ export async function run() {
 
         let currentVersionFinder: IFindCurrentVersion;
 
-        if (versionFile.length >= 0) {
+        if (versionFile.length > 0) {
             logger.info('Using defined version strategy for finding version');
             currentVersionFinder = new VersionFromFileVersionFinder(versionFile);
-        } else if (currentVersion.length >= 0) {
+        } else if (currentVersion.length > 0) {
             logger.info('Using defined version strategy for finding version');
             currentVersionFinder = new DefinedVersionFinder(currentVersion);
         } else {
