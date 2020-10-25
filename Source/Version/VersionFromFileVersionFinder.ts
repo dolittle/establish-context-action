@@ -18,22 +18,20 @@ export class VersionFromFileVersionFinder implements IFindCurrentVersion {
     constructor(private readonly _file: string, private readonly _logger: ILogger) { }
 
     /** @inheritdoc */
-    find(prereleaseBranch: SemVer | undefined): Promise<SemVer> {
-        return new Promise(async (resolve) => {
-            try {
-                if (fs.existsSync(this._file)) {
-                    const content = await fs.promises.readFile(this._file);
-                    const contentAsString = content.toString();
-                    const versionInfo = JSON.parse(contentAsString);
-                    this._logger.info(`Version from file: ${versionInfo.version}`);
-                    resolve(new SemVer(versionInfo.version));
-                } else {
-                    resolve(new SemVer('1.0.0'));
-                }
-            } catch (e) {
-                resolve(new SemVer('1.0.0'));
+    async find(prereleaseBranch: SemVer | undefined): Promise<SemVer> {
+        const defaultVersion = new SemVer('1.0.0');
+        try {
+            if (fs.existsSync(this._file)) {
+                const content = await fs.promises.readFile(this._file);
+                const contentAsString = content.toString();
+                const versionInfo = JSON.parse(contentAsString);
+                this._logger.info(`Version from file: ${versionInfo.version}`);
+                return new SemVer(versionInfo.version);
+            } else {
+                return defaultVersion;
             }
-        });
+        } catch (e) {
+            return defaultVersion;        }
     }
 
 }
