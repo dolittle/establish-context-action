@@ -50,7 +50,6 @@ export async function run() {
                 logger);
         }
 
-
         const contextEstablishers = new ContextEstablishers(
             new CascadingContextEstablisher(currentVersionFinder, logger),
             new MergedPullRequestContextEstablisher(prereleaseBranches, releaseTypeExtractor, currentVersionFinder, octokit, logger)
