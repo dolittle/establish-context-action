@@ -3,6 +3,7 @@
 
 import { SemVer } from 'semver';
 import { IFindCurrentVersion } from './IFindCurrentVersion';
+import { ILogger } from '@dolittle/github-actions.shared.logging';
 import * as fs from 'fs';
 
 /**
@@ -14,7 +15,7 @@ export class VersionFromFileVersionFinder implements IFindCurrentVersion {
      * Initializes a new instance of {@link VersionFromFileVersionFinder}.
      * @param {string} _file Path to JSON file to read from.
      */
-    constructor(private readonly _file: string) { }
+    constructor(private readonly _file: string, private readonly _logger: ILogger) { }
 
     /** @inheritdoc */
     find(prereleaseBranch: SemVer | undefined): Promise<SemVer> {
@@ -24,6 +25,7 @@ export class VersionFromFileVersionFinder implements IFindCurrentVersion {
                     const content = await fs.promises.readFile(this._file);
                     const contentAsString = content.toString();
                     const versionInfo = JSON.parse(contentAsString);
+                    this._logger.info(`Version from file: ${versionInfo.version}`);
                     resolve(new SemVer(versionInfo.version));
                 } else {
                     resolve(new SemVer('1.0.0'));

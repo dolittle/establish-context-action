@@ -35,9 +35,14 @@ export async function run() {
 
         let currentVersionFinder: IFindCurrentVersion;
 
+        logger.info('Inputs:');
+        logger.info(` prerelease-branches: '${prereleaseBranches}'`);
+        logger.info(` currentVersion: '${currentVersion}'`);
+        logger.info(` versionFile: '${versionFile}'`);
+
         if (versionFile.length > 0) {
-            logger.info('Using defined version strategy for finding version');
-            currentVersionFinder = new VersionFromFileVersionFinder(versionFile);
+            logger.info('Using file strategy for finding version');
+            currentVersionFinder = new VersionFromFileVersionFinder(versionFile, logger);
         } else if (currentVersion.length > 0) {
             logger.info('Using defined version strategy for finding version');
             currentVersionFinder = new DefinedVersionFinder(currentVersion);
