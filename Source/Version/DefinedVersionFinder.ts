@@ -32,3 +32,5 @@ export class DefinedVersionFinder implements IFindCurrentVersion {
         return promise;
     }
 }
+
+
