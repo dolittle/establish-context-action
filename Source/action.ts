@@ -62,8 +62,8 @@ export async function run() {
         logger.info('Establishing context');
         const buildContext = await contextEstablishers.establishFrom(context);
         if (buildContext === undefined) {
-            logger.debug('No establisher found for context');
-            logger.debug(JSON.stringify(context, undefined, 2));
+            logger.info('No establisher found for context');
+            logger.info(JSON.stringify(context, undefined, 2));
             outputDefault();
         }
         else outputContext(buildContext);
