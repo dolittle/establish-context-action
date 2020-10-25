@@ -53,7 +53,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      */
     async establish(context: Context): Promise<BuildContext> {
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish merged pull request context');
-        this._logger.debug('Establishing context for merged pull build');
+        this._logger.info('Establishing context for merged pull build');
         const {owner, repo} = context.repo;
         const mergedPr = await this._getMergedPr(owner, repo, context.sha);
         if (!mergedPr) {
@@ -61,11 +61,15 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         }
         const branchName = path.basename(context.ref);
         const prereleaseBranch = branchName === 'master' ? undefined : semver.parse(branchName)!;
+
+        const labels = mergedPr?.labels.map(_ => _.name);
+        this._logger.info(`PR has the following labels: '${labels}'`);
+
         const releaseType = prereleaseBranch !== undefined ?
             'prerelease'
-            : this._releaseTypeExtractor.extract(mergedPr?.labels.map(_ => _.name));
+            : this._releaseTypeExtractor.extract(labels);
         if (releaseType === undefined) {
-            this._logger.debug('Found no release type label on pull request');
+            this._logger.info('Found no release type label on pull request');
             return { shouldPublish: false, cascadingRelease: false };
         }
         if (prereleaseBranch === undefined && !nonPrereleaseLabels.includes(releaseType)) {
