@@ -13,6 +13,10 @@ inputs:
     description: If the version is known, you can specify it with this
     required: false
     default: ''
+  version-file:
+    description: If the version is in a file adhering to the expected JSON format, use this.
+    required: false
+    default: ''
   
 outputs:
   should-publish:
