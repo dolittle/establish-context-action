@@ -39,5 +39,4 @@ export class VersionFromFileVersionFinder implements IFindCurrentVersion {
             return defaultVersion;
         }
     }
-
 }
