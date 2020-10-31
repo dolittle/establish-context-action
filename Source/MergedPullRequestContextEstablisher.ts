@@ -45,7 +45,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         return context.payload.pull_request !== undefined
             && context.payload.action === 'closed'
             && context.payload.pull_request?.merged
-            && (branchName === 'master' || this._isPrereleaseBranch(branchName));
+            && (branchName === 'master' || branchName === 'main' || this._isPrereleaseBranch(branchName));
     }
 
     /**
@@ -60,7 +60,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             throw new Error(`Could not find a merged pull request with the merge_commit_sha ${context.sha}`);
         }
         const branchName = path.basename(context.ref);
-        const prereleaseBranch = branchName === 'master' ? undefined : semver.parse(branchName)!;
+        const prereleaseBranch = (branchName === 'master' || branchName === 'main')  ? undefined : semver.parse(branchName)!;
 
         const labels = mergedPr?.labels.map(_ => _.name);
         this._logger.info(`PR has the following labels: '${labels}'`);
@@ -73,7 +73,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             return { shouldPublish: false, cascadingRelease: false };
         }
         if (prereleaseBranch === undefined && !nonPrereleaseLabels.includes(releaseType)) {
-            throw new Error(`When merging to master with a release type label it should be one of [${nonPrereleaseLabels.join(', ')}]`);
+            throw new Error(`When merging to master/main with a release type label it should be one of [${nonPrereleaseLabels.join(', ')}]`);
         }
         const currentVersion = await this._currentVersionFinder.find(prereleaseBranch);
         return {

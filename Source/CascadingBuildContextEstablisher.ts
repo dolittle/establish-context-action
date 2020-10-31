@@ -35,7 +35,7 @@ export class CascadingContextEstablisher implements ICanEstablishContext {
         return context.eventName === 'push'
             && context.payload.head_commit.message.startsWith(CascadingBuild.message)
             && context.payload.pusher.name === CascadingBuild.pusher
-            && branchName === 'master';
+            && (branchName === 'master' || branchName === 'main');
     }
 
     /**
