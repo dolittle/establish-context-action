@@ -29,7 +29,7 @@ export async function run() {
         const currentVersion = getInput('current-version', { required: false }) ?? '';
         const versionFile = getInput('version-file', { required: false }) ?? '';
 
-        logger.info(`Pushes to branches: [master, ${prereleaseBranches.join(', ')}] can trigger a release`);
+        logger.info(`Pushes to branches: [master, main, ${prereleaseBranches.join(', ')}] can trigger a release`);
         const octokit = getOctokit(token);
         const releaseTypeExtractor = new ReleaseTypeExtractor(logger);
 
