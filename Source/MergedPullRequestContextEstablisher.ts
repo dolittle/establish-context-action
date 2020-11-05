@@ -65,9 +65,10 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         }
         const branchName = path.basename(context.ref);
         let prereleaseBranch = (branchName === 'master' || branchName === 'main') ? undefined : semver.parse(branchName)!;
-        const currentVersion = await this._currentVersionFinder.find(prereleaseBranch);
+        let currentVersion = await this._currentVersionFinder.find(prereleaseBranch);
         if (branchName === this._environmentBranch) {
             prereleaseBranch = semver.parse(`${currentVersion.major}.${currentVersion.minor}.${currentVersion.patch}-${branchName}`)!;
+            currentVersion = prereleaseBranch;
         }
 
         const labels = mergedPr?.labels.map(_ => _.name);
