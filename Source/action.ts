@@ -28,6 +28,7 @@ export async function run() {
         const prereleaseBranches = getInput('prerelease-branches', { required: false })?.split(',') ?? [];
         const currentVersion = getInput('current-version', { required: false }) ?? '';
         const versionFile = getInput('version-file', { required: false }) ?? '';
+        const environmentBranch = getInput('environment-branch', { required: false });
 
         logger.info(`Pushes to branches: [master, main, ${prereleaseBranches.join(', ')}] can trigger a release`);
         const octokit = getOctokit(token);
@@ -37,6 +38,7 @@ export async function run() {
 
         logger.info('Inputs:');
         logger.info(` prerelease-branches: '${prereleaseBranches}'`);
+        logger.info(` environment-branch: '${environmentBranch}'`);
         logger.info(` currentVersion: '${currentVersion}'`);
         logger.info(` versionFile: '${versionFile}'`);
 
@@ -57,7 +59,7 @@ export async function run() {
 
         const contextEstablishers = new ContextEstablishers(
             new CascadingContextEstablisher(currentVersionFinder, logger),
-            new MergedPullRequestContextEstablisher(prereleaseBranches, releaseTypeExtractor, currentVersionFinder, octokit, logger)
+            new MergedPullRequestContextEstablisher(prereleaseBranches, environmentBranch, releaseTypeExtractor, currentVersionFinder, octokit, logger)
         );
         logger.info('Establishing context');
         const buildContext = await contextEstablishers.establishFrom(context);
