@@ -67,7 +67,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         let prereleaseBranch = (branchName === 'master' || branchName === 'main') ? undefined : semver.parse(branchName)!;
         let currentVersion = await this._currentVersionFinder.find(prereleaseBranch);
         if (branchName === this._environmentBranch) {
-            if (currentVersion.prerelease.toString() !== this._environmentBranch) {
+            if (currentVersion.prerelease[0].toString() !== this._environmentBranch) {
                 prereleaseBranch = semver.parse(`${currentVersion.major}.${currentVersion.minor}.${currentVersion.patch}-${branchName}`)!;
                 currentVersion = prereleaseBranch;
             } else {
