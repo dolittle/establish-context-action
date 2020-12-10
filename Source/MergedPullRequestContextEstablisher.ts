@@ -75,6 +75,8 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             }
         }
 
+        this._logger.info(`Using version '${currentVersion.version}'`);
+
         const labels = mergedPr?.labels.map(_ => _.name);
         this._logger.info(`PR has the following labels: '${labels}'`);
 
