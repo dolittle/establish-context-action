@@ -9,6 +9,10 @@ inputs:
     description: A comma-separated list of branch names that when merged a PR to will trigger a release.
     required: true
     default: ''
+  environment-branch:
+    description: If the build pipeline is for a target environment (e.g. development, test, staging) you'd specify that here.
+    required: false
+    default: ''
   current-version:
     description: If the version is known, you can specify it with this
     required: false
