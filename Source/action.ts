@@ -98,3 +98,4 @@ function fail(error: Error) {
     logger.error(error.message);
     setFailed(error.message);
 }
+
