@@ -52,7 +52,7 @@ then that will be the `current-version` output.
 
 If you're releasing things on a branch that represents a specific environment, putting the
 branchname in here will consider any merged pull requests to be a pre-release to it.
-For instance typical use would be `development`, `testing` or similar.
+For instance typical use would be `development`, `testing`, `staging` or similar.
 This will cause the `should-publish` output to be set to `true`. The `current-version` output
 will include the version number and a `-{branchname}` added to it.
 The output `release-type` will be set to `prerelease`.
