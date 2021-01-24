@@ -68,25 +68,34 @@ export async function run() {
             logger.debug(JSON.stringify(context, undefined, 2));
             outputDefault();
         }
-        else outputContext(buildContext);
+        else outputContext(buildContext, context.payload.pull_request?.body);
 
     } catch (error) {
         fail(error);
     }
 }
 
-function output(shouldPublish: boolean, cascadingRelease: boolean, currentVersion?: string, releaseType?: string, prereleaseId?: string) {
+function output(
+    shouldPublish: boolean,
+    cascadingRelease: boolean,
+    currentVersion?: string,
+    releaseType?: string,
+    prereleaseId?: string,
+    prBody?: string) {
     logger.info('Outputting: ');
     logger.info(`'should-publish': ${shouldPublish}`);
     logger.info(`'cascading-release': ${cascadingRelease}`);
     logger.info(`'current-version': ${currentVersion}`);
     logger.info(`'release-type': ${releaseType}`);
+    logger.info(`'pr-body': ${prBody}`);
+    
     setOutput('should-publish', shouldPublish);
     setOutput('cascading-release', cascadingRelease);
     setOutput('current-version', currentVersion ?? '');
     setOutput('release-type', releaseType ?? '');
+    setOutput('pr-body', prBody ?? '');
 }
-function outputContext(context: BuildContext) {
+function outputContext(context: BuildContext, prBody?: string) {
     output(context.shouldPublish, context.cascadingRelease, context.currentVersion, context.releaseType);
 }
 

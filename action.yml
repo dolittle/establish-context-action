@@ -31,6 +31,8 @@ outputs:
     description: The type of the release. One of [major, minor, patch, prerelease]
   cascading-release:
     description: Whether the publish was triggered by a cascading release.
+  pr-body:
+    description: The body of the pull request
   
 runs:
   using: 'node12'
