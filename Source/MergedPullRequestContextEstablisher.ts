@@ -63,6 +63,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         if (!mergedPr) {
             throw new Error(`Could not find a merged pull request with the merge_commit_sha ${context.sha}`);
         }
+
         const branchName = path.basename(context.ref);
         let prereleaseBranch = (branchName === 'master' || branchName === 'main') ? undefined : semver.parse(branchName)!;
         let currentVersion = await this._currentVersionFinder.find(prereleaseBranch);
@@ -85,7 +86,12 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             : this._releaseTypeExtractor.extract(labels);
         if (releaseType === undefined) {
             this._logger.info('Found no release type label on pull request');
-            return { shouldPublish: false, cascadingRelease: false };
+            return {
+                shouldPublish: false,
+                cascadingRelease: false,
+                pullRequestBody: mergedPr.body,
+                pullRequestUrl: mergedPr.issue_url,
+            };
         }
         if (prereleaseBranch === undefined && !nonPrereleaseLabels.includes(releaseType)) {
             throw new Error(`When merging to master/main with a release type label it should be one of [${nonPrereleaseLabels.join(', ')}]`);
@@ -94,7 +100,9 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             shouldPublish: true,
             cascadingRelease: false,
             releaseType,
-            currentVersion: currentVersion.version
+            currentVersion: currentVersion.version,
+            pullRequestBody: mergedPr.body,
+            pullRequestUrl: mergedPr.issue_url
         };
     }
 

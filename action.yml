@@ -33,6 +33,8 @@ outputs:
     description: Whether the publish was triggered by a cascading release.
   pr-body:
     description: The body of the pull request
+  pr-url:
+    description: The url to the pull request
   
 runs:
   using: 'node12'

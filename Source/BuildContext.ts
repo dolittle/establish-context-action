@@ -8,5 +8,7 @@ export type BuildContext = {
     shouldPublish: boolean,
     cascadingRelease: boolean,
     currentVersion?: string,
-    releaseType?: string
+    releaseType?: string,
+    pullRequestBody?: string,
+    pullRequestUrl?: string
 };
