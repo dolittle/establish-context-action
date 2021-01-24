@@ -90,7 +90,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
                 shouldPublish: false,
                 cascadingRelease: false,
                 pullRequestBody: mergedPr.body,
-                pullRequestUrl: mergedPr.issue_url,
+                pullRequestUrl: mergedPr.html_url,
             };
         }
         if (prereleaseBranch === undefined && !nonPrereleaseLabels.includes(releaseType)) {
@@ -102,7 +102,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             releaseType,
             currentVersion: currentVersion.version,
             pullRequestBody: mergedPr.body,
-            pullRequestUrl: mergedPr.issue_url
+            pullRequestUrl: mergedPr.html_url
         };
     }
 
