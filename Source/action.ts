@@ -68,7 +68,7 @@ export async function run() {
             logger.debug(JSON.stringify(context, undefined, 2));
             outputDefault();
         }
-        else outputContext(buildContext, context.payload.pull_request?.body);
+        else outputContext(buildContext);
 
     } catch (error) {
         fail(error);
@@ -80,8 +80,8 @@ function output(
     cascadingRelease: boolean,
     currentVersion?: string,
     releaseType?: string,
-    prereleaseId?: string,
-    prBody?: string) {
+    prBody?: string,
+    prUrl?: string) {
     logger.info('Outputting: ');
     logger.info(`'should-publish': ${shouldPublish}`);
     logger.info(`'cascading-release': ${cascadingRelease}`);
@@ -94,9 +94,16 @@ function output(
     setOutput('current-version', currentVersion ?? '');
     setOutput('release-type', releaseType ?? '');
     setOutput('pr-body', prBody ?? '');
+    setOutput('pr-url', prUrl ?? '');
 }
-function outputContext(context: BuildContext, prBody?: string) {
-    output(context.shouldPublish, context.cascadingRelease, context.currentVersion, context.releaseType);
+function outputContext(context: BuildContext) {
+    output(
+        context.shouldPublish,
+        context.cascadingRelease,
+        context.currentVersion,
+        context.releaseType,
+        context.pullRequestBody,
+        context.pullRequestUrl);
 }
 
 function outputDefault() {
