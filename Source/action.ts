@@ -88,6 +88,7 @@ function output(
     logger.info(`'current-version': ${currentVersion}`);
     logger.info(`'release-type': ${releaseType}`);
     logger.info(`'pr-body': ${prBody}`);
+    logger.info(`'pr-url': ${prUrl}`);
 
     setOutput('should-publish', shouldPublish);
     setOutput('cascading-release', cascadingRelease);
