@@ -56,7 +56,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
             return versions.filter(_ => _.prerelease.length === 0);
         } else {
             this._logger.debug(`Filtering only versions matching prerelease ${prereleaseBranch}`);
-            return versions.filter(_ => _.compareMain(prereleaseBranch) === 0);
+            return versions.filter(_ => _.compareMain(prereleaseBranch) === 0 && _.prerelease.length > 0 && _.prerelease[0] === prereleaseBranch.prerelease[0]);
         }
     }
 
