@@ -19,7 +19,8 @@
     "@dolittle/typescript.build": "^5.3.6",
     "@types/semver": "^7.2.0",
     "@zeit/ncc": "^0.22.3",
-    "del-cli": "^3.0.1"
+    "del-cli": "^3.0.1",
+    "ts-sinon": "^2.0.1"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
