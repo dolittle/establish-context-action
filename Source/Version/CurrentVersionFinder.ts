@@ -3,10 +3,9 @@
 
 import semver, { SemVer } from 'semver';
 import { ILogger } from '@dolittle/github-actions.shared.logging';
-import { Context } from '@actions/github/lib/context';
-import { GitHub } from '@actions/github/lib/utils';
 import { IFindCurrentVersion } from './IFindCurrentVersion';
 import { IVersionSorter } from './IVersionSorter';
+import { IVersionFetcher } from './IVersionFetcher';
 
 /**
  * Represents an implementation of {ICanGetLatestVersion} that can get the latest version from Github
@@ -22,17 +21,14 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
      */
     constructor(
         private readonly _versionSorter: IVersionSorter,
-        private readonly _context: Context,
-        private readonly _github: InstanceType<typeof GitHub>,
+        private readonly _versionFetcher: IVersionFetcher,
         private readonly _logger: ILogger) {}
 
     /**
      * @inheritdoc
      */
     async find(prereleaseBranch: SemVer | undefined): Promise<SemVer> {
-        const {owner, repo} = this._context.repo;
-        this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
-        const versions = await this._getVersionsFromRepoTags(owner, repo);
+        const versions = await this._versionFetcher.fetchPreviouslyReleasedVersions();
         if (!versions || versions.length === 0) {
             const defaultVersion = new SemVer('0.0.0');
             this._logger.info(`No version tags. Defaulting to version ${defaultVersion.version}`);
@@ -48,16 +44,6 @@ ${versions.join(',\n')}
         return currentVersion;
     }
 
-    private async _getVersionsFromRepoTags(owner: string, repo: string): Promise<SemVer[]> {
-        const versions = await this._github.paginate(
-            this._github.repos.listTags,
-            {owner, repo},
-            response => response.data
-                                    .filter(tag => semver.valid(tag.name))
-                                    .map(_ => _.name!));
-
-        return versions.map(_ => semver.parse(_)!);
-    }
     private _findGreatestMatchingVersion(versionsDescending: SemVer[], prereleaseBranch: SemVer | undefined) {
         if (prereleaseBranch === undefined) {
             const greatestVersion = versionsDescending[0];
