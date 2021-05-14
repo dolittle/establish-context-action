@@ -4,7 +4,7 @@
 import { SemVer } from 'semver';
 import { a_version_finder } from '../../given/a_version_finder';
 
-describe('when finding with a prerelease and is one matching prereleases', () => {
+describe('when finding with a prerelease and is one matching prerelease', () => {
     const finder = a_version_finder.with_sorted_versions('1.3.0-beta.1', '1.2.0-beta.2', '1.2.0-beta.1', '1.2.0-beta', '1.1.0');
     const prerelease = new SemVer('1.3.0-beta');
 
