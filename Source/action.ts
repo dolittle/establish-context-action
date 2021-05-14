@@ -52,8 +52,8 @@ export async function run() {
         } else {
             logger.info('Using tag strategy for finding version');
             currentVersionFinder = new CurrentVersionFinder(
-                new SemVerVersionSorter(logger),
                 new GitHubTagsVersionFetcher(context, octokit, logger),
+                new SemVerVersionSorter(logger),
                 logger);
         }
 
