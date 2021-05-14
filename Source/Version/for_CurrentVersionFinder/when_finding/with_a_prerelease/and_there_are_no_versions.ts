@@ -10,5 +10,5 @@ describe('when finding with a prerelease and there are no versions', () => {
 
     const result = finder.find(prerelease).then(_ => _.format());
 
-    it('should return the initial version', () => result.should.eventually.equal('0.0.0'));
+    it('should return the specified prerelease', () => result.should.eventually.equal('1.1.0-alpha'));
 });
