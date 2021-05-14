@@ -8,20 +8,23 @@ import { IVersionSorter } from './IVersionSorter';
 import { IVersionFetcher } from './IVersionFetcher';
 
 /**
- * Represents an implementation of {ICanGetLatestVersion} that can get the latest version from Github
+ * Represents an implementation of {@link IFindCurrentVersion} that can get the latest version.
  *
  * @export
- * @class GithubLatestVersionFinder
- * @implements {ICanGetLatestVersion}
+ * @class CurrentVersionFinder
+ * @implements {IFindCurrentVersion}
  */
 export class CurrentVersionFinder implements IFindCurrentVersion {
 
     /**
-     * Instantiates an instance of {GithubVersionTags}.
+     * Initializes a new instance of {@link CurrentVersionFinder}
+     * @param {IVersionFetcher} _versionFetcher The version fetcher to use to fetch all released versions.
+     * @param {IVersionSorter} _versionSorter The version sorter to use for sorting versions.
+     * @param {ILogger} _logger The logger to use for logging.
      */
     constructor(
-        private readonly _versionSorter: IVersionSorter,
         private readonly _versionFetcher: IVersionFetcher,
+        private readonly _versionSorter: IVersionSorter,
         private readonly _logger: ILogger) {}
 
     /**
@@ -35,9 +38,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
             return defaultVersion;
         }
 
-        this._logger.debug(`Version tags: [
-${versions.join(',\n')}
-]`);
+        this._logger.debug(`Version tags: [\n${versions.join(',\n')}\n]`);
 
         const currentVersion = this._findGreatestMatchingVersion(this._versionSorter.sort(versions, true), prereleaseBranch);
         this._logger.info(`Current version '${currentVersion}'`);
@@ -51,7 +52,6 @@ ${versions.join(',\n')}
             return greatestVersion;
         }
 
-        const prereleaseId = prereleaseBranch.prerelease[0];
         this._logger.debug(`Searching for version with the greatest build number of prerelease ${prereleaseBranch}`);
         for (const version of versionsDescending) {
             this._logger.debug(`Checking version ${version}`);

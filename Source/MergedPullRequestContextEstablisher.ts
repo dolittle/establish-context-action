@@ -18,7 +18,7 @@ const nonPrereleaseLabels = [
 ];
 
 /**
- * Represents an implementation of {ICanEstablishContext}.
+ * Represents an implementation of {@link ICanEstablishContext}.
  *
  * @export
  * @class MergedPullRequestContextEstablisher
@@ -27,8 +27,13 @@ const nonPrereleaseLabels = [
 export class MergedPullRequestContextEstablisher implements ICanEstablishContext {
 
     /**
-     * Creates an instance of MergedPullRequestContextEstablisher.
+     * Initializes a new instance of {@link MergedPullRequestContextEstablisher}
+     * @param {string[]} _prereleaseBranches A list of branches that should be considered as pre-release branches.
+     * @param {string} _environmentBranch An environment to use for prereleases.
+     * @param {IReleaseTypeExtractor} _releaseTypeExtractor The release type extractor to use for extracting the release type from Pull Request labels.
+     * @param {IFindCurrentVersion} _currentVersionFinder The current version finder to use for finding the current version.
      * @param {InstanceType<typeof GitHub>} _github The github REST api.
+     * @param {ILogger} _logger The logger to use for logging.
      */
     constructor(
         private readonly _prereleaseBranches: string[],
@@ -38,6 +43,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         private readonly _github: InstanceType<typeof GitHub>,
         private readonly _logger: ILogger) {
     }
+
     /**
      * @inheritdoc
      */
@@ -81,8 +87,8 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         const labels = mergedPr?.labels.map(_ => _.name);
         this._logger.info(`PR has the following labels: '${labels}'`);
 
-        const releaseType = prereleaseBranch !== undefined ?
-            'prerelease'
+        const releaseType = prereleaseBranch !== undefined
+            ? 'prerelease'
             : this._releaseTypeExtractor.extract(labels);
         if (releaseType === undefined) {
             this._logger.info('Found no release type label on pull request');

@@ -25,8 +25,8 @@ const prioritizedReleaseTypes: ReleaseType[] = [
 export class ReleaseTypeExtractor implements IReleaseTypeExtractor {
 
     /**
-     * Instantiating an instance of {ReleaseTypeExtractor}.
-     * @param {ILogger} _logger
+     * Creates an instance of ReleaseTypeExtractor.
+     * @param {ILogger} _logger The logger to use for logging.
      */
     constructor(private _logger: ILogger) {}
 
@@ -43,5 +43,4 @@ export class ReleaseTypeExtractor implements IReleaseTypeExtractor {
         }
         return undefined;
     }
-
 }

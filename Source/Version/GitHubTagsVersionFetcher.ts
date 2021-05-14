@@ -8,7 +8,7 @@ import { GitHub } from '@actions/github/lib/utils';
 import { IVersionFetcher } from './IVersionFetcher';
 
 /**
- * Represents an implementation of {IVersionFetcher} that can versions from GitHhub tags
+ * Represents an implementation of {@link IVersionFetcher} that can versions from GitHhub tags
  *
  * @export
  * @class GitHubTagsVersionFetcher
@@ -17,12 +17,15 @@ import { IVersionFetcher } from './IVersionFetcher';
 export class GitHubTagsVersionFetcher implements IVersionFetcher {
 
     /**
-     * Instantiates an instance of {GitHubTagsVersionFetcher}.
+     * Initializes a new instance of {@link GitHubTagsVersionFetcher}
+     * @param {Context} _context The GitHub context.
+     * @param {InstanceType<typeof GitHub>} github The GitHub REST api client to use for fetching tags.
+     * @param {ILogger} _logger The logger to use for logging.
      */
-     constructor(
+    constructor(
         private readonly _context: Context,
         private readonly _github: InstanceType<typeof GitHub>,
-        private readonly _logger: ILogger) {}
+        private readonly _logger: ILogger) { }
 
     async fetchPreviouslyReleasedVersions(): Promise<SemVer[]> {
         const {owner, repo} = this._context.repo;
