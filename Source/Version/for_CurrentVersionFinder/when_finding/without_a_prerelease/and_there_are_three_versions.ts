@@ -8,5 +8,5 @@ describe('when finding without a prerelease there are three versions', () => {
 
     const result = finder.find(undefined).then(_ => _.format());
 
-    it('should return the first one', () => result.should.eventually.equal('1.0.0'));
+    it('should return the last version', () => result.should.eventually.equal('1.0.0'));
 });
