@@ -7,7 +7,7 @@ import { IContextEstablishers } from './IContextEstablishers';
 import { ICanEstablishContext } from './ICanEstablishContext';
 
 /**
- * Represents an implementation of {IContextEstablishers}.
+ * Represents an implementation of {@link IContextEstablishers}.
  *
  * @export
  * @class ContextEstablishers
@@ -16,10 +16,17 @@ import { ICanEstablishContext } from './ICanEstablishContext';
 export class ContextEstablishers implements IContextEstablishers {
     private readonly _establishers: ICanEstablishContext[];
 
+    /**
+     * Initializes a new instance of {@link ContextEstablishers}
+     * @param {ICanEstablishContext[]} establishers The implementations of context establishers to use.
+     */
     constructor(...establishers: ICanEstablishContext[]) {
         this._establishers = establishers;
     }
 
+    /**
+     * @inheritdoc
+     */
     establishFrom(context: Context): Promise<BuildContext> | Promise<undefined> {
         const establisher = this.getEstablisherFor(context);
         return establisher?.establish(context) ?? Promise.resolve(undefined);

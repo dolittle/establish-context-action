@@ -18,6 +18,7 @@ import { CascadingContextEstablisher } from './CascadingBuildContextEstablisher'
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
 import { BuildContext } from './BuildContext';
 import { VersionFromFileVersionFinder } from './Version/VersionFromFileVersionFinder';
+import { GitHubTagsVersionFetcher } from './Version/GitHubTagsVersionFetcher';
 
 const logger = new Logger();
 
@@ -51,9 +52,8 @@ export async function run() {
         } else {
             logger.info('Using tag strategy for finding version');
             currentVersionFinder = new CurrentVersionFinder(
+                new GitHubTagsVersionFetcher(context, octokit, logger),
                 new SemVerVersionSorter(logger),
-                context,
-                octokit,
                 logger);
         }
 

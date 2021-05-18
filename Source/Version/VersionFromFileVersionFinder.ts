@@ -15,11 +15,14 @@ export class VersionFromFileVersionFinder implements IFindCurrentVersion {
     /**
      * Initializes a new instance of {@link VersionFromFileVersionFinder}.
      * @param {string} _file Path to JSON file to read from.
+     * @param {ILogger} _logger The logger to use for logging.
      */
-    constructor(private readonly _file: string, private readonly _logger: ILogger) { }
+    constructor(
+        private readonly _file: string,
+        private readonly _logger: ILogger) { }
 
     /** @inheritdoc */
-    async find(prereleaseBranch: SemVer | undefined): Promise<SemVer> {
+    async find(): Promise<SemVer> {
         const defaultVersion = new SemVer('1.0.0');
         try {
             const absolutePath = path.resolve(this._file);

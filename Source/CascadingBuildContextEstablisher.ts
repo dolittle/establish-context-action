@@ -5,13 +5,12 @@ import path from 'path';
 import { Context } from '@actions/github/lib/context';
 import { ILogger } from '@dolittle/github-actions.shared.logging';
 import { CascadingBuild } from '@dolittle/github-actions.shared.rudiments';
-import semver, { ReleaseType } from 'semver';
 import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
 
 /**
- * Represents an implementation of {ICanEstablishContext}.
+ * Represents an implementation of {@link ICanEstablishContext}.
  *
  * @export
  * @class CascadingContextEstablisher
@@ -20,13 +19,14 @@ import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
 export class CascadingContextEstablisher implements ICanEstablishContext {
 
     /**
-     * Creates an instance of CascadingContextEstablisher.
-     * @param {InstanceType<typeof GitHub>} _github The github REST api.
+     * Initializes a new instance of {@link CascadingContextEstablisher}
+     * @param {IFindCurrentVersion} _currentVersionFinder The current version finder to use for finding the current version.
+     * @param {ILogger} _logger The logger to use for logging.
      */
     constructor(
         private readonly _currentVersionFinder: IFindCurrentVersion,
-        private readonly _logger: ILogger) {
-        }
+        private readonly _logger: ILogger) { }
+
     /**
      * @inheritdoc
      */

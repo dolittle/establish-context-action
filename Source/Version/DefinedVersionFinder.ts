@@ -16,7 +16,7 @@ export class DefinedVersionFinder implements IFindCurrentVersion {
     constructor(private readonly _version: string) { }
 
     /** @inheritdoc */
-    find(prereleaseBranch: SemVer | undefined): Promise<SemVer> {
+    find(): Promise<SemVer> {
         const promise = new Promise<SemVer>((resolve) => {
             let currentVersion: SemVer;
 
@@ -32,5 +32,3 @@ export class DefinedVersionFinder implements IFindCurrentVersion {
         return promise;
     }
 }
-
-

@@ -6,7 +6,7 @@ import semver, { SemVer } from 'semver';
 import { IVersionSorter } from './IVersionSorter';
 
 /**
- * Represents an implementation of {IVersionSorter} that can sort versions according to SemVer
+ * Represents an implementation of {@link IVersionSorter} that can sort versions according to SemVer
  *
  * @export
  * @class SemVerVersionSorter
@@ -15,10 +15,10 @@ import { IVersionSorter } from './IVersionSorter';
 export class SemVerVersionSorter implements IVersionSorter {
 
     /**
-     * Instantiates an instance of {SemVerVersionSorter}.
-     * @param {ILogger} _logger
+     * Initializes a new instance of {@link SemVerVersionSorter}
+     * @param {ILogger} _logger The logger to use for logging.
      */
-    constructor(private _logger: ILogger ) {}
+    constructor(private _logger: ILogger) {}
 
     /**
      * @inheritdoc
@@ -31,5 +31,4 @@ export class SemVerVersionSorter implements IVersionSorter {
         });
         return descending ? semver.rsort(versions) : semver.sort(versions);
     }
-
 }

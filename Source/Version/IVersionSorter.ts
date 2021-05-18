@@ -14,8 +14,8 @@ export interface IVersionSorter {
     /**
      * Sorts a list of versions.
      *
-     * @param {SemVer[]} versions
-     * @param {boolean} [descending]
+     * @param {SemVer[]} versions The versions to sort.
+     * @param {boolean} [descending] True to sort versions in descending order (default), or false to sort versions in ascending order.
      * @returns {SemVer[]}
      */
     sort(versions: SemVer[], descending?: boolean): SemVer[]
