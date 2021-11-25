@@ -26,7 +26,7 @@ run();
 export async function run() {
     try {
         const token = getInput('token', { required: true });
-        const prereleaseBranches = getInput('prerelease-branches', { required: false })?.split(',') ?? [];
+        const prereleaseBranches = getInput('prerelease-branches', { required: false })?.split(',').map(_ => _.trim()) ?? [];
         const currentVersion = getInput('current-version', { required: false }) ?? '';
         const versionFile = getInput('version-file', { required: false }) ?? '';
         const environmentBranch = getInput('environment-branch', { required: false });
