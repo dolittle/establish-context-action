@@ -1,3 +1,28 @@
+# [2.5.3] - 2021-11-25 [PR: #45](https://github.com/dolittle/establish-context-action/pull/45)
+## Summary
+
+Trims the spaces around prerelease branch names after splitting on comma to allow specifying:
+```yaml
+     - name: Establish context
+        id: context
+        uses: dolittle/establish-context-action@v2
+        with:
+          prerelease-branches: legolas, gandalf
+```
+instead of:
+```yaml
+     - name: Establish context
+        id: context
+        uses: dolittle/establish-context-action@v2
+        with:
+          prerelease-branches: legolas,gandalf
+```
+
+### Fixed
+
+- Trim spaces around prerelease branch names
+
+
 # [2.5.2] - 2021-5-18 [PR: #41](https://github.com/dolittle/establish-context-action/pull/41)
 ## Summary
 
