@@ -20,7 +20,6 @@ jobs:
         node-version: 16.x
     - run: yarn
     - run: yarn release
-
     - name: Establish context
       id: context
       uses: ./ # Replace with ./ if used withing dolittle/establish-context-action
