@@ -2,9 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { expect } from 'chai';
+import { describeThis } from '@dolittle/typescript.testing';
 import { an_extractor } from './given/an_extractor';
 
-describe('when extracting from empty string', () => {
+describeThis(__filename, () => {
     const extractor = new an_extractor().extractor;
     const labels: string[] = [];
     const result = extractor.extract(labels);

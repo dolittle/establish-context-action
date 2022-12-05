@@ -7,7 +7,6 @@ import { BuildContext } from './BuildContext';
 /**
  * Defines a system that can establish the build context of the Github Action.
  *
- * @export
  * @interface ICanEstablishContext
  */
 export interface ICanEstablishContext {
@@ -15,7 +14,7 @@ export interface ICanEstablishContext {
     /**
      * Whether it can establish from a given context.
      *
-     * @param {Context} context The github {Context}.
+     * @param {Context} context - The github {Context}.
      * @returns {boolean} Whether it can establish from {Context}.
      */
     canEstablishFrom(context: Context): boolean
@@ -23,8 +22,7 @@ export interface ICanEstablishContext {
     /**
      * Establishes a {BuildContext} from the given github {Context}.
      *
-     * @param {Context} context The github context.
-     * @param {InstanceType<typeof GitHub>} github The github REST api.
+     * @param {Context} context - The github context.
      * @returns {Promise<BuildContext>} A {Promise} that, when resolved, returns the {BuildContext}.
      */
     establish(context: Context): Promise<BuildContext>

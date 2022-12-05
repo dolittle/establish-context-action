@@ -4,7 +4,9 @@
 import { expect } from 'chai';
 import { an_extractor } from './given/an_extractor';
 
-describe('when extracting from string with multiple release types', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const extractor = new an_extractor().extractor;
     const labels = ['major','minor'];
 

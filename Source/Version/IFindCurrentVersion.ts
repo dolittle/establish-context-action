@@ -6,7 +6,6 @@ import { SemVer } from 'semver';
 /**
  * Defines a system that can deduce the current version of a repository.
  *
- * @export
  * @interface IFindCurrentVersion
  */
 export interface IFindCurrentVersion {

@@ -23,6 +23,9 @@ import { GitHubTagsVersionFetcher } from './Version/GitHubTagsVersionFetcher';
 const logger = new Logger();
 
 run();
+/**
+ * Runs the action.
+ */
 export async function run() {
     try {
         const token = getInput('token', { required: true });
@@ -67,10 +70,9 @@ export async function run() {
             logger.debug('No establisher found for context');
             logger.debug(JSON.stringify(context, undefined, 2));
             outputDefault();
-        }
-        else outputContext(buildContext);
+        } else outputContext(buildContext);
 
-    } catch (error) {
+    } catch (error: any) {
         fail(error);
     }
 }
@@ -115,4 +117,3 @@ function fail(error: Error) {
     logger.error(error.message);
     setFailed(error.message);
 }
-

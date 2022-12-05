@@ -4,7 +4,9 @@
 import { expect } from 'chai';
 import { an_extractor } from './given/an_extractor';
 
-describe('when extracting from undefined string', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const extractor = new an_extractor().extractor;
     const result = extractor.extract(undefined as any);
 

@@ -4,7 +4,9 @@
 import { SemVer } from 'semver';
 import { a_version_finder } from '../../given/a_version_finder';
 
-describe('when finding with a prerelease and there are two matching prereleases', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const finder = a_version_finder.with_sorted_versions('1.2.0', '1.2.0-alpha', '1.1.0-alpha.1', '1.1.0-alpha', '1.0.0', '0.9.0');
     const prerelease = new SemVer('1.1.0-alpha');
 

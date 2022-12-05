@@ -6,7 +6,6 @@ import { SemVer } from 'semver';
 /**
  * Defines a system that can fetch versions.
  *
- * @export
  * @interface IVersionFetcher
  */
 export interface IVersionFetcher {

@@ -10,8 +10,8 @@ import { IFindCurrentVersion } from './IFindCurrentVersion';
 export class DefinedVersionFinder implements IFindCurrentVersion {
 
     /**
-     * Initializes a new instance of {@link DefinedVersionFinder}
-     * @param {string} version The defined version as a string
+     * Initializes a new instance of {@link DefinedVersionFinder}.
+     * @param {string} _version - The defined version as a string.
      */
     constructor(private readonly _version: string) { }
 

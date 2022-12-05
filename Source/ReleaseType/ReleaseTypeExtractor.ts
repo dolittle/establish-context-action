@@ -15,7 +15,7 @@ const prioritizedReleaseTypes: ReleaseType[] = [
     'prerelease'
 ];
 
-/**
+/**.
  * Represents an implementation of {IReleaseTypeExtractor}
  *
  * @export
@@ -26,7 +26,7 @@ export class ReleaseTypeExtractor implements IReleaseTypeExtractor {
 
     /**
      * Creates an instance of ReleaseTypeExtractor.
-     * @param {ILogger} _logger The logger to use for logging.
+     * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(private _logger: ILogger) {}
 

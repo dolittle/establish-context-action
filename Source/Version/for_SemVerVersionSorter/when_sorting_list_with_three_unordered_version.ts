@@ -2,9 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { a_sorter } from './given/a_sorter';
+import { describeThis } from '@dolittle/typescript.testing';
 import { SemVer } from 'semver';
 
-describe('when sorting list with three unordered versions', () => {
+describeThis(__filename, () => {
     const version_sorter = new a_sorter().sorter;
     const version1 = new SemVer('2.0.0');
     const version2 = new SemVer('1.1.0');

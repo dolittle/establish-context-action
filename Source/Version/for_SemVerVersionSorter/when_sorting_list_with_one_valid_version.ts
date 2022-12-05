@@ -4,7 +4,9 @@
 import { a_sorter } from './given/a_sorter';
 import { SemVer } from 'semver';
 
-describe('when sorting list with one valid version', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const version_sorter = new a_sorter().sorter;
     const version = new SemVer('1.0.0');
     const res = version_sorter.sort([version]);

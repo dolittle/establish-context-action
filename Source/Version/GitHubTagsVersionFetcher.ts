@@ -8,31 +8,33 @@ import { GitHub } from '@actions/github/lib/utils';
 import { IVersionFetcher } from './IVersionFetcher';
 
 /**
- * Represents an implementation of {@link IVersionFetcher} that can versions from GitHhub tags
+ * Represents an implementation of {@link IVersionFetcher} that can versions from GitHhub tags.
  *
- * @export
  * @class GitHubTagsVersionFetcher
  * @implements {IVersionFetcher}
  */
 export class GitHubTagsVersionFetcher implements IVersionFetcher {
 
     /**
-     * Initializes a new instance of {@link GitHubTagsVersionFetcher}
-     * @param {Context} _context The GitHub context.
-     * @param {InstanceType<typeof GitHub>} github The GitHub REST api client to use for fetching tags.
-     * @param {ILogger} _logger The logger to use for logging.
+     * Initializes a new instance of {@link GitHubTagsVersionFetcher}.
+     * @param {Context} _context - The GitHub context.
+     * @param {InstanceType<typeof GitHub>} _github - The GitHub REST api client to use for fetching tags.
+     * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(
         private readonly _context: Context,
         private readonly _github: InstanceType<typeof GitHub>,
         private readonly _logger: ILogger) { }
 
+    /**
+     *
+     */
     async fetchPreviouslyReleasedVersions(): Promise<SemVer[]> {
         const {owner, repo} = this._context.repo;
         this._logger.debug(`Getting version tags from github.com/${owner}/${repo}`);
 
         const versions = await this._github.paginate(
-            this._github.repos.listTags,
+            this._github.rest.repos.listTags,
             {owner, repo},
             response => response.data
                                     .filter(tag => semver.valid(tag.name))

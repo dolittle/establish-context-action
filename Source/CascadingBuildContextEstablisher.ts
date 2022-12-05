@@ -12,16 +12,15 @@ import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
 /**
  * Represents an implementation of {@link ICanEstablishContext}.
  *
- * @export
  * @class CascadingContextEstablisher
  * @implements {ICanEstablishContext}
  */
 export class CascadingContextEstablisher implements ICanEstablishContext {
 
     /**
-     * Initializes a new instance of {@link CascadingContextEstablisher}
-     * @param {IFindCurrentVersion} _currentVersionFinder The current version finder to use for finding the current version.
-     * @param {ILogger} _logger The logger to use for logging.
+     * Initializes a new instance of {@link CascadingContextEstablisher}.
+     * @param {IFindCurrentVersion} _currentVersionFinder - The current version finder to use for finding the current version.
+     * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(
         private readonly _currentVersionFinder: IFindCurrentVersion,
