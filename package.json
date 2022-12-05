@@ -9,12 +9,13 @@
     "prebuild": "yarn clean",
     "postbuild": "yarn lint",
     "build": "tsc -b",
+    "build:release": "tsc -b && yarn test:clean",
     "clean": "tsc -b --clean",
     "test": "mocha",
     "test:clean": "rimraf Distribution/**/for_*",
     "lint": "eslint --quiet --ext .ts ./",
     "lint:fix": "eslint --quiet --ext .ts ./ --fix",
-    "release": "yarn build && yarn test && yarn test:clean && npx ncc build Distribution/action.js --out release"
+    "release": "yarn build:release && npx ncc build Distribution/action.js --out release"
   },
   "devDependencies": {
     "@dolittle/typescript.build": "6.0.2",
@@ -30,7 +31,7 @@
     "@actions/core": "1.10.0",
     "@actions/github": "5.1.1",
     "@dolittle/github-actions.shared.logging": "1.1.1",
-    "@dolittle/github-actions.shared.rudiments": "1.0.0",
+    "@dolittle/github-actions.shared.rudiments": "1.1.1",
     "semver": "7.3.8"
   }
 }
