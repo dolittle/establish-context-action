@@ -1,3 +1,9 @@
+# [2.5.5] - 2022-12-5 [PR: #54](https://github.com/dolittle/establish-context-action/pull/54)
+## Summary
+
+Use node16
+
+
 # [2.5.4] - 2022-12-5 [PR: #53](https://github.com/dolittle/establish-context-action/pull/53)
 ## Summary
 Update dependencies and use latest dolittle typescript packages
