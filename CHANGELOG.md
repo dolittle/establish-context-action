@@ -1,3 +1,9 @@
+# [2.5.6] - 2022-12-5 [PR: #55](https://github.com/dolittle/establish-context-action/pull/55)
+## Summary
+
+Attempt to fix
+
+
 # [2.5.5] - 2022-12-5 [PR: #54](https://github.com/dolittle/establish-context-action/pull/54)
 ## Summary
 
