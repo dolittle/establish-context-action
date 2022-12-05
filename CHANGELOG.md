@@ -1,3 +1,9 @@
+# [2.5.7] - 2022-12-5 [PR: #56](https://github.com/dolittle/establish-context-action/pull/56)
+## Summary
+
+Fixes the scripts and workflows
+
+
 # [2.5.6] - 2022-12-5 [PR: #55](https://github.com/dolittle/establish-context-action/pull/55)
 ## Summary
 
