@@ -9,7 +9,6 @@ import { ICanEstablishContext } from './ICanEstablishContext';
 /**
  * Represents an implementation of {@link IContextEstablishers}.
  *
- * @export
  * @class ContextEstablishers
  * @implements {IContextEstablishers}
  */
@@ -17,8 +16,8 @@ export class ContextEstablishers implements IContextEstablishers {
     private readonly _establishers: ICanEstablishContext[];
 
     /**
-     * Initializes a new instance of {@link ContextEstablishers}
-     * @param {ICanEstablishContext[]} establishers The implementations of context establishers to use.
+     * Initializes a new instance of {@link ContextEstablishers}.
+     * @param {ICanEstablishContext[]} establishers - The implementations of context establishers to use.
      */
     constructor(...establishers: ICanEstablishContext[]) {
         this._establishers = establishers;
@@ -33,7 +32,7 @@ export class ContextEstablishers implements IContextEstablishers {
     }
 
     private getEstablisherFor(context: Context): ICanEstablishContext | undefined {
-        let establisher: ICanEstablishContext | undefined = undefined;
+        let establisher: ICanEstablishContext | undefined;
         for (const _establisher of this._establishers) {
             if (_establisher.canEstablishFrom(context)) {
                 if (establisher !== undefined) {

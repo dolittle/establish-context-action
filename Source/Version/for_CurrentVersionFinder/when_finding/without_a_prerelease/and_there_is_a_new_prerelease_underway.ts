@@ -3,7 +3,9 @@
 
 import { a_version_finder } from '../../given/a_version_finder';
 
-describe('when finding without a prerelease and there is a new prerelease underway', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const finder = a_version_finder.with_sorted_versions('2.0.0-lightspeed','1.1.0','1.0.1','1.0.0');
 
     const result = finder.find(undefined).then(_ => _.format());

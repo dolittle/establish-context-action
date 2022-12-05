@@ -4,7 +4,9 @@
 import { a_sorter } from './given/a_sorter';
 import { SemVer } from 'semver';
 
-describe('when sorting list with three unordered versions with and without v in front', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const version_sorter = new a_sorter().sorter;
     const version1 = new SemVer('v2.0.0');
     const version2 = new SemVer('1.1.0');

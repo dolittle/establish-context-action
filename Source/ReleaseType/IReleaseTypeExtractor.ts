@@ -3,7 +3,7 @@
 
 import { ReleaseType } from 'semver';
 
-/**
+/**.
  * Defines a system that can extract a release type from a list of labels
  *
  * @export
@@ -11,7 +11,7 @@ import { ReleaseType } from 'semver';
  */
 export interface IReleaseTypeExtractor {
 
-    /**
+    /**.
      * Extracts a release type from a list of labels
      *
      * @param {string[]} labels

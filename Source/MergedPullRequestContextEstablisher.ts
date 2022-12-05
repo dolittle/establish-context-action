@@ -20,20 +20,19 @@ const nonPrereleaseLabels = [
 /**
  * Represents an implementation of {@link ICanEstablishContext}.
  *
- * @export
  * @class MergedPullRequestContextEstablisher
  * @implements {ICanEstablishContext}
  */
 export class MergedPullRequestContextEstablisher implements ICanEstablishContext {
 
     /**
-     * Initializes a new instance of {@link MergedPullRequestContextEstablisher}
-     * @param {string[]} _prereleaseBranches A list of branches that should be considered as pre-release branches.
-     * @param {string} _environmentBranch An environment to use for prereleases.
-     * @param {IReleaseTypeExtractor} _releaseTypeExtractor The release type extractor to use for extracting the release type from Pull Request labels.
-     * @param {IFindCurrentVersion} _currentVersionFinder The current version finder to use for finding the current version.
-     * @param {InstanceType<typeof GitHub>} _github The github REST api.
-     * @param {ILogger} _logger The logger to use for logging.
+     * Initializes a new instance of {@link MergedPullRequestContextEstablisher}.
+     * @param {string[]} _prereleaseBranches - A list of branches that should be considered as pre-release branches.
+     * @param {string} _environmentBranch - An environment to use for prereleases.
+     * @param {IReleaseTypeExtractor} _releaseTypeExtractor - The release type extractor to use for extracting the release type from Pull Request labels.
+     * @param {IFindCurrentVersion} _currentVersionFinder - The current version finder to use for finding the current version.
+     * @param {InstanceType<typeof GitHub>} _github - The github REST api.
+     * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(
         private readonly _prereleaseBranches: string[],
@@ -95,7 +94,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             return {
                 shouldPublish: false,
                 cascadingRelease: false,
-                pullRequestBody: mergedPr.body,
+                pullRequestBody: mergedPr.body ?? undefined,
                 pullRequestUrl: mergedPr.html_url,
             };
         }
@@ -107,7 +106,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             cascadingRelease: false,
             releaseType,
             currentVersion: currentVersion.version,
-            pullRequestBody: mergedPr.body,
+            pullRequestBody: mergedPr.body ?? undefined,
             pullRequestUrl: mergedPr.html_url
         };
     }
@@ -115,7 +114,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
     private async _getMergedPr(owner: string, repo: string, sha: string) {
         this._logger.debug(`Trying to get merged PR with merge_commit_sha: ${sha}`);
         const mergedPr = await this._github.paginate(
-            this._github.pulls.list,
+            this._github.rest.pulls.list,
             { owner, repo, state: 'closed', sort: 'updated', direction: 'desc' }
         ).then(data => data.find(pr => pr.merge_commit_sha === sha));
         return mergedPr;

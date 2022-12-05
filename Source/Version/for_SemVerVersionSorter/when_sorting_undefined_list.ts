@@ -3,7 +3,9 @@
 
 import { a_sorter } from './given/a_sorter';
 
-describe('when sorting undefined list', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const version_sorter = new a_sorter().sorter;
     const res = version_sorter.sort(undefined as any);
 

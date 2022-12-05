@@ -5,7 +5,7 @@ import { ILogger } from '@dolittle/github-actions.shared.logging';
 import semver, { SemVer } from 'semver';
 import { IVersionSorter } from './IVersionSorter';
 
-/**
+/**.
  * Represents an implementation of {@link IVersionSorter} that can sort versions according to SemVer
  *
  * @export
@@ -15,8 +15,8 @@ import { IVersionSorter } from './IVersionSorter';
 export class SemVerVersionSorter implements IVersionSorter {
 
     /**
-     * Initializes a new instance of {@link SemVerVersionSorter}
-     * @param {ILogger} _logger The logger to use for logging.
+     * Initializes a new instance of {@link SemVerVersionSorter}.
+     * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(private _logger: ILogger) {}
 

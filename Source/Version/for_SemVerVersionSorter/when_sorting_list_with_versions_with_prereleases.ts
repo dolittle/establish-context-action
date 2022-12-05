@@ -4,7 +4,9 @@
 import { SemVer } from 'semver';
 import { a_sorter } from './given/a_sorter';
 
-describe('when sorting list with versions with pre-releases', () => {
+import { describeThis } from '@dolittle/typescript.testing';
+
+describeThis(__filename, () => {
     const version_sorter = new a_sorter().sorter;
     const version1 = new SemVer('2.0.0-preview.2');
     const version2 = new SemVer('2.0.0-preview.1');

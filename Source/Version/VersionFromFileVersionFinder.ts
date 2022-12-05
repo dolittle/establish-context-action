@@ -14,8 +14,8 @@ export class VersionFromFileVersionFinder implements IFindCurrentVersion {
 
     /**
      * Initializes a new instance of {@link VersionFromFileVersionFinder}.
-     * @param {string} _file Path to JSON file to read from.
-     * @param {ILogger} _logger The logger to use for logging.
+     * @param {string} _file - Path to JSON file to read from.
+     * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(
         private readonly _file: string,

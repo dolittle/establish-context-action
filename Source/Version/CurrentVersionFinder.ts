@@ -10,17 +10,16 @@ import { IVersionFetcher } from './IVersionFetcher';
 /**
  * Represents an implementation of {@link IFindCurrentVersion} that can get the latest version.
  *
- * @export
  * @class CurrentVersionFinder
  * @implements {IFindCurrentVersion}
  */
 export class CurrentVersionFinder implements IFindCurrentVersion {
 
     /**
-     * Initializes a new instance of {@link CurrentVersionFinder}
-     * @param {IVersionFetcher} _versionFetcher The version fetcher to use to fetch all released versions.
-     * @param {IVersionSorter} _versionSorter The version sorter to use for sorting versions.
-     * @param {ILogger} _logger The logger to use for logging.
+     * Initializes a new instance of {@link CurrentVersionFinder}.
+     * @param {IVersionFetcher} _versionFetcher - The version fetcher to use to fetch all released versions.
+     * @param {IVersionSorter} _versionSorter - The version sorter to use for sorting versions.
+     * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(
         private readonly _versionFetcher: IVersionFetcher,
