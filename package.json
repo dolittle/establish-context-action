@@ -6,16 +6,13 @@
   "license": "MIT",
   "main": "Distribution/action.js",
   "scripts": {
-    "prebuild": "yarn clean",
-    "postbuild": "yarn lint",
-    "build": "tsc -b",
-    "build:release": "tsc -b && yarn test:clean",
-    "clean": "tsc -b --clean",
+    "build": "tsc -b && yarn test:clean && npx ncc build Distribution/action.js --out release",
+    "build:ci": "tsc -b && yarn lint",
     "test": "mocha",
     "test:clean": "rimraf Distribution/**/for_*",
     "lint": "eslint --quiet --ext .ts ./",
     "lint:fix": "eslint --quiet --ext .ts ./ --fix",
-    "release": "yarn build:release && npx ncc build Distribution/action.js --out release"
+    "ci": "yarn build:ci && yarn test && yarn test:clean && npx ncc build Distribution/action.js --out release"
   },
   "devDependencies": {
     "@dolittle/typescript.build": "6.0.2",

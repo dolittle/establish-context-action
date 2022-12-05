@@ -15,11 +15,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
-    - run: yarn
     - name: Release GitHub Action
       uses: technote-space/release-github-actions@v8
       with:
-        BUILD_COMMAND: yarn release
         CLEAN_TARGETS: Source,*.ts,*.js,*.json,*.lock,.[!.]*,Tests,Documentation,node_modules,Distribution
         TEST_TAG_PREFIX: test/
         ORIGINAL_TAG_PREFIX: original/
