@@ -37,5 +37,5 @@ outputs:
     description: The url to the pull request
   
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'release/index.js'
