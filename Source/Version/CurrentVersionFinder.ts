@@ -35,21 +35,21 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
 
         this._logger.debug(`All version tags: [\n${sorted.join(',\n')}\n]`);
 
-        const filtered = this._filterApplicableVersions(sorted, prereleaseBranch);
+        const filtered = this.filterApplicableVersions(sorted, prereleaseBranch);
         this._logger.debug(`Filtered version tags: [\n${filtered.join(',\n')}\n]`);
 
         if (filtered.length === 0) {
-            const defaultVersion = this._getDefaultVersion(prereleaseBranch);
+            const defaultVersion = this.getDefaultVersion(prereleaseBranch);
             this._logger.info(`No version tags. Defaulting to version ${defaultVersion.version}`);
             return defaultVersion;
         }
 
         const currentVersion = filtered[0];
-        this._logger.info(`Current version '${currentVersion}'`);
+        this._logger.info(`Current version is '${currentVersion}'`);
         return currentVersion;
     }
 
-    private _filterApplicableVersions(versions: SemVer[], prereleaseBranch: SemVer | undefined) {
+    private filterApplicableVersions(versions: SemVer[], prereleaseBranch: SemVer | undefined) {
         if (prereleaseBranch === undefined) {
             this._logger.debug('Filtering only non-prerelease versions');
             return versions.filter(_ => _.prerelease.length === 0);
@@ -59,7 +59,7 @@ export class CurrentVersionFinder implements IFindCurrentVersion {
         }
     }
 
-    private _getDefaultVersion(prereleaseBranch: SemVer | undefined): SemVer {
+    private getDefaultVersion(prereleaseBranch: SemVer | undefined): SemVer {
         return prereleaseBranch === undefined
             ? new SemVer('0.0.0')
             : prereleaseBranch;

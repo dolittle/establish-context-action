@@ -34,12 +34,16 @@ export class ReleaseTypeExtractor implements IReleaseTypeExtractor {
      * @inheritdoc
      */
     extract(labels: string[]): ReleaseType | undefined {
-        if (labels === undefined) return undefined;
+        if (labels === undefined) {
+            return undefined;
+        }
         this._logger.debug(`Extracting release type from list of labels: [${labels.join(', ')}]`);
         labels = labels.map(_ => _.trim());
         for (const releaseType of prioritizedReleaseTypes) {
             const foundReleaseType = labels.find(_ => _ === releaseType) as ReleaseType | undefined;
-            if (foundReleaseType !== undefined) return foundReleaseType;
+            if (foundReleaseType !== undefined) {
+                return foundReleaseType;
+            }
         }
         return undefined;
     }

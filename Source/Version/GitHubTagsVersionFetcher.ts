@@ -27,7 +27,7 @@ export class GitHubTagsVersionFetcher implements IVersionFetcher {
         private readonly _logger: ILogger) { }
 
     /**
-     *
+     * @inheritdoc
      */
     async fetchPreviouslyReleasedVersions(): Promise<SemVer[]> {
         const {owner, repo} = this._context.repo;

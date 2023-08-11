@@ -8,8 +8,6 @@ with `type = closed` it will look for major, minor and patch labels on the pull 
 use the 'greatest' release type. Only pull requests merged to the 'master'/'main' branch and given
 prerelease branches will trigger releases.
 
-![Github JavaScript Actions CI/CD](https://github.com/woksin-org/establish-context-action/workflows/CI/CD/badge.svg)
-
 ## Usage
 
 Create a workflow `.yml` file in your `.github/workflows` directory. An [example workflow](#example-workflow) is available below.
@@ -22,7 +20,8 @@ For more information, reference the GitHub Help Documentation for [Creating a wo
 ### Inputs
 
 - `token`: The token to use for the GitHub API. default: ${{ github.token }}
-- `prerelease-branches`: A comma separated list of prerelease identifier suffixes to branch names that when merged a PR to will trigger a prerelease. default: ''
+- `release-branches`: A list of the branches that should trigger a context establishment if a PR is merged against it.
+- `prerelease-branches`: A list of the prerelease branches that should trigger a prerelease context establishment if a PR is merged against it.
 - `current-version`: If the version is known, you can specify it with this. default: ''
 - `version-file`: If the version is in a file adhering to the expected JSON format, use this. default: ''
 
@@ -38,7 +37,7 @@ Using the version file strategy requires a file that contains an object literal 
 
 #### `prerelease-branches`
 
-A comma separated list of prerelease identifiers. It will output `should-publish = true`
+A list of prerelease identifiers. It will output `should-publish = true`
 whenever a pull request is merged to a branch with a name which is a version with one of
 the given prerelease-branches identifers. It will also make sure to use the version in
 the branch name as part of the outputted `current-version` and use the latest version
@@ -110,15 +109,12 @@ jobs:
         id: context
         uses: woksin-org/establish-context-action@v2
         with:
-          prerelease-branches: alpha,beta,rc
+          prerelease-branches: |
+            alpha
+            beta
+            rc
 ```
 
 ## Contributing
 
 We're always open for contributions and bug fixes!
-
-### Prerequisites
-
-- node <= 12
-- yarn
-- git

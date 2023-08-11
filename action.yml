@@ -4,20 +4,37 @@ inputs:
   token:
     description: Token to use for Github API
     default: ${{ github.token }}
+  release-branches:
+    description: |
+      A list of the branches that should trigger a context establishment if a PR is merged against it.
+      Give input as:
+      with:
+        release-branches: |
+          main
+          master
+          ...
+    default: |
+      master
+      main
+      
   prerelease-branches:
-    description: A comma-separated list of branch names that when merged a PR to will trigger a release.
+    description: |
+      A list of the prerelease branches that should trigger a prerelease context establishment if a PR is merged against it.
+      Give input as:
+      with:
+        prerelease-branches: |
+          main
+          master
+          ...
     default: ''
   environment-branch:
     description: If the build pipeline is for a target environment (e.g. development, test, staging) you'd specify that here.
-    required: false
     default: ''
   current-version:
     description: If the version is known, you can specify it with this
-    required: false
     default: ''
   version-file:
     description: If the version is in a file adhering to the expected JSON format, use this.
-    required: false
     default: ''
   
 outputs:
