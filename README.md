@@ -58,9 +58,12 @@ The output `release-type` will be set to `prerelease`.
 
 ### Outputs
 
-- `should-publish`: Whether or not the pipeline should publish
-- `current-version`: The current version of the repository derived from the tags or 0.0.0 if there are no version tags
+- `should-publish`: Whether or not the pipeline should publish based on the context it has established
+- `current-version`: The current version
+- `new-version`: The new version
 - `release-type`: The type of the release. Either major, minor, patch or prerelease
+- `pr-body`: The body of the PR
+- `pr-url`: The url of the PR
 
 ### Example Workflow
 
