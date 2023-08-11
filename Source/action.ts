@@ -9,11 +9,11 @@ import {
     CurrentVersionFinder,
     IFindCurrentVersion,
     DefinedVersionFinder,
-    SemVerVersionSorter
+    SemVerVersionSorter,
+    VersionIncrementor
 } from './Version';
 
 import { ReleaseTypeExtractor } from './ReleaseType/ReleaseTypeExtractor';
-import { ContextEstablishers } from './ContextEstablishers';
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
 import { BuildContext } from './BuildContext';
 import { VersionFromFileVersionFinder } from './Version/VersionFromFileVersionFinder';
@@ -61,11 +61,9 @@ export async function run() {
                 logger);
         }
 
-        const contextEstablishers = new ContextEstablishers(
-            new MergedPullRequestContextEstablisher(releaseBranches, prereleaseBranches, environmentBranch, releaseTypeExtractor, currentVersionFinder, octokit, logger)
-        );
+        const contextEstablisher = new MergedPullRequestContextEstablisher(releaseBranches, prereleaseBranches, environmentBranch, releaseTypeExtractor, currentVersionFinder, new VersionIncrementor(logger), octokit, logger);
         logger.info('Establishing context');
-        const buildContext = await contextEstablishers.establishFrom(context);
+        const buildContext = await contextEstablisher.establish(context);
         if (buildContext === undefined) {
             logger.debug('No establisher found for context');
             logger.debug(JSON.stringify(context, undefined, 2));
@@ -79,36 +77,26 @@ export async function run() {
     }
 }
 
-function output(
-    shouldPublish: boolean,
-    currentVersion?: string,
-    releaseType?: string,
-    prBody?: string,
-    prUrl?: string) {
-    logger.info('Outputting: ');
-    logger.info(`'should-publish': ${shouldPublish}`);
-    logger.info(`'current-version': ${currentVersion}`);
-    logger.info(`'release-type': ${releaseType}`);
-    logger.info(`'pr-body': ${prBody}`);
-    logger.info(`'pr-url': ${prUrl}`);
-
-    setOutput('should-publish', shouldPublish);
-    setOutput('current-version', currentVersion ?? '');
-    setOutput('release-type', releaseType ?? '');
-    setOutput('pr-body', prBody ?? '');
-    setOutput('pr-url', prUrl ?? '');
-}
 function outputContext(context: BuildContext) {
-    output(
-        context.shouldPublish,
-        context.currentVersion,
-        context.releaseType,
-        context.pullRequestBody,
-        context.pullRequestUrl);
+
+    logger.info('Outputting: ');
+    logger.info(`'should-publish': ${context.shouldPublish}`);
+    logger.info(`'current-version': ${context.currentVersion}`);
+    logger.info(`'new-version': ${context.newVersion}`);
+    logger.info(`'release-type': ${context.releaseType}`);
+    logger.info(`'pr-body': ${context.pullRequestBody}`);
+    logger.info(`'pr-url': ${context.pullRequestUrl}`);
+
+    setOutput('should-publish', context.shouldPublish);
+    setOutput('current-version', context.currentVersion ?? '');
+    setOutput('new-version', context.newVersion ?? '');
+    setOutput('release-type', context.releaseType ?? '');
+    setOutput('pr-body', context.pullRequestBody ?? '');
+    setOutput('pr-url', context.pullRequestUrl ?? '');
 }
 
 function outputDefault() {
-    output(false);
+    outputContext({shouldPublish: false});
 }
 
 function fail(error: Error) {

@@ -10,6 +10,7 @@ import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IReleaseTypeExtractor } from './ReleaseType/IReleaseTypeExtractor';
 import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
+import { IVersionIncrementor } from './Version';
 
 const nonPrereleaseLabels = [
     'major',
@@ -31,6 +32,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      * @param {string} _environmentBranch - An environment to use for prereleases.
      * @param {IReleaseTypeExtractor} _releaseTypeExtractor - The release type extractor to use for extracting the release type from Pull Request labels.
      * @param {IFindCurrentVersion} _currentVersionFinder - The current version finder to use for finding the current version.
+     * @param {IVersionIncrementor} _versionIncrementor - The version incrementor.
      * @param {InstanceType<typeof GitHub>} _github - The github REST api.
      * @param {ILogger} _logger - The logger to use for logging.
      */
@@ -40,6 +42,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         private readonly _environmentBranch: string,
         private readonly _releaseTypeExtractor: IReleaseTypeExtractor,
         private readonly _currentVersionFinder: IFindCurrentVersion,
+        private readonly _versionIncrementor: IVersionIncrementor,
         private readonly _github: InstanceType<typeof GitHub>,
         private readonly _logger: ILogger) {
     }
@@ -104,6 +107,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             shouldPublish: true,
             releaseType,
             currentVersion: currentVersion.version,
+            newVersion: this._versionIncrementor.increment(currentVersion.version, releaseType),
             pullRequestBody: mergedPr.body ?? undefined,
             pullRequestUrl: mergedPr.html_url
         };
