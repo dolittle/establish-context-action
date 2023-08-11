@@ -41,7 +41,9 @@ outputs:
   should-publish:
     description: Whether or not the pipeline should publish
   current-version:
-    description: The current version of the repository based on tags or 1.0.0 if there are no version tags
+    description: The current version of the context
+  new-version:
+    description: The new version of the context
   release-type:
     description: The type of the release. One of [major, minor, patch, prerelease]
   pr-body:

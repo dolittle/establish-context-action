@@ -9,3 +9,5 @@ export { IVersionFetcher } from './IVersionFetcher';
 export { IVersionSorter } from './IVersionSorter';
 export { SemVerVersionSorter } from './SemVerVersionSorter';
 export { VersionFromFileVersionFinder } from './VersionFromFileVersionFinder';
+export { IVersionIncrementor } from './IVersionIncrementor';
+export { VersionIncrementor } from './VersionIncrementor';

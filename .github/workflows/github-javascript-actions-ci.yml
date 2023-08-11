@@ -23,30 +23,20 @@ jobs:
     - name: Establish context
       id: context
       uses: ./
-
-    - name: Increment version
-      id: increment-version
-      if: ${{ steps.context.outputs.should-publish == 'true' }}
-      uses: woksin-org/increment-version-action@v2
-      with:
-        version: ${{ steps.context.outputs.current-version }}
-        release-type: ${{ steps.context.outputs.release-type }}
-    
     - name: Prepend to Changelog
       if: ${{ steps.context.outputs.should-publish == 'true' }}
       uses: woksin-org/add-to-changelog-action@v2
       with:
-        version: ${{ steps.increment-version.outputs.next-version }}
+        version: ${{ steps.context.outputs.new-version }}
         body: ${{ steps.context.outputs.pr-body }}
         pr-url: ${{ steps.context.outputs.pr-url }}
         changelog-path: CHANGELOG.md
         user-email: sindrewilting@gmail.com
         user-name: woksin
-
     - name: Create GitHub Release
       if: ${{ steps.context.outputs.should-publish == 'true' }}
       uses: woksin-org/github-release-action@v2
       with:
         token: ${{  secrets.BUILD_PAT  }}
-        version: ${{ steps.increment-version.outputs.next-version }}
+        version: ${{ steps.context.outputs.new-version }}
         body: ${{ steps.context.outputs.pr-body }}

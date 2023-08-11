@@ -10,6 +10,7 @@ import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IReleaseTypeExtractor } from './ReleaseType/IReleaseTypeExtractor';
 import { IFindCurrentVersion } from './Version/IFindCurrentVersion';
+import { IVersionIncrementor } from './Version';
 
 const nonPrereleaseLabels = [
     'major',
@@ -31,6 +32,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      * @param {string} _environmentBranch - An environment to use for prereleases.
      * @param {IReleaseTypeExtractor} _releaseTypeExtractor - The release type extractor to use for extracting the release type from Pull Request labels.
      * @param {IFindCurrentVersion} _currentVersionFinder - The current version finder to use for finding the current version.
+     * @param {IVersionIncrementor} _versionIncrementor - The version incrementor.
      * @param {InstanceType<typeof GitHub>} _github - The github REST api.
      * @param {ILogger} _logger - The logger to use for logging.
      */
@@ -40,6 +42,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         private readonly _environmentBranch: string,
         private readonly _releaseTypeExtractor: IReleaseTypeExtractor,
         private readonly _currentVersionFinder: IFindCurrentVersion,
+        private readonly _versionIncrementor: IVersionIncrementor,
         private readonly _github: InstanceType<typeof GitHub>,
         private readonly _logger: ILogger) {
     }
@@ -47,22 +50,26 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
     /**
      * @inheritdoc
      */
-    canEstablishFrom(context: Context): boolean {
+    canEstablishFrom(context: Context): [boolean, string?] {
+        if (context.payload.pull_request === undefined) return [false, 'Not triggered by a Pull Request'];
+        if (context.payload.action !== 'closed') return [false, 'Not triggered by Pull Request closed event'];
+        if (!context.payload.pull_request?.merged) return [false, 'Not triggered by Pull Request being merged'];
         const branchName = path.basename(context.ref);
         const correctBranch = (this._releaseBranches.includes(branchName) ||
-        branchName === this._environmentBranch ||
-        this.isPrereleaseBranch(branchName));
-        return context.payload.pull_request !== undefined
-            && context.payload.action === 'closed'
-            && context.payload.pull_request?.merged
-            && correctBranch;
+            branchName === this._environmentBranch ||
+            this.isPrereleaseBranch(branchName));
+        return correctBranch ? [true] : [false, 'Not merged to a release or prerelease branch'];
     }
 
     /**
      * @inheritdoc
      */
     async establish(context: Context): Promise<BuildContext> {
-        if (!this.canEstablishFrom(context)) throw new Error('Cannot establish merged pull request context');
+        const [canEstablish, cannotEstablishReason] = this.canEstablishFrom(context);
+        if (!canEstablish) {
+            this._logger.warning(`Cannot establish context. ${cannotEstablishReason}`);
+            return {shouldPublish: false};
+        }
         this._logger.info('Establishing context for merged pull build');
         const { owner, repo } = context.repo;
         const mergedPr = await this.getMergedPr(owner, repo, context.sha);
@@ -104,6 +111,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             shouldPublish: true,
             releaseType,
             currentVersion: currentVersion.version,
+            newVersion: this._versionIncrementor.increment(currentVersion.version, releaseType),
             pullRequestBody: mergedPr.body ?? undefined,
             pullRequestUrl: mergedPr.html_url
         };

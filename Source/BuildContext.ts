@@ -7,6 +7,7 @@
 export type BuildContext = {
     shouldPublish: boolean,
     currentVersion?: string,
+    newVersion?: string,
     releaseType?: string,
     pullRequestBody?: string,
     pullRequestUrl?: string
