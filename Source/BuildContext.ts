@@ -1,4 +1,4 @@
-// Copyright (c) Dolittle. All rights reserved.
+// Copyright (c) woksin-org. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 /**
@@ -6,7 +6,6 @@
  */
 export type BuildContext = {
     shouldPublish: boolean,
-    cascadingRelease: boolean,
     currentVersion?: string,
     releaseType?: string,
     pullRequestBody?: string,

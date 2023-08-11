@@ -1,11 +1,11 @@
-// Copyright (c) Dolittle. All rights reserved.
+// Copyright (c) woksin-org. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import path from 'path';
 import semver from 'semver';
 import { Context } from '@actions/github/lib/context';
 import { GitHub } from '@actions/github/lib/utils';
-import { ILogger } from '@dolittle/github-actions.shared.logging';
+import { ILogger } from '@woksin/github-actions.shared.logging';
 import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IReleaseTypeExtractor } from './ReleaseType/IReleaseTypeExtractor';
@@ -35,6 +35,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      * @param {ILogger} _logger - The logger to use for logging.
      */
     constructor(
+        private readonly _releaseBranches: string[],
         private readonly _prereleaseBranches: string[],
         private readonly _environmentBranch: string,
         private readonly _releaseTypeExtractor: IReleaseTypeExtractor,
@@ -48,13 +49,13 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
      */
     canEstablishFrom(context: Context): boolean {
         const branchName = path.basename(context.ref);
+        const correctBranch = (this._releaseBranches.includes(branchName) ||
+        branchName === this._environmentBranch ||
+        this.isPrereleaseBranch(branchName));
         return context.payload.pull_request !== undefined
             && context.payload.action === 'closed'
             && context.payload.pull_request?.merged
-            && (branchName === 'master' ||
-                branchName === 'main' ||
-                branchName === this._environmentBranch ||
-                this._isPrereleaseBranch(branchName));
+            && correctBranch;
     }
 
     /**
@@ -64,13 +65,13 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         if (!this.canEstablishFrom(context)) throw new Error('Cannot establish merged pull request context');
         this._logger.info('Establishing context for merged pull build');
         const { owner, repo } = context.repo;
-        const mergedPr = await this._getMergedPr(owner, repo, context.sha);
+        const mergedPr = await this.getMergedPr(owner, repo, context.sha);
         if (!mergedPr) {
             throw new Error(`Could not find a merged pull request with the merge_commit_sha ${context.sha}`);
         }
 
         const branchName = path.basename(context.ref);
-        let prereleaseBranch = (branchName === 'master' || branchName === 'main') ? undefined : semver.parse(branchName)!;
+        let prereleaseBranch = this._releaseBranches.includes(branchName) ? undefined : semver.parse(branchName)!;
         let currentVersion = await this._currentVersionFinder.find(prereleaseBranch);
         if (branchName === this._environmentBranch) {
             if (currentVersion.prerelease.length > 0 && currentVersion.prerelease[0].toString() !== this._environmentBranch) {
@@ -82,7 +83,6 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         }
 
         this._logger.info(`Using version '${currentVersion.version}'`);
-
         const labels = mergedPr?.labels.map(_ => _.name);
         this._logger.info(`PR has the following labels: '${labels}'`);
 
@@ -93,17 +93,15 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             this._logger.info('Found no release type label on pull request');
             return {
                 shouldPublish: false,
-                cascadingRelease: false,
                 pullRequestBody: mergedPr.body ?? undefined,
                 pullRequestUrl: mergedPr.html_url,
             };
         }
         if (prereleaseBranch === undefined && !nonPrereleaseLabels.includes(releaseType)) {
-            throw new Error(`When merging to master/main with a release type label it should be one of [${nonPrereleaseLabels.join(', ')}]`);
+            throw new Error(`When merging to release branch with a release type label it should be one of [${nonPrereleaseLabels.join(', ')}]`);
         }
         return {
             shouldPublish: true,
-            cascadingRelease: false,
             releaseType,
             currentVersion: currentVersion.version,
             pullRequestBody: mergedPr.body ?? undefined,
@@ -111,7 +109,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         };
     }
 
-    private async _getMergedPr(owner: string, repo: string, sha: string) {
+    private async getMergedPr(owner: string, repo: string, sha: string) {
         this._logger.debug(`Trying to get merged PR with merge_commit_sha: ${sha}`);
         const mergedPr = await this._github.paginate(
             this._github.rest.pulls.list,
@@ -120,7 +118,7 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         return mergedPr;
     }
 
-    private _isPrereleaseBranch(branchName: string) {
+    private isPrereleaseBranch(branchName: string) {
         const branchAsSemver = semver.parse(branchName);
         if (branchAsSemver === null) {
             this._logger.debug(`Branch: '${branchName}' is not a prerelease branch`);
