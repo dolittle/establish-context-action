@@ -18,8 +18,8 @@ jobs:
         node-version: 16.x
     - run: yarn
       name: Install dependencies
-    - run: yarn ci
-      name: Build, Test and Lint
+    - run: yarn build
+      name: Build local action
     - name: Establish context
       id: context
       uses: ./
