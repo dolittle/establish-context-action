@@ -6,7 +6,7 @@ import { a_version_incrementor } from './given/a_version_incrementer';
 
 import { describeThis } from '@woksin/typescript.testing';
 
-describeThis('when version is not a semver', () => {
+describeThis(__filename, () => {
     const version_incrementor = new a_version_incrementor().version_incrementor;
     const version = '1-1-1';
     let exception: Error;

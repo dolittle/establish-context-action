@@ -6,7 +6,7 @@ import { a_version_incrementor } from './given/a_version_incrementer';
 
 import { describeThis } from '@woksin/typescript.testing';
 
-describeThis('when version is undefined', () => {
+describeThis(__filename, () => {
     const version_incrementor = new a_version_incrementor().version_incrementor;
     let exception: Error;
     try {

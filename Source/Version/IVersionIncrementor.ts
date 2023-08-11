@@ -16,5 +16,5 @@ export interface IVersionIncrementor {
      * @param {string} version
      * @param {ReleaseType} releaseType
      */
-    increment(version: string, releaseType: ReleaseType, prereleaseId?: string): string
+    increment(version: string, releaseType: ReleaseType): string
 }
