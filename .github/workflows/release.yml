@@ -11,6 +11,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    # Need to build this action to run it bellow
+    - name: Setup node v16
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+    - run: yarn
+      name: Install dependencies
+    - run: yarn ci
+      name: Build, Test and Lint
     - name: Establish context
       id: context
       uses: ./
