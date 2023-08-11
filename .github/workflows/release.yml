@@ -24,7 +24,7 @@ jobs:
       id: context
       uses: ./
     - name: Prepend to Changelog
-      if: ${{ steps.context.outputs.should-publish == 'true' }}
+      if: ${{ steps.context.outputs.should-publish == 'true' && steps.context.outputs.release-type != 'prerelease' }} 
       uses: woksin-org/add-to-changelog-action@v2
       with:
         version: ${{ steps.context.outputs.new-version }}
