@@ -1,3 +1,9 @@
+# [4.0.1] - 2023-8-11 [PR: #4](https://github.com/woksin-org/establish-context-action/pull/4)
+## Summary
+
+Fix workflow
+
+
 # [4.0.0] - 2023-8-11 [PR: #2](https://github.com/woksin-org/establish-context-action/pull/2)
 ## Summary
 
