@@ -1,8 +1,8 @@
-// Copyright (c) Dolittle. All rights reserved.
+// Copyright (c) woksin-org. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { SemVer } from 'semver';
-import { ILogger } from '@dolittle/github-actions.shared.logging';
+import { ILogger } from '@woksin/github-actions.shared.logging';
 import { IFindCurrentVersion } from './IFindCurrentVersion';
 import { IVersionSorter } from './IVersionSorter';
 import { IVersionFetcher } from './IVersionFetcher';

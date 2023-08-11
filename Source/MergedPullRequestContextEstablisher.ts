@@ -1,11 +1,11 @@
-// Copyright (c) Dolittle. All rights reserved.
+// Copyright (c) woksin-org. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import path from 'path';
 import semver from 'semver';
 import { Context } from '@actions/github/lib/context';
 import { GitHub } from '@actions/github/lib/utils';
-import { ILogger } from '@dolittle/github-actions.shared.logging';
+import { ILogger } from '@woksin/github-actions.shared.logging';
 import { BuildContext } from './BuildContext';
 import { ICanEstablishContext } from './ICanEstablishContext';
 import { IReleaseTypeExtractor } from './ReleaseType/IReleaseTypeExtractor';

@@ -1,9 +1,9 @@
-// Copyright (c) Dolittle. All rights reserved.
+// Copyright (c) woksin-org. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import { getInput, setOutput, setFailed } from '@actions/core';
 import { getOctokit, context } from '@actions/github';
-import { Logger } from '@dolittle/github-actions.shared.logging';
+import { Logger } from '@woksin/github-actions.shared.logging';
 
 import {
     CurrentVersionFinder,
@@ -14,7 +14,6 @@ import {
 
 import { ReleaseTypeExtractor } from './ReleaseType/ReleaseTypeExtractor';
 import { ContextEstablishers } from './ContextEstablishers';
-import { CascadingContextEstablisher } from './CascadingBuildContextEstablisher';
 import { MergedPullRequestContextEstablisher } from './MergedPullRequestContextEstablisher';
 import { BuildContext } from './BuildContext';
 import { VersionFromFileVersionFinder } from './Version/VersionFromFileVersionFinder';
@@ -61,7 +60,6 @@ export async function run() {
         }
 
         const contextEstablishers = new ContextEstablishers(
-            new CascadingContextEstablisher(currentVersionFinder, logger),
             new MergedPullRequestContextEstablisher(prereleaseBranches, environmentBranch, releaseTypeExtractor, currentVersionFinder, octokit, logger)
         );
         logger.info('Establishing context');
