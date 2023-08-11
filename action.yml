@@ -3,11 +3,9 @@ description: 'Establishes the context for the pipeline'
 inputs:
   token:
     description: Token to use for Github API
-    required: true
     default: ${{ github.token }}
   prerelease-branches:
     description: A comma-separated list of branch names that when merged a PR to will trigger a release.
-    required: true
     default: ''
   environment-branch:
     description: If the build pipeline is for a target environment (e.g. development, test, staging) you'd specify that here.

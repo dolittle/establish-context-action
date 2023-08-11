@@ -8,7 +8,7 @@ with `type = closed` it will look for major, minor and patch labels on the pull 
 use the 'greatest' release type. Only pull requests merged to the 'master'/'main' branch and given
 prerelease branches will trigger releases.
 
-![Github JavaScript Actions CI/CD](https://github.com/dolittle/establish-context-action/workflows/Github%20JavaScript%20Actions%20CI/CD/badge.svg)
+![Github JavaScript Actions CI/CD](https://github.com/woksin-org/establish-context-action/workflows/CI/CD/badge.svg)
 
 ## Usage
 
@@ -85,7 +85,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Establish Context
         id: context
-        uses: dolittle/establish-context-action@v2
+        uses: woksin-org/establish-context-action@v2
 ```
 
 ### Example Workflow - with prerelease branches
@@ -109,7 +109,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Establish Context
         id: context
-        uses: dolittle/establish-context-action@v2
+        uses: woksin-org/establish-context-action@v2
         with:
           prerelease-branches: alpha,beta,rc
 ```
