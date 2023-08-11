@@ -1,7 +1,7 @@
 # GitHub Action - Establish Context
 This GitHub action establishes the context for a release. It outputs whether a release should
-be triggered, the release type (major, minor, patch, prerelease), which version the repository
-is currently on and whether or not the release was triggered as part of a cascading release.
+be triggered, the release type (major, minor, patch, prerelease) and which version the repository
+is currently on 
 
 When workflow is triggered by a [pull_request event](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request)
 with `type = closed` it will look for major, minor and patch labels on the pull request and
@@ -62,7 +62,6 @@ The output `release-type` will be set to `prerelease`.
 - `should-publish`: Whether or not the pipeline should publish
 - `current-version`: The current version of the repository derived from the tags or 0.0.0 if there are no version tags
 - `release-type`: The type of the release. Either major, minor, patch or prerelease
-- `cascading-release`: Whether the publish was triggered by a cascading release
 
 ### Example Workflow
 

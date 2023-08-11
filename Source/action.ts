@@ -77,21 +77,18 @@ export async function run() {
 
 function output(
     shouldPublish: boolean,
-    cascadingRelease: boolean,
     currentVersion?: string,
     releaseType?: string,
     prBody?: string,
     prUrl?: string) {
     logger.info('Outputting: ');
     logger.info(`'should-publish': ${shouldPublish}`);
-    logger.info(`'cascading-release': ${cascadingRelease}`);
     logger.info(`'current-version': ${currentVersion}`);
     logger.info(`'release-type': ${releaseType}`);
     logger.info(`'pr-body': ${prBody}`);
     logger.info(`'pr-url': ${prUrl}`);
 
     setOutput('should-publish', shouldPublish);
-    setOutput('cascading-release', cascadingRelease);
     setOutput('current-version', currentVersion ?? '');
     setOutput('release-type', releaseType ?? '');
     setOutput('pr-body', prBody ?? '');
@@ -100,7 +97,6 @@ function output(
 function outputContext(context: BuildContext) {
     output(
         context.shouldPublish,
-        context.cascadingRelease,
         context.currentVersion,
         context.releaseType,
         context.pullRequestBody,
@@ -108,7 +104,7 @@ function outputContext(context: BuildContext) {
 }
 
 function outputDefault() {
-    output(false, false);
+    output(false);
 }
 
 function fail(error: Error) {

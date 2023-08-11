@@ -93,7 +93,6 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
             this._logger.info('Found no release type label on pull request');
             return {
                 shouldPublish: false,
-                cascadingRelease: false,
                 pullRequestBody: mergedPr.body ?? undefined,
                 pullRequestUrl: mergedPr.html_url,
             };
@@ -103,7 +102,6 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
         }
         return {
             shouldPublish: true,
-            cascadingRelease: false,
             releaseType,
             currentVersion: currentVersion.version,
             pullRequestBody: mergedPr.body ?? undefined,
