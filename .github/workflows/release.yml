@@ -30,9 +30,6 @@ jobs:
         version: ${{ steps.context.outputs.new-version }}
         body: ${{ steps.context.outputs.pr-body }}
         pr-url: ${{ steps.context.outputs.pr-url }}
-        changelog-path: CHANGELOG.md
-        user-email: sindrewilting@gmail.com
-        user-name: woksin
     - name: Create GitHub Release
       if: ${{ steps.context.outputs.should-publish == 'true' }}
       uses: woksin-org/github-release-action@v2
