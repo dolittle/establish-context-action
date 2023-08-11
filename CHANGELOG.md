@@ -1,3 +1,13 @@
+# [4.0.0] - 2023-8-11 [PR: #2](https://github.com/woksin-org/establish-context-action/pull/2)
+## Summary
+
+Moves the functionality of woksin-org/increment-version-action into this action for simplification.
+
+### Added
+
+- `new-version` output which is the incremented version based on the release type and the current version.
+
+
 # [3.0.0] - 2023-8-11 [PR: #1](https://github.com/woksin-org/establish-context-action/pull/1)
 ## Summary
 
