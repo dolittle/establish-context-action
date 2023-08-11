@@ -15,9 +15,9 @@ export interface ICanEstablishContext {
      * Whether it can establish from a given context.
      *
      * @param {Context} context - The github {Context}.
-     * @returns {boolean} Whether it can establish from {Context}.
+     * @returns {[boolean, string | undefined]} Whether it can establish from {Context}.
      */
-    canEstablishFrom(context: Context): boolean
+    canEstablishFrom(context: Context): [boolean, string?]
 
     /**
      * Establishes a {BuildContext} from the given github {Context}.

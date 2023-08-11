@@ -50,22 +50,26 @@ export class MergedPullRequestContextEstablisher implements ICanEstablishContext
     /**
      * @inheritdoc
      */
-    canEstablishFrom(context: Context): boolean {
+    canEstablishFrom(context: Context): [boolean, string?] {
+        if (context.payload.pull_request === undefined) return [false, 'Not triggered by a Pull Request'];
+        if (context.payload.action !== 'closed') return [false, 'Not triggered by Pull Request closed event'];
+        if (!context.payload.pull_request?.merged) return [false, 'Not triggered by Pull Request being merged'];
         const branchName = path.basename(context.ref);
         const correctBranch = (this._releaseBranches.includes(branchName) ||
-        branchName === this._environmentBranch ||
-        this.isPrereleaseBranch(branchName));
-        return context.payload.pull_request !== undefined
-            && context.payload.action === 'closed'
-            && context.payload.pull_request?.merged
-            && correctBranch;
+            branchName === this._environmentBranch ||
+            this.isPrereleaseBranch(branchName));
+        return correctBranch ? [true] : [false, 'Not merged to a release or prerelease branch'];
     }
 
     /**
      * @inheritdoc
      */
     async establish(context: Context): Promise<BuildContext> {
-        if (!this.canEstablishFrom(context)) throw new Error('Cannot establish merged pull request context');
+        const [canEstablish, cannotEstablishReason] = this.canEstablishFrom(context);
+        if (!canEstablish) {
+            this._logger.warning(`Cannot establish context. ${cannotEstablishReason}`);
+            return {shouldPublish: false};
+        }
         this._logger.info('Establishing context for merged pull build');
         const { owner, repo } = context.repo;
         const mergedPr = await this.getMergedPr(owner, repo, context.sha);

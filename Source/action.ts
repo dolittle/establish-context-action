@@ -64,13 +64,7 @@ export async function run() {
         const contextEstablisher = new MergedPullRequestContextEstablisher(releaseBranches, prereleaseBranches, environmentBranch, releaseTypeExtractor, currentVersionFinder, new VersionIncrementor(logger), octokit, logger);
         logger.info('Establishing context');
         const buildContext = await contextEstablisher.establish(context);
-        if (buildContext === undefined) {
-            logger.debug('No establisher found for context');
-            logger.debug(JSON.stringify(context, undefined, 2));
-            outputDefault();
-        } else {
-            outputContext(buildContext);
-        }
+        outputContext(buildContext);
 
     } catch (error: any) {
         fail(error);
