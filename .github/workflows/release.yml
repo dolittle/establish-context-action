@@ -25,14 +25,14 @@ jobs:
       uses: ./
     - name: Prepend to Changelog
       if: ${{ steps.context.outputs.should-publish == 'true' && steps.context.outputs.release-type != 'prerelease' }} 
-      uses: woksin-org/add-to-changelog-action@v2
+      uses: woksin-org/add-to-changelog-action@v4
       with:
         version: ${{ steps.context.outputs.new-version }}
         body: ${{ steps.context.outputs.pr-body }}
         pr-url: ${{ steps.context.outputs.pr-url }}
     - name: Create GitHub Release
       if: ${{ steps.context.outputs.should-publish == 'true' }}
-      uses: woksin-org/github-release-action@v2
+      uses: woksin-org/github-release-action@v3
       with:
         token: ${{  secrets.BUILD_PAT  }}
         version: ${{ steps.context.outputs.new-version }}

@@ -69,9 +69,6 @@ The output `release-type` will be set to `prerelease`.
 
 ```yaml
 on:
-  push:
-    branches:
-    - '**'
   pull_request:
     types: [closed]
 
@@ -86,16 +83,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Establish Context
         id: context
-        uses: woksin-org/establish-context-action@v2
+        uses: woksin-org/establish-context-action@v4
 ```
 
 ### Example Workflow - with prerelease branches
 
 ```yaml
 on:
-  push:
-    branches:
-    - '**'
   pull_request:
     types: [closed]
 
@@ -107,10 +101,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Establish Context
         id: context
-        uses: woksin-org/establish-context-action@v2
+        uses: woksin-org/establish-context-action@v4
         with:
           prerelease-branches: |
             alpha
