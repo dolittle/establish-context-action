@@ -1,9 +1,6 @@
-name: CI/CD
+name: Establish Context and Release
 
 on:
-  push:
-    branches:
-    - '**'
   pull_request:
     types: [closed]
 
@@ -14,12 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup node v16
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-    - run: yarn
-    - run: yarn ci
     - name: Establish context
       id: context
       uses: ./
