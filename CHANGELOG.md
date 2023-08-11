@@ -1,3 +1,19 @@
+# [3.0.0] - 2023-8-11 [PR: #1](https://github.com/woksin-org/establish-context-action/pull/1)
+## Summary
+
+Summary of the PR here. The GitHub release description is created from this comment so keep it nice and descriptive.
+
+Remember to remove sections that you don't need or use.
+
+### Added
+
+- `release-branches` input which is a list of branches that when merged to a context should be established
+
+### Changed
+
+- `prerelease-branches` input to be a list instead of comma separated list. See Readme for example
+
+
 # [2.5.7] - 2022-12-5 [PR: #56](https://github.com/dolittle/establish-context-action/pull/56)
 ## Summary
 
