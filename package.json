@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "Distribution/action.js",
   "scripts": {
-    "build": "tsc -b && yarn test:clean && bun x ncc build Distribution/action.js --out release",
+    "build": "tsc -b && yarn test:clean && npx ncc build Distribution/action.js --out release",
     "build:ci": "tsc -b && yarn lint",
     "test": "mocha",
     "test:clean": "rimraf Distribution/**/for_*",
