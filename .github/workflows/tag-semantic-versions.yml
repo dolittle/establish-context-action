@@ -23,4 +23,6 @@ jobs:
         ORIGINAL_TAG_PREFIX: original/
         CLEAN_TEST_TAG: true
         PACKAGE_MANAGER: bun
-        BUILD_COMMAND: run build
+        BUILD_COMMAND: |
+          bun install
+          bun run build
