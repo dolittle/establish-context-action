@@ -15,6 +15,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - name: Release GitHub Action
       uses: technote-space/release-github-actions@v8
       with:
@@ -22,7 +26,3 @@ jobs:
         TEST_TAG_PREFIX: test/
         ORIGINAL_TAG_PREFIX: original/
         CLEAN_TEST_TAG: true
-        PACKAGE_MANAGER: bun
-        BUILD_COMMAND: |
-          bun install
-          bun run build
