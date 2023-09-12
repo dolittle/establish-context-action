@@ -22,3 +22,5 @@ jobs:
         TEST_TAG_PREFIX: test/
         ORIGINAL_TAG_PREFIX: original/
         CLEAN_TEST_TAG: true
+        PACKAGE_MANAGER: bun
+        BUILD_COMMAND: run build
