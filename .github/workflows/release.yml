@@ -11,14 +11,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    # Need to build this action to run it bellow
-    - name: Setup node v16
-      uses: actions/setup-node@v3
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
       with:
-        node-version: 16.x
-    - run: yarn
+        bun-version: latest
+    - run: bun i
       name: Install dependencies
-    - run: yarn build
+    - run: bun run build
       name: Build local action
     - name: Establish context
       id: context
