@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc -b && yarn test:clean && npx ncc build Distribution/action.js --out release",
     "build:ci": "tsc -b && yarn lint",
-    "test": "mocha",
+    "test": "mocha --reporter json > test-results.json",
     "test:clean": "rimraf Distribution/**/for_*",
     "lint": "eslint --quiet --ext .ts ./",
     "lint:fix": "eslint --quiet --ext .ts ./ --fix",

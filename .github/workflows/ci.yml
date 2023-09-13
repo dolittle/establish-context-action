@@ -22,3 +22,10 @@ jobs:
       name: Install dependencies
     - run: bun run ci
       name: Build, Test and Lint
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+        name: Test Report
+        path: test-results.json
+        reporter: mocha-json
